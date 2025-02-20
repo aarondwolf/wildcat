@@ -22,6 +22,10 @@ You will also need to use XeLaTeX to compile. If you use PDFLaTeX, it will fail.
 ## Stability
 I highly doubt this is stable. This is still a work in progress. So, if you come across any errors, please send me a message via GitHub!
 
+## Known Issues
+### Overleaf
+1. The [Overleaf template repository](https://www.overleaf.com/latex/templates/wildcat/knynymwgrxxj) does not include the Northwestern logo file. That file is available [here](https://github.com/aarondwolf/wildcat/blob/main/source/logo-northwestern.pdf) if you want to upload it yourself (to the same directory as your tex file), or you can replace the preamble line `\titlegraphic{\includegraphics[scale=0.25]{logo-northwestern.pdf}}` with a filename for your own logo (or just comment it out).
+
 ## Coming Soon
 Here are my plans for what I want to add:
 - More color themes (light version, plus other pallettes entirely)
