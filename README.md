@@ -5,7 +5,7 @@ A modern, highly customizable Beamer theme.
 This Beamer theme uses branding guidelines (colors, fonts, and logos) from [Northwestern University](https://www.northwestern.edu/brand/visual-identity/). The design mimics Northwestern's facets Zoom backgrounds, and the style files build on the amazing Stack Exchange answer by [Claudio Fiandrino](https://tex.stackexchange.com/questions/146529/design-a-custom-beamer-theme-from-scratch). This is not an official Northwestern-approved Beamer template.
 
 ## Quick Start
-The easiest way to get started is to download [presentation.zip](https://github.com/aarondwolf/wildcat/presentation.zip) and unzip it. It contains all the `.sty` files, the free Poppins and IBM Plex Sans fonts, and a `main.tex` starter file ready to compile with XeLaTeX.
+The easiest way to get started is to download [presentation.zip]([https://github.com/aarondwolf/wildcat/presentation.zip](https://github.com/aarondwolf/wildcat/blob/main/presentation.zip)) and unzip it. It contains all the `.sty` files, the free Poppins and IBM Plex Sans fonts, and a `main.tex` starter file ready to compile with XeLaTeX.
 
 Alternatively, place all `.sty` files in the same directory as your `.tex` file and add to your preamble:
 
