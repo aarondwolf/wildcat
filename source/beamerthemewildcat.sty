@@ -10,11 +10,121 @@
 \tcbuselibrary{skins}
 \RequirePackage{enumitem}
 
+% Theme options
+%
+% [pattern=<name>] — background pattern. Available names:
+%   facet (default), facetrand, triangle, triangleiso, trianglemesh,
+%   squares, circles, hexraise, hexrand, network, quilt, plain
+%
+% [color=<colorname>] — primary color. Pass any color that is already named
+%   by the time \usetheme is processed: xcolor built-ins (red, blue, ...),
+%   the nu* colors defined in this theme, or any color you define beforehand.
+%   Raw RGB values are NOT accepted — define a named color first:
+%     \definecolor{myblue}{RGB}{0,53,107}
+%     \usetheme[color=myblue]{wildcat}
+%   All wcprimary variants (10–40 lighter, 110–140 darker) are auto-generated
+%   via xcolor mixing. Omit to keep the default Northwestern purple.
+%
+% [font=<name>] — font theme. Options:
+%   (omitted)  — default: Campton + Akkurat Pro loaded from OTF files in fonts/
+%   overleaf   — TeX Gyre fonts; no proprietary files needed; safe on Overleaf
+%   installed  — Campton + Akkurat Pro loaded from system-installed fonts
+\DeclareOptionBeamer{pattern}{\def\wc@pattern{#1}}
+\DeclareOptionBeamer{color}{\def\wc@coloropt{#1}}
+\DeclareOptionBeamer{font}{\def\wc@fontopt{#1}}
+\ExecuteOptionsBeamer{pattern=facet,color=,font=}  % defaults
+\ProcessOptionsBeamer
+
 % Settings
 \useinnertheme{wildcat}
 \useoutertheme{wildcat}
 \usecolortheme{wildcat}
-\usefonttheme{wildcat}
+\def\wc@tmp{overleaf}\ifx\wc@fontopt\wc@tmp
+  \usefonttheme{wildcat-overleaf}%
+\else\def\wc@tmp{installed}\ifx\wc@fontopt\wc@tmp
+  \usefonttheme{wildcat-installed}%
+\else
+  \usefonttheme{wildcat}%
+\fi\fi
+
+% Apply color option: if [color=X] was given, redefine wcprimary and
+% auto-generate all variants via xcolor mixing. Must run inline (before
+% \AtBeginDocument) so that the pattern saveboxes pick up the right colors.
+%
+% Lighter variants: wcprimaryN   = wcprimary!N!white   (N = 10, 20, 30, 40)
+% Darker variants:  wcprimary1N0 = wcprimary!(100-N*10)!black  (N = 1,2,3,4)
+%   e.g. wcprimary110 = wcprimary!90!black  (10% black mixed in)
+%        wcprimary140 = wcprimary!60!black  (40% black mixed in)
+\ifx\wc@coloropt\@empty\else
+  \def\wc@applyprimarycolor#1{%
+    \colorlet{wcprimary}{#1}%
+    \colorlet{wcprimary10}{wcprimary!10!white}%
+    \colorlet{wcprimary20}{wcprimary!20!white}%
+    \colorlet{wcprimary30}{wcprimary!30!white}%
+    \colorlet{wcprimary40}{wcprimary!40!white}%
+    \colorlet{wcprimary110}{wcprimary!90!black}%
+    \colorlet{wcprimary120}{wcprimary!80!black}%
+    \colorlet{wcprimary130}{wcprimary!70!black}%
+    \colorlet{wcprimary140}{wcprimary!60!black}%
+  }%
+  \expandafter\wc@applyprimarycolor\expandafter{\wc@coloropt}%
+\fi
+
+% Apply the pattern option immediately after the inner theme has defined all
+% commands. This must NOT be deferred to \AtBeginDocument — the inner theme
+% registers its own \AtBeginDocument to populate the pattern saveboxes, and
+% that hook must see the already-switched \bgpattern.
+%
+% \bgpatternfacet is the only pattern with no color argument; all others
+% take wcprimary for \bgpattern and a color argument for \bgpatternblock.
+\def\wc@tmp{facet}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternfacet}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternblockfacet{#1}}%
+\fi
+\def\wc@tmp{facetrand}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternfacetrand{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternfacetrand{#1}}%
+\fi
+\def\wc@tmp{triangle}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatterntriangle{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatterntriangle{#1}}%
+\fi
+\def\wc@tmp{triangleiso}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatterntriangleiso{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatterntriangleiso{#1}}%
+\fi
+\def\wc@tmp{trianglemesh}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatterntrianglemesh{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatterntrianglemesh{#1}}%
+\fi
+\def\wc@tmp{squares}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternsquares{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternsquares{#1}}%
+\fi
+\def\wc@tmp{circles}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatterncircles{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatterncircles{#1}}%
+\fi
+\def\wc@tmp{hexraise}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternhexraise{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternhexraise{#1}}%
+\fi
+\def\wc@tmp{hexrand}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternhexrand{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternhexrand{#1}}%
+\fi
+\def\wc@tmp{network}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternnetwork{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternnetwork{#1}}%
+\fi
+\def\wc@tmp{quilt}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternquilt{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternquilt{#1}}%
+\fi
+\def\wc@tmp{plain}\ifx\wc@pattern\wc@tmp
+  \renewcommand{\bgpattern}{\bgpatternplain{wcprimary}}%
+  \renewcommand{\bgpatternblock}[1]{\bgpatternplain{#1}}%
+\fi
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{blocks}[shadow=false]

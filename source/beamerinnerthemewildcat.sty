@@ -11,13 +11,33 @@
 \mode<presentation>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Create a new command, bgpattern, which stores all the tikz code for the background
-% pattern. This is used in the background template, tblock environments, section
-% pages, standout frames, and the title page.
-% If you want to change the background pattern, this is the place to do it.
+% BACKGROUND PATTERN DESIGNS
+%
+% All templates in this file use two commands:
+%   \bgpattern       - full-color background (title page, section pages, standout frames)
+%   \bgpatternblock  - color-parameterized background (tcolorbox blocks)
+%
+% Section pages use the full-color \bgpattern with a white rectangle over
+% the bottom third, and the section name in wcprimary in that white band.
+%
+% These are defined as wrappers at the bottom of this section ("Active
+% Design"). To switch designs, update those two \newcommand lines here,
+% or override them in your document preamble after \usetheme{wildcat}:
+%   \renewcommand{\bgpattern}{...}
+%   \renewcommand{\bgpatternblock}[1]{...}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Main pattern: Used in title page and standout frames, plus tblocks
-\newcommand{\bgpattern}{
+
+% ==========================================================================
+% FACET DESIGN
+% Hardcoded to precisely replicate the Northwestern University facets Zoom
+% background. The full-color and light variants use the exact wcprimary
+% color stack and are NOT parameterized — the coordinates are tuned for a
+% 16cm-wide (16:10) slide and should not be changed. The block variant
+% accepts an arbitrary color for use in tcolorbox blocks.
+% ==========================================================================
+
+% Full-color facet: title page and standout frames
+\newcommand{\bgpatternfacet}{
   \draw[color=wcprimary,fill=wcprimary, line width=0.05pt] (0,0) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- cycle;
   \draw[color=wcprimary110,fill=wcprimary110,, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
   \draw[color=wcprimary120,fill=wcprimary120, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
@@ -27,8 +47,8 @@
   \draw[color=wcprimary,fill=wcprimary,  line width=0.05pt] (12.8,\the\paperheight) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,\the\paperheight) -- cycle;
 }
 
-% Make a light version for section pages
-\newcommand{\bgpatternlight}{
+% Light facet: section pages (faint wcprimary shades against white)
+\newcommand{\bgpatternfacetlight}{
   \draw[color=wcprimary10!30,fill=wcprimary10!30, line width=0.05pt] (0,0) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- cycle;
   \draw[color=wcprimary20!30,fill=wcprimary20!30, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
   \draw[color=wcprimary30!30,fill=wcprimary30!30, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
@@ -38,16 +58,393 @@
   \draw[color=wcprimary10!30,fill=wcprimary10!30,  line width=0.05pt] (12.8,\the\paperheight) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,\the\paperheight) -- cycle;
 }
 
-% Make a color-specific version for tblocks that aren't purple. This accepts one
-% argument, the color.
-\newcommand{\bgpatternblock}[1]{
+% Color-parameterized facet: tcolorbox blocks (accepts any color as #1).
+% Shading uses !N!black for reliable darkening across all colors; ratios
+% 90/80/70 approximate the depth of the wcprimary110/120/130 shades.
+\newcommand{\bgpatternblockfacet}[1]{
   \draw[color=#1,fill=#1, line width=0.05pt] (0,0) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- cycle;
-  \draw[color=#1!110,fill=#1!110,, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
-  \draw[color=#1!120,fill=#1!120, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
-  \draw[color=#1!130,fill=#1!130, line width=0.05pt] (7.7,0) -- (13.2,0.82*\the\paperheight) -- (11.6,0) -- cycle;
-  \draw[color=#1!110,fill=#1!110, line width=0.05pt] (11.6,0) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,0.18*\the\paperheight) -- (12,0) -- cycle;
+  \draw[color=#1!90!black,fill=#1!90!black, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
+  \draw[color=#1!80!black,fill=#1!80!black, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
+  \draw[color=#1!70!black,fill=#1!70!black, line width=0.05pt] (7.7,0) -- (13.2,0.82*\the\paperheight) -- (11.6,0) -- cycle;
+  \draw[color=#1!90!black,fill=#1!90!black, line width=0.05pt] (11.6,0) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,0.18*\the\paperheight) -- (12,0) -- cycle;
   \draw[color=#1,fill=#1, line width=0.05pt] (12,0) -- (\the\paperwidth,0.18*\the\paperheight) -- (\the\paperwidth,0) -- cycle;
   \draw[color=#1,fill=#1,  line width=0.05pt] (12.8,\the\paperheight) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,\the\paperheight) -- cycle;
+}
+
+% ==========================================================================
+% TRIANGLE DESIGN
+% Fills the slide with a low-poly mosaic of randomized triangles. Each 1cm
+% square cell is subdivided into 4 triangles with independent random shading
+% (±5% of the base color), creating a subtle faceted texture. The seed is
+% fixed so output is reproducible across compiles.
+%
+% A single parameterized command handles all three pattern roles — pass a
+% color and it handles full-color, light, and block variants alike. This
+% makes it trivial to extend to new colors without additional commands.
+% ==========================================================================
+
+% Internal helper: draws one 1cm×1cm cell of 4 triangles at grid pos (x,y).
+% #1=x  #2=y  #3=color  #4-#7=shade percentages (typically 95-105)
+\newcommand{\wc@drawtriangle}[7]{%
+  \filldraw[fill=#3!#4,draw=#3!#4,line width=0.05pt] (#1-1,#2-1) -- (#1-0.5,#2-0.5) -- (#1,#2-1) -- cycle;%
+  \filldraw[fill=#3!#5,draw=#3!#5,line width=0.05pt] (#1-1,#2-1) -- (#1-0.5,#2-0.5) -- (#1-1,#2) -- cycle;%
+  \filldraw[fill=#3!#6,draw=#3!#6,line width=0.05pt] (#1-1,#2) -- (#1-0.5,#2-0.5) -- (#1,#2) -- cycle;%
+  \filldraw[fill=#3!#7,draw=#3!#7,line width=0.05pt] (#1,#2) -- (#1-0.5,#2-0.5) -- (#1,#2-1) -- cycle;%
+}
+
+% Full triangle pattern in the given color (#1). Tiles 20×16 cells of 1cm²,
+% covering any standard beamer aspect ratio. The ±5% shade variation is
+% imperceptible on near-saturated colors so no !N!black correction is needed.
+\newcommand{\bgpatterntriangle}[1]{%
+  \pgfmathsetseed{6523}%
+  \foreach \x in {1,...,20} {%
+    \foreach \y in {1,...,16} {%
+      \pgfmathrandominteger{\zA}{95}{105}%
+      \pgfmathrandominteger{\zB}{95}{105}%
+      \pgfmathrandominteger{\zC}{95}{105}%
+      \pgfmathrandominteger{\zD}{95}{105}%
+      \wc@drawtriangle{\x}{\y}{#1}{\zA}{\zB}{\zC}{\zD}%
+    }%
+  }%
+}
+
+% ==========================================================================
+% RANDOM FACET DESIGN (\bgpatternfacetrand)
+% A variation on the Northwestern facet pattern with randomized polygon
+% vertices. Unlike \bgpatternfacet (fixed geometry), node positions are
+% drawn from seeded random ranges, producing a different irregular faceted
+% layout each time the seed changes. Output is reproducible across compiles.
+% Accepts a color argument; shade values 96-104 give subtle polygon depth.
+% ==========================================================================
+
+\newcommand{\bgpatternfacetrand}[1]{%
+  \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+  \pgfmathsetseed{263}% Change the seed until you find a pattern you like!
+  \pgfmathrandominteger{\xBA}{-2}{4}%
+  \pgfmathrandominteger{\xBB}{5}{8}%
+  \pgfmathrandominteger{\xBC}{9}{20}%
+  \pgfmathrandominteger{\xMB}{3}{13}%
+  \pgfmathrandominteger{\yMA}{3}{10}%
+  \pgfmathrandominteger{\yMB}{1}{\yMA-1}%
+  \pgfmathrandominteger{\yMC}{2}{10}%
+  \pgfmathrandominteger{\xTA}{-2}{4}%
+  \pgfmathrandominteger{\xTB}{5}{8}%
+  \pgfmathrandominteger{\xTC}{9}{20}%
+  \pgfmathrandominteger{\cA}{96}{104}%
+  \pgfmathrandominteger{\cB}{96}{104}%
+  \pgfmathrandominteger{\cC}{96}{104}%
+  \pgfmathrandominteger{\cD}{96}{104}%
+  \pgfmathrandominteger{\cE}{96}{104}%
+  \pgfmathrandominteger{\cF}{96}{104}%
+  \pgfmathrandominteger{\cG}{96}{104}%
+  \pgfmathrandominteger{\cH}{96}{104}%
+  \filldraw[fill=#1!\cA,draw=#1!\cA,line width=0.05pt] (\xBA,0) -- (\xBC,0) -- (\xBB*0.75,\yMB) -- (0,\yMA) -- cycle;%
+  \filldraw[fill=#1!\cB,draw=#1!\cB,line width=0.05pt] (\xBB*0.75,\yMB) -- (0,\yMA) -- (0.75*\xBA,\the\paperheight) -- (0.9*\xBB,\the\paperheight) -- cycle;%
+  \filldraw[fill=#1!\cC,draw=#1!\cC,line width=0.05pt] (0.9*\xBB,\the\paperheight) -- (\xBB*0.75,\yMB) -- (\xBC,0) -- cycle;%
+  \filldraw[fill=#1!\cD,draw=#1!\cD,line width=0.05pt] (\xBC,0) -- (1.5*\xBC,\yMC) -- (1.2*\xBC,\the\paperheight) -- (0.9*\xBB,\the\paperheight) -- cycle;%
+  \filldraw[fill=#1!\cE,draw=#1!\cE,line width=0.05pt] (1.2*\xBC,\the\paperheight) -- (1.5*\xBC,\yMC) -- (\the\paperwidth,\the\paperheight) -- cycle;%
+  \filldraw[fill=#1!\cF,draw=#1!\cF,line width=0.05pt] (1.5*\xBC,\yMC) -- (\the\paperwidth,\the\paperheight) -- (\the\paperwidth,0) -- cycle;%
+  \filldraw[fill=#1!\cG,draw=#1!\cG,line width=0.05pt] (1.5*\xBC,\yMC) -- (\xBC,0) -- (\the\paperwidth,0) -- cycle;%
+  \filldraw[fill=#1!\cH,draw=#1!\cH,line width=0.05pt] (\xBB*0.5,0) -- (\xBC,0) -- (\xBB*0.75,\yMB) -- cycle;%
+}
+
+% ==========================================================================
+% ISOMETRIC TRIANGLE DESIGN (\bgpatterntriangleiso)
+% Fills the slide with a grid of equilateral triangles in alternating
+% up/down orientations. Uses an isometric coordinate system (0.1×paperheight
+% per unit) making it scale correctly across aspect ratios. Each triangle
+% pair per cell gets independent ±5% shading for subtle depth variation.
+% ==========================================================================
+
+\newcommand{\bgpatterntriangleiso}[1]{%
+  \begin{scope}[x=0.1*\the\paperheight, y=0.1*\the\paperheight]%
+    \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+    \pgfmathsetseed{5984}%
+    \pgfmathsetmacro{\height}{sqrt(3)/2}%
+    \foreach \x in {0,...,20} {%
+      \foreach \y in {0,...,12} {%
+        \pgfmathrandominteger{\colorboxl}{95}{105}%
+        \pgfmathrandominteger{\colorboxr}{95}{105}%
+        \coordinate (A) at (\x,\y*\height);%
+        \coordinate (B) at (\x+1,\y*\height);%
+        \coordinate (C) at (\x+0.5,\y*\height+\height);%
+        \coordinate (D) at (\x-0.5,\y*\height+\height);%
+        \filldraw[fill=#1!\colorboxl,draw=#1!\colorboxl,line width=0.05pt] (A) -- (B) -- (C) -- cycle;%
+        \filldraw[fill=#1!\colorboxr,draw=#1!\colorboxr,line width=0.05pt] (A) -- (C) -- (D) -- cycle;%
+      }%
+    }%
+  \end{scope}%
+}
+
+% ==========================================================================
+% TRIANGLE MESH DESIGN (\bgpatterntrianglemesh)
+% An equilateral triangle grid rendered as a semi-transparent wireframe
+% over a solid color background. Odd-x columns use upward triangles;
+% even-x columns use downward triangles. The low opacity (0.225) creates
+% a subtle embossed mesh effect without overwhelming slide content.
+% ==========================================================================
+
+\newcommand{\bgpatterntrianglemesh}[1]{%
+  \begin{scope}[x=0.1*\the\paperheight, y=0.1*\the\paperheight]%
+    \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+    \pgfmathsetseed{5984}%
+    \pgfmathsetmacro{\height}{sqrt(3)/2}%
+    \foreach \x in {0,...,20} {%
+      \foreach \y in {0,...,12} {%
+        \pgfmathrandominteger{\colorbox}{96}{104}%
+        \coordinate (A) at (\x,\y*\height);%
+        \coordinate (B) at (\x+1,\y*\height);%
+        \coordinate (C) at (\x+0.5,\y*\height+\height);%
+        \ifodd\x%
+          \filldraw[fill=#1!\colorbox,draw=#1!90,opacity=0.225] (A) -- (B) -- (C) -- cycle;%
+        \else%
+          \coordinate (D) at (\x+0.5,\y*\height-\height);%
+          \filldraw[fill=#1!\colorbox,draw=#1!90,opacity=0.225] (A) -- (B) -- (D) -- cycle;%
+        \fi%
+      }%
+    }%
+  \end{scope}%
+}
+
+% ==========================================================================
+% SQUARES DESIGN (\bgpatternsquares)
+% A 20×16 grid of 1cm² squares each with ±4% random shading, producing a
+% pixelated mosaic. Squares tile perfectly with no gaps so no background
+% fill is needed. The subtle variation gives the appearance of a textured
+% solid color.
+% ==========================================================================
+
+\newcommand{\bgpatternsquares}[1]{%
+  \pgfmathsetseed{6523}%
+  \foreach \x in {1,...,20} {%
+    \foreach \y in {1,...,16} {%
+      \pgfmathrandominteger{\colorbox}{96}{104}%
+      \filldraw[fill=#1!\colorbox,draw=#1!\colorbox,line width=0.05pt] (\x-1,\y-1) rectangle (\x,\y);%
+    }%
+  }%
+}
+
+% ==========================================================================
+% CIRCLES DESIGN (\bgpatterncircles)
+% Combines a tiled square base (shade 97-100%) with 320 randomly-placed
+% semicircle pairs. Each circle is split into left and right halves with
+% independent shading (±2%), giving a lenticular bubble effect over the
+% mosaic background.
+% ==========================================================================
+
+\newcommand{\bgpatterncircles}[1]{%
+  \filldraw[fill=#1!92,draw=#1!92,line width=0.05pt] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+  \pgfmathsetseed{5984}%
+  \foreach \x in {1,...,20} {%
+    \foreach \y in {1,...,16} {%
+      \pgfmathrandominteger{\colorbox}{97}{100}%
+      \filldraw[fill=#1!\colorbox,draw=#1!\colorbox,line width=0.05pt] (\x-1,\y-1) rectangle (\x,\y);%
+    }%
+  }%
+  \foreach \i in {1,...,320} {%
+    \pgfmathrandominteger{\x}{1}{20}%
+    \pgfmathrandominteger{\y}{1}{16}%
+    \pgfmathsetmacro{\radiusl}{rnd*0.8}%
+    \pgfmathsetmacro{\radiusr}{rnd*0.8}%
+    \pgfmathrandominteger{\colorboxl}{98}{102}%
+    \pgfmathrandominteger{\colorboxr}{98}{102}%
+    \filldraw[fill=#1!\colorboxl,draw=#1!\colorboxl,line width=0.05pt] (\x-0.5,\y-0.5+\radiusl) arc[start angle=90, end angle=270, radius=\radiusl];%
+    \filldraw[fill=#1!\colorboxr,draw=#1!\colorboxr,line width=0.05pt] (\x-0.5,\y-0.5-\radiusr) arc[start angle=-90, end angle=90, radius=\radiusr];%
+  }%
+}
+
+% ==========================================================================
+% HEXAGON DESIGNS (\bgpatternhexraise, \bgpatternhexrand)
+% Both designs use an isometric hex grid scaled to 0.1×paperheight per unit.
+%
+% \bgpatternhexraise draws the hex grid as a faint wireframe then overlays
+%   three hardcoded "raised" clusters with drop shadows and solid fill,
+%   replicating a 3D embossed look. Edit the \wc@drawhex calls to reposition
+%   or add clusters. Cluster coordinates are grid indices from the loop.
+%
+% \bgpatternhexrand fills every hex cell with an independent random shade
+%   (±3%) creating a uniform randomized mosaic texture.
+%
+% Internal helper \wc@drawhex: draws one raised hex cluster. Takes a
+%   comma-separated list of grid-coordinate prefixes (#1) and a color (#2).
+%   Requires the TikZ shadows library (already loaded by the main theme).
+% ==========================================================================
+
+\newcommand{\wc@drawhex}[2]{%
+  \path[drop shadow={opacity=0.05,shadow scale=1.02,fill=black},%
+        fill=#2, fill opacity=1, draw=#2!93, draw opacity=1]%
+        \foreach \coord in {#1} {%
+          (\coord-0) -- (\coord-1) -- (\coord-2) -- (\coord-3) -- (\coord-4) -- (\coord-5) -- cycle%
+        } -- cycle;%
+}
+
+\newcommand{\bgpatternhexraise}[1]{%
+  \begin{scope}[x=0.1*\the\paperheight, y=0.1*\the\paperheight]%
+    \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+    \foreach \x in {0,...,12} {%
+      \coordinate(X) at (0:1.5*\x);%
+      \ifodd\x%
+        \def\ymax{9}%
+        \coordinate(X) at ($(X)+(0:0.5)+(-120:1)$);%
+      \else%
+        \def\ymax{8}%
+      \fi%
+      \foreach \y in {0,...,\ymax} {%
+        \coordinate (\x-\y) at ($(X)+(60:\y)+(120:\y)$);%
+        \draw[#1!90,opacity=0.225] (\x-\y) +(-60:1)%
+        \foreach \z [remember=\z as \lastz (initially 5)] in {0,...,5} {%
+          -- coordinate(\x-\y-\lastz-m) +(\z*60:1) coordinate(\x-\y-\z)%
+        } -- cycle;%
+      }%
+    }%
+    \wc@drawhex{8-5,8-4,7-5}{#1}%
+    \wc@drawhex{9-3,9-2,8-1,9-1,10-2,10-1}{#1}%
+    \wc@drawhex{1-2,2-2,2-1,2-0,3-1}{#1}%
+  \end{scope}%
+}
+
+\newcommand{\bgpatternhexrand}[1]{%
+  \begin{scope}[x=0.1*\the\paperheight, y=0.1*\the\paperheight]%
+    \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+    \pgfmathsetseed{5984}%
+    \foreach \x in {0,...,12} {%
+      \coordinate(X) at (0:1.5*\x);%
+      \ifodd\x%
+        \def\ymax{9}%
+        \coordinate(X) at ($(X)+(0:0.5)+(-120:1)$);%
+      \else%
+        \def\ymax{8}%
+      \fi%
+      \foreach \y in {0,...,\ymax} {%
+        \pgfmathrandominteger{\colorbox}{97}{103}%
+        \coordinate (\x-\y) at ($(X)+(60:\y)+(120:\y)$);%
+        \filldraw[fill=#1!\colorbox,draw=#1!90,opacity=0.225] (\x-\y) +(-60:1)%
+        \foreach \z [remember=\z as \lastz (initially 5)] in {0,...,5} {%
+          -- coordinate(\x-\y-\lastz-m) +(\z*60:1) coordinate(\x-\y-\z)%
+        } -- cycle;%
+      }%
+    }%
+  \end{scope}%
+}
+
+% ==========================================================================
+% NETWORK DESIGN (\bgpatternnetwork)
+% A graph-paper-style lattice of circular nodes connected by diagonal and
+% horizontal edges. Nodes are positioned by scaling integer grid coordinates
+% to the paper dimensions, so the pattern is aspect-ratio aware. All elements
+% render at 22.5% opacity for a subtle watermark effect.
+% ==========================================================================
+
+\newcommand{\bgpatternnetwork}[1]{%
+  \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+  \pgfmathsetseed{652}%
+  \foreach \x in {-1,...,21} {%
+    \foreach \y in {-1,...,17} {%
+      \node[draw,circle,inner sep=0pt,minimum size=1.5mm,%
+            color=#1!90,opacity=0.225] (node-\x-\y)%
+            at (\x/20*\the\paperwidth,\y/16*\the\paperheight) {};%
+    }%
+  }%
+  \foreach \x in {-1,...,20} {%
+    \foreach \y in {-1,...,16} {%
+      \pgfmathtruncatemacro{\xnext}{\x+1}%
+      \pgfmathtruncatemacro{\ynext}{\y+1}%
+      \pgfmathtruncatemacro{\ylast}{\y-1}%
+      \draw[#1!90,opacity=0.225] (node-\x-\y) -- (node-\xnext-\y);%
+      \draw[#1!90,opacity=0.225] (node-\x-\y) -- (node-\xnext-\ynext);%
+      \ifnum \y>0%
+        \draw[#1!90,opacity=0.225] (node-\x-\y) -- (node-\xnext-\ylast);%
+      \fi%
+    }%
+  }%
+}
+
+% ==========================================================================
+% QUILT DESIGN (\bgpatternquilt)
+% A grid of large overlapping circle outlines at 30% opacity, producing an
+% interlocking ring pattern. Circles are 30mm in diameter and positioned by
+% fractions of the paper dimensions, so the pattern scales with aspect ratio.
+% The darker ring color (#1!80!black) provides contrast against the fill.
+% ==========================================================================
+
+\newcommand{\bgpatternquilt}[1]{%
+  \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+  \foreach \i in {1,...,20}%
+    \foreach \j in {1,...,14}%
+      \node[draw,circle,minimum size=30mm,color=#1!80!black,opacity=0.3]%
+           at ({(\i-2)*(\the\paperwidth/16)},{(\j-2)*(\the\paperheight/10)}) {};%
+}
+
+% ==========================================================================
+% PLAIN DESIGN (\bgpatternplain)
+% A solid color fill with no geometric pattern. Useful for minimal or
+% brand-color slides where the facet/geometric motif is not desired.
+% ==========================================================================
+
+\newcommand{\bgpatternplain}[1]{%
+  \fill[fill=#1] (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+}
+
+% ==========================================================================
+% ACTIVE DESIGN
+% Edit the three lines in the active block below to switch designs, or
+% override them in your document preamble after \usetheme{wildcat} using
+% \renewcommand. All design commands accept a color argument — only
+% \bgpatternfacet and \bgpatternfacetlight are hardcoded to wcprimary.
+%
+% IMPORTANT: The color argument must be a simple named color (e.g. wcprimary,
+% nudarkblue). Compound xcolor expressions like "wcprimary20!30" cannot be
+% passed directly — they break when embedded in a further "!N" mix. Use
+% \colorlet to pre-resolve compound expressions into a named color first:
+%   \AtBeginDocument{\colorlet{mylight}{wcprimary20!30}}
+%   \renewcommand{\bgpatternlight}{\bgpatterntriangle{mylight}}
+%
+% Available designs:
+%   Facet (NW exact):   \bgpatternfacet / \bgpatternfacetlight / \bgpatternblockfacet{color}
+%   Random facet:       \bgpatternfacetrand{color}
+%   Triangle mosaic:    \bgpatterntriangle{color}
+%   Isometric triangles:\bgpatterntriangleiso{color}
+%   Triangle mesh:      \bgpatterntrianglemesh{color}
+%   Squares:            \bgpatternsquares{color}
+%   Circles:            \bgpatterncircles{color}
+%   Hex raised:         \bgpatternhexraise{color}
+%   Hex random:         \bgpatternhexrand{color}
+%   Network:            \bgpatternnetwork{color}
+%   Quilt:              \bgpatternquilt{color}
+%   Plain (solid):      \bgpatternplain{color}
+% ==========================================================================
+
+% Facet design — active
+\newcommand{\bgpattern}{\bgpatternfacet}
+\newcommand{\bgpatternblock}[1]{\bgpatternblockfacet{#1}}
+
+% Other designs — uncomment one block to activate
+% \newcommand{\bgpattern}{\bgpatterntriangle{wcprimary}}
+% \newcommand{\bgpatternblock}[1]{\bgpatterntriangle{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PATTERN CACHE
+% Render \bgpattern once into saveboxes so complex patterns are not
+% recomputed on every section or standout slide.
+%   \wc@bgpatternbox   — full pattern (title page, standout frames)
+%   \wc@bgsectionbox   — full pattern + white bottom-quarter band (section pages)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox{\wc@bgpatternbox}
+\newsavebox{\wc@bgsectionbox}
+\AtBeginDocument{%
+  \savebox{\wc@bgpatternbox}{%
+    \begin{tikzpicture}
+      \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \bgpattern
+    \end{tikzpicture}%
+  }%
+  \savebox{\wc@bgsectionbox}{%
+    \begin{tikzpicture}
+      \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \bgpattern
+      \fill[white] (0,0) rectangle(\the\paperwidth,0.25*\the\paperheight);
+    \end{tikzpicture}%
+  }%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,8 +454,8 @@
     \begin{tikzpicture}
     \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
     % Add main pattern only on the cover page
-    \ifnum\thepage=1
-      \bgpattern
+    \ifnum\insertframenumber=1
+      \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
       % Add the logo if \titlegraphic is not blank
       \ifx\inserttitlegraphic\@empty\relax
       \else
@@ -85,16 +482,16 @@
 \setbeamertemplate{footline}{}
 \setbeamertemplate{navigation symbols}{}   
 \vfill
-\vskip4cm%
-    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,sep=8pt,#1]{title page header}
+\vskip0.4\paperheight%
+    \begin{beamercolorbox}[wd=0.75\paperwidth,leftskip=0cm,sep=8pt,#1]{title page header}
         \raggedright\usebeamerfont{title}\inserttitle\par%
     \end{beamercolorbox}%
-    \vskip0.75cm%
-    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,#1]{author}
+    \vskip0.075\paperheight%
+    \begin{beamercolorbox}[wd=0.75\paperwidth,leftskip=0cm,#1]{author}
         \raggedright\usebeamerfont{author}\insertauthor%
     \end{beamercolorbox}
-     \vskip0.2cm%
-    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,#1]{date}
+    \vskip0.02\paperheight%
+    \begin{beamercolorbox}[wd=0.75\paperwidth,leftskip=0cm,#1]{date}
         \raggedright\usebeamerfont{author}\insertdate%
     \end{beamercolorbox}
 \vfill
@@ -104,17 +501,14 @@
 % Generate a section page whenever \section{} is called
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginSection[]{
-  {\setbeamertemplate{background}{
-    \begin{tikzpicture}
-      \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-      \bgpatternlight
-    \end{tikzpicture}
+  {\setbeamertemplate{background}{%
+    \usebox{\wc@bgsectionbox}%
   }
   \setbeamertemplate{headline}{} % Remove header
   \setbeamertemplate{footline}{} % Remove footer
   \begin{frame}
     \vfill
-    \vskip4cm%
+    \vskip0.72\paperheight%
     \begin{beamercolorbox}[sep=8pt,left,shadow=false,rounded=false]{title}
       {\color{wcprimary}\raggedright\usebeamerfont{section}\insertsectionhead\par}%
     \end{beamercolorbox}
@@ -175,8 +569,8 @@
   title=#1
 }
 
-% And a general facet block which takes a second (optional) argument for the color
-\newtcolorbox{tfacetbox}[2][wcprimary]{
+% And a general pattern block which takes a second (optional) argument for the color
+\newtcolorbox{tpatternbox}[2][wcprimary]{
   enhanced,
   underlay={
     \begin{tcbclipframe}
@@ -199,11 +593,8 @@
 % text centered vertically and horizontally. There should be no title
 \newcommand{\standout}[1]{
     {
-        \setbeamertemplate{background}{
-            \begin{tikzpicture}
-              \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-                \bgpattern
-            \end{tikzpicture}
+        \setbeamertemplate{background}{%
+            \usebox{\wc@bgpatternbox}%
         }
         \setbeamertemplate{footline}{}
         \begin{frame}

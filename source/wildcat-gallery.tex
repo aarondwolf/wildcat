@@ -1,0 +1,57 @@
+\documentclass[aspectratio=1610]{beamer}
+\usetheme{wildcat}
+
+\title{Wildcat Theme\\Pattern Gallery}
+\date{}
+\author{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gallery slide helper
+%
+% \galleryslide{Display Name}{option-string}{pattern command}
+%
+% Draws the pattern across the full slide, overlays a white header band at
+% the top, and shows the display name and the \usetheme option string.
+% Each slide is plain (no frame title bar or footer).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\galleryslide}[3]{%
+  {%
+    \setbeamertemplate{background}{%
+      \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        #3
+        \fill[white] (0,\the\paperheight) rectangle(\the\paperwidth,\the\paperheight);
+      \end{tikzpicture}%
+    }%
+    \setbeamertemplate{headline}{}%
+    \setbeamertemplate{footline}{}%
+    \begin{frame}[plain]%
+      \vskip0.07\paperheight%
+      \centering%
+      {\color{white}\usebeamerfont{frametitle}#1\par}%
+      \vskip0.025\paperheight%
+      {\color{white}\small\texttt{\textbackslash usetheme[pattern=#2]\{wildcat\}}\par}%
+    \end{frame}%
+  }%
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\galleryslide{Facets (Default)}{facet}{\bgpatternfacet}
+\galleryslide{Random Facets}{facetrand}{\bgpatternfacetrand{wcprimary}}
+\galleryslide{Triangle Mosaic}{triangle}{\bgpatterntriangle{wcprimary}}
+\galleryslide{Isometric Triangles}{triangleiso}{\bgpatterntriangleiso{wcprimary}}
+\galleryslide{Triangle Mesh}{trianglemesh}{\bgpatterntrianglemesh{wcprimary}}
+\galleryslide{Squares}{squares}{\bgpatternsquares{wcprimary}}
+\galleryslide{Circles}{circles}{\bgpatterncircles{wcprimary}}
+\galleryslide{Raised Hexagons}{hexraise}{\bgpatternhexraise{wcprimary}}
+\galleryslide{Random Hexagons}{hexrand}{\bgpatternhexrand{wcprimary}}
+\galleryslide{Network}{network}{\bgpatternnetwork{wcprimary}}
+\galleryslide{Quilt}{quilt}{\bgpatternquilt{wcprimary}}
+\galleryslide{Plain}{plain}{\bgpatternplain{wcprimary}}
+
+\end{document}

@@ -37,8 +37,9 @@
     Extension = .otf
 ]{AkkuratPro}
 
-% Set mono font (ships with LaTeX, no need to install)
-\setmonofont{TeX Gyre Cursor}
+% Mono font: no explicit setting — fontspec falls back to Latin Modern Mono,
+% which is universally available across TeX Live, MiKTeX, and Overleaf.
+% (TeX Gyre Cursor is not reliably found by XeLaTeX on MiKTeX/Windows.)
 
 
 \mode<all>

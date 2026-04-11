@@ -1,19 +1,26 @@
 \documentclass[aspectratio=1610]{beamer}
-\usepackage[T1]{fontenc}
-\usetheme{wildcat}
-
 
 \title{Wildcat Beamer Theme}
-\date{January 2024}
+\date{April 2026}
 \author{Aaron Wolf (Northwestern University)}
+
+% Theme options — pattern, color, and font can be combined:
+%   \usetheme[pattern=triangle, color=nudarkblue]{wildcat}
+%
+% pattern: facet (default), facetrand, triangle, triangleiso, trianglemesh,
+%          squares, circles, hexraise, hexrand, network, quilt, plain
+%
+% color: any named color (nu* colors are all available after theme loads).
+%        All wcprimary shades are auto-generated. Omit to keep NU purple.
+% font: overleaf (TeX Gyre), installed (system fonts), or omit for default
+\usetheme{wildcat}
 
 % You change the titlegraphic to whatever you want, or comment it out to remove it.
 \titlegraphic{\includegraphics[scale=0.25]{logo-northwestern.pdf}}
 
-% % You can directly change the colors using the following macros.
-% % You must redefine colors AFTER the theme is loaded.
-% % For example, these provide shades of Yale Blue (#00356b)
-% \definecolor{wcprimary}{RGB}{0,53,107}      % Main color
+% % For fine-grained control over shades, override colors manually AFTER \usetheme.
+% % For example, Yale Blue (#00356b) with hand-tuned shades:
+% \definecolor{wcprimary}{RGB}{0,53,107}
 % \definecolor{wcprimary140}{RGB}{0, 34, 70}
 % \definecolor{wcprimary130}{RGB}{0, 40, 80}
 % \definecolor{wcprimary120}{RGB}{0, 45, 91}
@@ -23,25 +30,16 @@
 % \definecolor{wcprimary20}{RGB}{204, 215, 225}
 % \definecolor{wcprimary10}{RGB}{230, 235, 240}
 
-% % Now for the alerted orange (#bd5319) and example green (#5f712d)
+% % Alert and example colors:
 % \definecolor{wcalerted}{RGB}{189,83,25}
 % \definecolor{wcexample}{RGB}{95,113,45}
 
-% % If you want to change the slide background color, 
+% % If you want to change the general slide background color), 
 % % you can use the following command:
 %\setbeamercolor{background canvas}{bg=nupurple10!30}
 
 % % Turn off section slides
 % \AtBeginSection{}
-
-% Change the font theme
-%\usefonttheme{wildcat-overleaf}
-
-% Change the bg pattern manually: Simple Single Color
-% \renewcommand{\bgpattern}{
-%     \draw[color=wcprimary,fill=wcprimary] (0,0) rectangle (\paperwidth,\paperheight);
-% }
-
 
 
 \begin{document}
@@ -58,6 +56,39 @@
     The Wildcat theme is a Beamer theme for Northwestern University, but which can be modified easily with different colors, fonts, and even background patterns. 
     \\ ~ \\
     The theme is inspired by the \href{https://github.com/matze/mtheme}{Metropolis theme} by Matthias Vogelgesang. It incorporates the Northwestern University facet design pattern, but otherwise has a clean, simple look, and relatively few bells and whistles. It is licensed under the GNU GENERAL PUBLIC LICENSE.
+\end{frame}
+
+\begin{frame}[fragile]{Background Patterns}
+    The theme ships with 12 built-in background patterns. The easiest way to switch is via a theme option:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[pattern=triangle]{wildcat}
+    \end{verbatim}
+    \normalsize
+
+    Section pages automatically use the same pattern as the title page. Available pattern options:
+    \begin{columns}[t]
+    \column{0.5\textwidth}
+    \begin{itemize}\footnotesize
+        \item \texttt{facet} — NU facets (default)
+        \item \texttt{facetrand} — NU facets (alternate)
+        \item \texttt{triangle} — triangle mosaic
+        \item \texttt{triangleiso} — isometric triangles
+        \item \texttt{trianglemesh} — wireframe mesh
+        \item \texttt{squares} — square grid
+    \end{itemize}
+    \column{0.5\textwidth}
+    \begin{itemize}\footnotesize
+        \item \texttt{circles} — circles
+        \item \texttt{hexraise} — raised hex clusters
+        \item \texttt{hexrand} — random hex shading
+        \item \texttt{network} — network grid
+        \item \texttt{quilt} — quilt rings
+        \item \texttt{plain} — solid color
+    \end{itemize}
+    \end{columns}
+    \vskip0.5em
+    {\footnotesize See \href{https://github.com/aarondwolf/wildcat/blob/main/source/wildcat-gallery.pdf}{\texttt{wildcat-gallery.pdf}} for a visual preview of all patterns.}
 \end{frame}
 
 \begin{frame}
@@ -105,33 +136,31 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Modifying Main Colors (I)}
-    You can change the main colors of the theme by redefining the following colors in your preamble. You can use any color you want, but the theme is designed to work best with shades of the Northwestern purple.
-    \begin{itemize}
-        \item \texttt{wcprimary} (main color)
-        \item \texttt{wcprimary10} (main color, 10\% shade) through \texttt{wcprimary40} (main color, 40\% shade)
-        \item \texttt{wcprimary110} (main color, 110\% shade) through \texttt{wcprimary160} (main color, 160\% shade)
-        \item \texttt{wcalerted} (alert color)
-        \item \texttt{wcexample} (example color)
-    \end{itemize}
-   The shades of wcprimary are used for the background of facets. There are wcprimary10, wcprimary20, ..., wcprimary160, but only 10-40 and 110-140 are used.
+\begin{frame}[fragile]{Modifying the Primary Color}
+    Pass a \texttt{color} option to \texttt{\textbackslash usetheme} — the theme auto-generates all lighter and darker shades automatically:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[color=nudarkblue]{wildcat}
+    \end{verbatim}
+    \normalsize
+    You can combine \texttt{color} and \texttt{pattern} in a single line:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[color=nudarkblue, pattern=hexraise]{wildcat}
+    \end{verbatim}
+    \normalsize
+    The \texttt{nu*} colors from the previous slide are all valid choices, as are the standard xcolor built-ins (\texttt{red}, \texttt{blue}, \texttt{cyan}, etc.). The alert and example colors (\texttt{wcalerted}, \texttt{wcexample}) are not affected and can be overridden separately.
 \end{frame}
 
-\begin{frame}[fragile]
-    \frametitle{Modifying Main Colors (II)}
-    For example, to modify the main color to be a shade of blue, you could use the following code in your preamble (after loading the theme):
+\begin{frame}[fragile]{Modifying the Primary Color: Custom RGB}
+    The \texttt{color} option accepts any \textit{named} color — not raw RGB values. If your brand color isn't already defined, declare it first:
+    \scriptsize
     \begin{verbatim}
-        \definecolor{wcprimary}{RGB}{0,53,107}
-        \definecolor{wcprimary140}{RGB}{0, 34, 70}
-        \definecolor{wcprimary130}{RGB}{0, 40, 80}
-        \definecolor{wcprimary120}{RGB}{0, 45, 91}
-        \definecolor{wcprimary110}{RGB}{0, 50, 102}
-        \definecolor{wcprimary40}{RGB}{153, 174, 196}
-        \definecolor{wcprimary30}{RGB}{179, 194, 211}
-        \definecolor{wcprimary20}{RGB}{204, 215, 225}
-        \definecolor{wcprimary10}{RGB}{230, 235, 240}
+\definecolor{myblue}{RGB}{0,53,107}
+\usetheme[color=myblue]{wildcat}
     \end{verbatim}
-    This sets the main color to Yale Blue, and all the shades used in the facet pattern. The preambles of the example slides in this document show how to modify the colors.
+    \normalsize
+    The auto-generated shades follow a simple scale: \texttt{wcprimary10}–\texttt{40} mix the base color with white (lighter tints), and \texttt{wcprimary110}–\texttt{140} mix it with black (darker shades). These are sufficient for most use cases — if you need precise per-shade control, see the Advanced Customization section at the end of this document.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -159,7 +188,7 @@ plt.show()
     \frametitle{Using Colors in Graphs}
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{graphs/plot-python.pdf}
+        \includegraphics[width=0.65\textwidth]{graphs/plot-python.pdf}
         \caption{Python Graph Example}
         \label{fig:graph-python}
     \end{figure}
@@ -228,8 +257,8 @@ graph export "plot-stata.pdf", replace
 \end{frame}
 
 
-\begin{frame}{Facet Blocks (tcolorbox)}
-    You can use tcolorbox style blocks with the facet pattern instead of the default beamer blocks. You can create this with a \texttt{\textbackslash begin\{tblock\}} environment. You can also use \texttt{talert} and \texttt{texample} for alert and example blocks, respectively.
+\begin{frame}{Pattern Blocks (tcolorbox)}
+    You can use tcolorbox style blocks with the background pattern instead of the default beamer blocks. You can create this with a \texttt{\textbackslash begin\{tblock\}} environment. You can also use \texttt{talert} and \texttt{texample} for alert and example blocks, respectively.
     \begin{tblock}{T Block Title}
         This is a tcolorbox style block.
     \end{tblock}
@@ -241,16 +270,16 @@ graph export "plot-stata.pdf", replace
     \end{texample}
 \end{frame}
 
-\begin{frame}[fragile]{Custom Color Facet Blocks}
-    There is also a special block called \texttt{tfacetbox} which allows you to specify the color. This only works with non-primary (not red, green, or blue) colors, as you can't shade those easily.
-    \begin{tfacetbox}[nudarkyellow]{Custom Facet Block Title}
-        This is a tfacetbox block. It can be created with the following code:
+\begin{frame}[fragile]{Custom Color Pattern Blocks}
+    There is also a special block called \texttt{tpatternbox} which allows you to specify the color. This only works with non-primary (not red, green, or blue) colors, as you can't shade those easily.
+    \begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
+        This is a tpatternbox block. It can be created with the following code:
         \begin{verbatim}
-\begin{tfacetbox}[nudarkyellow]{Custom Facet Block Title}
-    This is a tfacetbox block...
-\end{tfacetbox}
+\begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
+    This is a tpatternbox block...
+\end{tpatternbox}
         \end{verbatim}
-    \end{tfacetbox}
+    \end{tpatternbox}
 \end{frame}
 
 \begin{frame}
@@ -267,33 +296,40 @@ graph export "plot-stata.pdf", replace
     \end{exampleblock}
     \end{frame}
 
-\begin{frame}{Font Style: Default}
-    The theme uses the official Northwestern fonts, which are Campton (for titles) and Akkurat Pro (for copy). These are not free fonts, so you will need to purchase (and install) them if you want to use them.
-    \\ ~ \\
-    The wildcat theme uses the OTF files directly, so as long as you have the OTFs in a similar relative directory as the demo files, it should work (this includes on Overleaf). If you have installed them, you can look at the \texttt{\textbackslash beamerfontthemewildcat-installed.sty} file to see how to use the installed fonts.
-    \\ ~ \\
-    Note: You need to us XeLaTeX or LuaLaTeX to compile in order to use custom fonts. If you use PDFLaTeX, you will get an error.
-\end{frame}
-
-\begin{frame}{Font Style: Overleaf \& Local}
-    There is also a font theme called \texttt{wildcat-overleaf} which will load fonts available from Overleaf (as well as local \LaTeX ~ installations). To use this, you just need to specify in your preamble the following command \textit{after} loading the theme: 
-    \texttt{\textbackslash usefonttheme\{wildcat-overleaf\}}
-\end{frame}
-
-\begin{frame}[fragile]{Font Style: Default in Overleaf}
-    An alternative is to upload the OTF or TTF files to your Overleaf directory, and then change the \texttt{beamerfontthemewildcat.sty} files to specify those font files rather than the font family generally. Alternatively, simply add the lines of code directly to your preamble \textit{after} loading the theme:
-    \footnotesize
+\begin{frame}[fragile]{Fonts}
+    The theme uses Campton (titles) and Akkurat Pro (body) by default — these are proprietary fonts that must be purchased separately. Place the OTF files in a \texttt{fonts/} folder next to your \texttt{.tex} file:
+    \scriptsize
     \begin{verbatim}
-% Create new font families from OTF fonts
-\newfontfamily\CamptonMedium[Path=fonts/Campton/, Extension=.otf]{Campton Medium}
-\newfontfamily\CamptonLight[Path=fonts/Campton/, Extension=.otf]{Campton Light}
-
-% Change title font to Campton
-\setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
-\setbeamerfont{author}{family=\CamptonLight, size=\small}
-\setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
-\setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
+your-presentation/
+  your-slides.tex
+  fonts/
+    Campton/
+      Campton Medium.otf
+      Campton Light.otf
+    Akkurat/
+      AkkuratProLight-Regular.otf
+      AkkuratProLight-Italic.otf
+      AkkuratPro-Regular.otf
+      AkkuratPro-Bold.otf
     \end{verbatim}
+    \normalsize
+    Requires \textbf{XeLaTeX} or \textbf{LuaLaTeX} — PDFLaTeX will fail.
+\end{frame}
+
+\begin{frame}[fragile]{Fonts: Overleaf / No Proprietary Fonts}
+    If you are on Overleaf or do not have the proprietary fonts, use the \texttt{font=overleaf} option. This switches to TeX Gyre fonts, which are universally available with no files to upload:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[font=overleaf]{wildcat}
+    \end{verbatim}
+    \normalsize
+    You can combine all three options in one line:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[font=overleaf, color=nudarkblue, pattern=triangle]{wildcat}
+    \end{verbatim}
+    \normalsize
+    For advanced font customization (loading fonts manually, using system-installed fonts), see the Advanced Customization section at the end of this document.
 \end{frame}
 
 \begin{frame}{Font Style: Examples}
@@ -316,23 +352,85 @@ graph export "plot-stata.pdf", replace
 \end{frame}
 
 
-\section{Section Example}
+\section{Advanced Customization}
 
-\begin{frame}[fragile]{Advanced: Altering the background pattern}
-    The background pattern is created using the \texttt{tikz} package. You can modify the background pattern by changing the \texttt{beamerinnerthemewildcat.sty} file. The background pattern is created in the \texttt{\textbackslash bgpattern} command defined at the top of the file.
-    \\ ~ \\
-    You don't necessarily need to change the file itself. You can just re-define those commands in your preamble. For example, if you wanted to change the background pattern to be just the main color, you could use the following code in your preamble: \\
-    
+\begin{frame}[fragile]{Advanced: Custom Fonts}
+    If you have Campton and Akkurat Pro installed system-wide, use:
     \scriptsize
     \begin{verbatim}
-\renewcommand{\bgpattern}{
-    \draw[color=wcprimary,fill=wcprimary] (0,0) rectangle (\paperwidth,\paperheight);
-}
-    \end{verbatim} 
+\usetheme[font=installed]{wildcat}
+    \end{verbatim}
+    \normalsize
+    To load OTF files from a custom path (e.g.\ when uploading to Overleaf), add these lines to your preamble \textit{after} \texttt{\textbackslash usetheme}:
+    \footnotesize
+    \begin{verbatim}
+\newfontfamily\CamptonMedium[Path=fonts/Campton/, Extension=.otf]{Campton Medium}
+\newfontfamily\CamptonLight[Path=fonts/Campton/, Extension=.otf]{Campton Light}
+\setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
+\setbeamerfont{author}{family=\CamptonLight, size=\small}
+\setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
+\setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
+\setsansfont[Path=fonts/Akkurat/, UprightFont=*Light-Regular,
+    ItalicFont=*Light-Italic, BoldFont=*-Regular,
+    BoldItalicFont=*-Bold, Extension=.otf]{AkkuratPro}
+    \end{verbatim}
 \end{frame}
 
+\begin{frame}[fragile]{Advanced: Fine-Grained Color Control}
+    The auto-generated shades are a good starting point, but for precise brand colors you can override individual shades manually. Redefine any of the \texttt{wcprimary*} colors \textit{after} \texttt{\textbackslash usetheme}:
+    \scriptsize
+    \begin{verbatim}
+\usetheme{wildcat}                          % or with color= option
+\definecolor{wcprimary}{RGB}{0,53,107}      % Yale Blue
+\definecolor{wcprimary140}{RGB}{0, 34, 70}
+\definecolor{wcprimary130}{RGB}{0, 40, 80}
+\definecolor{wcprimary120}{RGB}{0, 45, 91}
+\definecolor{wcprimary110}{RGB}{0, 50, 102}
+\definecolor{wcprimary40}{RGB}{153, 174, 196}
+\definecolor{wcprimary30}{RGB}{179, 194, 211}
+\definecolor{wcprimary20}{RGB}{204, 215, 225}
+\definecolor{wcprimary10}{RGB}{230, 235, 240}
+    \end{verbatim}
+    \normalsize
+    Only the shades actually used by the theme need redefining: \texttt{wcprimary10}–\texttt{40} (block bodies) and \texttt{wcprimary110}–\texttt{140} (facet pattern segments).
+\end{frame}
 
+\begin{frame}[fragile]{Advanced: Custom Background Pattern (I)}
+    To create your own pattern, define a command that draws TikZ commands filling the slide. The command should take one argument — the color — so that the theme can reuse it in different contexts. Here is a minimal example:
+    \scriptsize
+    \begin{verbatim}
+\newcommand{\mypattern}[1]{
+    \fill[color=#1] (0,0) rectangle (\paperwidth,\paperheight);
+}
+    \end{verbatim}
+    \normalsize
+    The pattern command is called inside a \texttt{tikzpicture} environment whose bounding box already covers the full slide, so you only need to provide the drawing commands — no \texttt{\textbackslash begin\{tikzpicture\}} wrapper is needed.
+    \\ ~ \\
+    Any valid TikZ commands work. The built-in patterns each take one color argument and use \texttt{\textbackslash the\textbackslash paperwidth} / \texttt{\textbackslash the\textbackslash paperheight} to scale to the slide dimensions automatically.
+\end{frame}
 
+\begin{frame}[fragile]{Advanced: Custom Background Pattern (II)}
+    Once your pattern command is defined, register it with the theme using two lines in your preamble \textit{after} \texttt{\textbackslash usetheme\{wildcat\}}:
+    \scriptsize
+    \begin{verbatim}
+\renewcommand{\bgpattern}{\mypattern{wcprimary}}
+\renewcommand{\bgpatternblock}[1]{\mypattern{#1}}
+    \end{verbatim}
+    \normalsize
+    Two commands are needed because the theme uses the pattern in two different ways:
+    \begin{itemize}
+        \item \texttt{\textbackslash bgpattern} — title page, section slides, and standout frames. The color is fixed, so you bake it in when registering.
+        \item \texttt{\textbackslash bgpatternblock\{color\}} — pattern block headers (\texttt{tblock}, \texttt{talert}, \texttt{texample}, \texttt{tpatternbox}), where each block supplies its own color at render time.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Advanced: Custom Background Pattern (III)}
+    The 12 built-in pattern definitions in \texttt{beamerinnerthemewildcat.sty} (lines 31–386) are a useful reference and starting point.
+    \\ ~ \\
+    \texttt{\textbackslash bgpatternplain} (line 384) is the simplest — a single \texttt{\textbackslash fill} command — and is a good template to copy and modify. The other patterns show progressively more complex TikZ techniques: coordinate scaling, \texttt{\textbackslash foreach} loops, random seeds, scopes, and drop shadows.
+    \\ ~ \\
+    The \texttt{\textbackslash bgpatternblock} variant used in \texttt{tblock} headers is typically identical to \texttt{\textbackslash bgpattern}, just registered separately so the theme can pass the block's color through as an argument.
+\end{frame}
 
 % Blank Frame
 \begin{frame}[plain]{}
