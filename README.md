@@ -1,32 +1,88 @@
 # wildcat
-A modern, highly customizable beamer theme.
+A modern, highly customizable Beamer theme.
 
 ## Overview
-This beamer theme uses branding guidelines (colors, fonts, and logos) from [Northwestern University](https://www.northwestern.edu/brand/visual-identity/). The design mimics Northwestern's facets Zoom backgrounds, and the style files build on the amazing Stack Exchange answer by [Claudio Fiandrino](https://tex.stackexchange.com/questions/146529/design-a-custom-beamer-theme-from-scratch). This is not an official, Northwestern-approved beamer template: This is simply my own attempt to make a simple, modern beamer theme. 
+This Beamer theme uses branding guidelines (colors, fonts, and logos) from [Northwestern University](https://www.northwestern.edu/brand/visual-identity/). The design mimics Northwestern's facets Zoom backgrounds, and the style files build on the amazing Stack Exchange answer by [Claudio Fiandrino](https://tex.stackexchange.com/questions/146529/design-a-custom-beamer-theme-from-scratch). This is not an official Northwestern-approved Beamer template.
 
-## How do I use this?
-You will simply need to have all the .sty files and fonts folder in the source folder in your LaTeX file's working directory. Then add `\usetheme{wildcat}` to your preamble. See source/wildcat-example.tex for an example document. If you do not have the rights to the fonts in the fonts folder, you can add `\usefonttheme{wildcat-overleaf}` to use fonts common to Windows/MacOS systems and available using Overleaf.
+## Quick Start
+The easiest way to get started is to download [presentation.zip](https://github.com/aarondwolf/wildcat/presentation.zip) and unzip it. It contains all the `.sty` files, the free Poppins and IBM Plex Sans fonts, and a `main.tex` starter file ready to compile with XeLaTeX.
 
-Users on Overleaf can also use the [Overleaf template](https://www.overleaf.com/latex/templates/wildcat/knynymwgrxxj) to quickly start a new wilcat-themed beamer project.
+Alternatively, place all `.sty` files in the same directory as your `.tex` file and add to your preamble:
 
-## Can I customize it?
-Yes! The theme is designed to be (hopefully) easy to customize with your own colors, fonts, and even background patterns. The file source/wildcat-demo.pdf provides numerous examples of how to change the these your liking. I also tried as best I could to add informative comments at every step in the .sty files.   
+```latex
+\usetheme{wildcat}
+```
 
-## Fonts
-For the font theme to work, you will need to have the Campton and Akkurat Pro fonts installed on your system, or teh fonts in a fonts folder in your working directory. If you don't you have two options:
-1. Change the beamerfontthemewildcat.sty file to use fonts you have on hand.
-2. Use the Overleaf-friendly font theme: Add `\usefonttheme{wildcat-overleaf}` in your preamble.
+Requires **XeLaTeX** or **LuaLaTeX** — PDFLaTeX will fail due to `fontspec`.
 
-You will also need to use XeLaTeX to compile. If you use PDFLaTeX, it will fail.
+See `source/wildcat-demo.pdf` for a full reference of all features, or open the [Overleaf template](https://www.overleaf.com/latex/templates/wildcat/knynymwgrxxj) to get started immediately.
 
-## Stability
-I highly doubt this is stable. This is still a work in progress. So, if you come across any errors, please send me a message via GitHub!
+## Theme Options
 
-## Known Issues
-### Overleaf
-1. The [Overleaf template repository](https://www.overleaf.com/latex/templates/wildcat/knynymwgrxxj) does not include the Northwestern logo file. That file is available [here](https://github.com/aarondwolf/wildcat/blob/main/source/logo-northwestern.pdf) if you want to upload it yourself (to the same directory as your tex file), or you can replace the preamble line `\titlegraphic{\includegraphics[scale=0.25]{logo-northwestern.pdf}}` with a filename for your own logo (or just comment it out).
+All options can be combined in a single line:
 
-## Coming Soon
-Here are my plans for what I want to add:
-- More color themes (light version, plus other pallettes entirely)
-- A few pre-selected background patterns to choose from, not just facet.
+```latex
+\usetheme[pattern=triangle, color=nudarkblue, font=poppins]{wildcat}
+```
+
+### Background Patterns (`pattern=`)
+12 built-in patterns ship with the theme:
+
+| Option | Description |
+|---|---|
+| `facet` *(default)* | NU facet design |
+| `facetrand` | NU facets (alternate arrangement) |
+| `triangle` | Triangle mosaic |
+| `triangleiso` | Isometric triangles |
+| `trianglemesh` | Wireframe mesh |
+| `squares` | Square grid |
+| `circles` | Circles |
+| `hexraise` | Raised hex clusters |
+| `hexrand` | Random hex shading |
+| `network` | Network/graph grid |
+| `quilt` | Quilt rings |
+| `plain` | Solid color fill |
+
+See `source/wildcat-gallery.pdf` for a visual preview of all patterns.
+
+### Colors (`color=`)
+Pass any named color to change the primary theme color. All lighter and darker shades are generated automatically:
+
+```latex
+\usetheme[color=nudarkblue]{wildcat}
+```
+
+All `nu*` palette colors (nupurple, nudarkblue, nubrightgreen, etc.) are available. Standard xcolor names (red, blue, etc.) also work. For precise per-shade control, redefine individual `wcprimary10`–`wcprimary40` and `wcprimary110`–`wcprimary140` colors after `\usetheme`.
+
+### Fonts (`font=`)
+
+| Option | Fonts | Files needed |
+|---|---|---|
+| *(default)* | Fira Sans | None — works on Overleaf, MiKTeX, TeX Live |
+| `poppins` | Poppins + IBM Plex Sans | TTF files in `fonts/` (free from Google Fonts) |
+| `nu` | Campton + Akkurat Pro | OTF files in `fonts/` (Northwestern brand fonts) |
+| `installed` | Campton + Akkurat Pro | Must be installed as system fonts |
+
+The default (Fira Sans) requires no setup — it is pre-installed on Overleaf and auto-installs on MiKTeX. For TeX Live, run `tlmgr install fira` if not found.
+
+## Custom Background Patterns
+You can load a custom background pattern from a `.tex` file in your preamble **after** `\usetheme`:
+
+```latex
+\usetheme{wildcat}
+\input{bg-gallery/bg-voronoi}   % use \input, not \include
+```
+
+The `source/bg-gallery/` folder contains:
+- `bg-template.tex` — a contribution template with full instructions
+- `bg-voronoi.tex` — a Voronoi diagram pattern (15 seeds)
+
+**Want to contribute a pattern?** Copy `bg-template.tex`, add your TikZ drawing commands, and open a pull request at [github.com/aarondwolf/wildcat](https://github.com/aarondwolf/wildcat). Community patterns are welcome!
+
+## Overleaf
+
+Users on Overleaf can use the [Overleaf template](https://www.overleaf.com/latex/templates/wildcat/knynymwgrxxj) to get started quickly.
+
+- The default font (Fira Sans) works on Overleaf out of the box
+- The `font=poppins` option works if the TTF files are uploaded to the project
+- The Northwestern logo is not included in the Overleaf template; download it [here](https://github.com/aarondwolf/wildcat/blob/main/source/logo-northwestern.pdf) or replace it with your own logo

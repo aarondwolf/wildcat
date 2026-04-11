@@ -8,15 +8,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is only for those who have already installed these fonts on their system.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Declare named font families from system-installed fonts
-\newfontfamily\CamptonMedium{Campton Medium}
-\newfontfamily\CamptonLight{Campton Light}
-
-% Change title font to Campton
-\setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
-\setbeamerfont{author}{family=\CamptonLight, size=\small}
-\setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
-\setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
+% Change title font to Campton Light
+\setbeamerfont{title}{family=\fontspec{Campton Medium}, size=\LARGE}
+\setbeamerfont{author}{family=\fontspec{Campton Light}, size=\small}
+\setbeamerfont{frametitle}{family=\fontspec{Campton Medium}, size=\Large}
+\setbeamerfont{section}{family=\fontspec{Campton Light}, size=\LARGE}
 
 % Set boldface sans font
 \setsansfont[BoldFont={Akkurat Pro}]{Akkurat Light Pro}

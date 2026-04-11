@@ -1,0 +1,17 @@
+library(ggplot2)
+library(haven)
+# Load data
+df <- read_dta("auto.dta")
+# Define custom RGB colors
+wcprimary <- rgb(78/255, 42/255, 132/255)
+wcalerted <- rgb(202/255, 124/255, 27/255)
+# Plot mpg against weight, by foreign
+plot <- ggplot(df, aes(x = weight, y = mpg, color = factor(foreign))) +
+  geom_point(aes(color = factor(foreign)), size = 3) +
+  scale_color_manual(values = c(wcprimary, wcalerted)) +
+  labs(color = "Foreign") +
+  xlab("Weight") +
+  ylab("mpg")
+
+# Save the plot to a PDF file
+ggsave("plot-R.pdf", plot)

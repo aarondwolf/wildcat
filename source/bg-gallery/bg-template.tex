@@ -1,0 +1,57 @@
+% bg-template.tex — Community pattern template for the Wildcat Beamer theme
+%
+% HOW TO USE
+% ----------
+% Add this line to your preamble, AFTER \usetheme{wildcat} (adjust the path
+% and filename as needed):
+%
+%   \input{bg-gallery/bg-template} 
+%
+% Note: use \input{}, not \include{}. The \include command only works inside
+% the document body; pattern commands must be set in the preamble so that
+% the theme's background saveboxes are populated with the correct pattern.
+%
+%
+% HOW TO CONTRIBUTE A PATTERN
+% ----------------------------
+% 1. Copy this file and give it a descriptive name (e.g. bg-chevron.tex).
+% 2. Rename \bgpatterntemplate to something unique (e.g. \bgpatternchevron).
+% 3. Replace the TikZ drawing commands in \bgpatterntemplate with your own.
+%    The command receives one argument (#1) — the color — so the theme can
+%    reuse it in different contexts (title, section slides, tcolorbox blocks).
+%    Your drawing should fill the full slide; the enclosing tikzpicture
+%    bounding box is already set to (0,0)--(\paperwidth,\paperheight).
+% 4. Submit a pull request to https://github.com/aarondwolf/wildcat
+%
+%
+% PATTERN COMMAND REQUIREMENTS
+% -----------------------------
+% \bgpatterntemplate{color}  — draws a full-slide background given a color name.
+%   - Must work inside an existing tikzpicture (no \begin{tikzpicture} wrapper).
+%   - The bounding box already covers the full slide; just draw your shapes.
+%   - Use #1 as the color argument wherever you reference the theme color.
+%   - Lighter/darker shades (#1!30!white, #1!80!black, etc.) are fine to use.
+%
+% -----------------------------------------------------------------------
+% EXAMPLE PATTERN: plain solid fill
+% -----------------------------------------------------------------------
+% This is the simplest possible pattern — a single solid rectangle covering
+% the entire slide. Replace the \fill command below with your own TikZ
+% drawing to create a new pattern.
+
+\newcommand{\bgpatterntemplate}[1]{%
+  \fill[#1] (0,0) rectangle (\paperwidth,\paperheight);%
+  % Add your Tikz commands here. For color mising, use
+  % the pattern #1!N!<colorname>, where N is a number
+  % from 0 to 100 indicating the percentage of mixing. 
+  % For example:
+  %   #1!30!white — 30% white, 70% base color
+  %   #1!80!black — 80% black, 20% base color
+}
+
+% Wire the pattern into the theme. Both lines are required:
+%   \bgpattern      — used for the title page, section slides, and standout frames
+%   \bgpatternblock — used for tblock/talert/texample/tpatternbox title bars
+%                     (receives the block color as its argument)
+\renewcommand{\bgpattern}{\bgpatterntemplate{wcprimary}}
+\renewcommand{\bgpatternblock}[1]{\bgpatterntemplate{#1}}

@@ -1,0 +1,192 @@
+% bg-voronoi.tex — Voronoi diagram background pattern for the Wildcat theme
+% Author: Aaron Wolf (aarondwolf.github.io)
+%
+% HOW TO USE
+% ----------
+% Add this line to your preamble, AFTER \usetheme{wildcat}:
+%
+%   \input{bg-gallery/bg-voronoi}
+%
+% Note: use \input{}, not \include{}. Pattern commands must be set in the
+% preamble so that the theme's background saveboxes are populated correctly.
+%
+% ABOUT THIS PATTERN
+% ------------------
+% 15 seed points were chosen to give good coverage across a 16:10 slide.
+% The Voronoi diagram was computed with scipy.spatial.Voronoi and clipped
+% to the slide boundary with shapely. Each cell is filled with a slightly
+% different shade of the theme color to create depth.
+%
+% Cell edges are stroked in a faint darkened version of the color.
+% The seed points themselves are not drawn.
+
+\newcommand{\bgpatternvoronoi}[1]{%
+  % Cell 1 — seed (16,18)
+  \fill[#1!100!black]
+    (0.1931\paperwidth,0.0000\paperheight) --
+    (0.0000\paperwidth,0.0000\paperheight) --
+    (0.0000\paperwidth,0.2677\paperheight) --
+    (0.1468\paperwidth,0.3580\paperheight) --
+    (0.1965\paperwidth,0.3159\paperheight) --
+    (0.2222\paperwidth,0.2100\paperheight) -- cycle;
+  % Cell 2 — seed (52,10)
+  \fill[#1!90!black]
+    (0.4734\paperwidth,0.0000\paperheight) --
+    (0.1931\paperwidth,0.0000\paperheight) --
+    (0.2222\paperwidth,0.2100\paperheight) --
+    (0.4406\paperwidth,0.2100\paperheight) -- cycle;
+  % Cell 3 — seed (92,20)
+  \fill[#1!110!black]
+    (0.4406\paperwidth,0.2100\paperheight) --
+    (0.4555\paperwidth,0.2892\paperheight) --
+    (0.5795\paperwidth,0.4214\paperheight) --
+    (0.7140\paperwidth,0.3138\paperheight) --
+    (0.6727\paperwidth,0.0000\paperheight) --
+    (0.4734\paperwidth,0.0000\paperheight) -- cycle;
+  % Cell 4 — seed (130,12)
+  \fill[#1!95!black]
+    (1.0000\paperwidth,0.0600\paperheight) --
+    (1.0000\paperwidth,0.0000\paperheight) --
+    (0.6727\paperwidth,0.0000\paperheight) --
+    (0.7140\paperwidth,0.3138\paperheight) --
+    (0.8016\paperwidth,0.3775\paperheight) -- cycle;
+  % Cell 5 — seed (154,36)
+  \fill[#1!105!black]
+    (0.8016\paperwidth,0.3775\paperheight) --
+    (0.8326\paperwidth,0.4866\paperheight) --
+    (1.0000\paperwidth,0.5369\paperheight) --
+    (1.0000\paperwidth,0.0600\paperheight) -- cycle;
+  % Cell 6 — seed (148,68)
+  \fill[#1!94!black]
+    (0.8326\paperwidth,0.4866\paperheight) --
+    (0.7913\paperwidth,0.6959\paperheight) --
+    (0.9406\paperwidth,1.0000\paperheight) --
+    (1.0000\paperwidth,1.0000\paperheight) --
+    (1.0000\paperwidth,0.5369\paperheight) -- cycle;
+  % Cell 7 — seed (120,90)
+  \fill[#1!109!black]
+    (0.6364\paperwidth,0.7688\paperheight) --
+    (0.6075\paperwidth,1.0000\paperheight) --
+    (0.9406\paperwidth,1.0000\paperheight) --
+    (0.7913\paperwidth,0.6959\paperheight) -- cycle;
+  % Cell 8 — seed (80,82)
+  \fill[#1!92!black]
+    (0.6364\paperwidth,0.7688\paperheight) --
+    (0.5592\paperwidth,0.6263\paperheight) --
+    (0.3658\paperwidth,0.7037\paperheight) --
+    (0.4069\paperwidth,1.0000\paperheight) --
+    (0.6075\paperwidth,1.0000\paperheight) -- cycle;
+  % Cell 9 — seed (44,90)
+  \fill[#1!108!black]
+    (0.3658\paperwidth,0.7037\paperheight) --
+    (0.3365\paperwidth,0.6709\paperheight) --
+    (0.1862\paperwidth,0.7342\paperheight) --
+    (0.1031\paperwidth,1.0000\paperheight) --
+    (0.4069\paperwidth,1.0000\paperheight) -- cycle;
+  % Cell 10 — seed (8,72)
+  \fill[#1!91!black]
+    (0.1862\paperwidth,0.7342\paperheight) --
+    (0.1085\paperwidth,0.5726\paperheight) --
+    (0.0000\paperwidth,0.5850\paperheight) --
+    (0.0000\paperwidth,1.0000\paperheight) --
+    (0.1031\paperwidth,1.0000\paperheight) -- cycle;
+  % Cell 11 — seed (6,44)
+  \fill[#1!111!black]
+    (0.0000\paperwidth,0.2677\paperheight) --
+    (0.0000\paperwidth,0.5850\paperheight) --
+    (0.1085\paperwidth,0.5726\paperheight) --
+    (0.1468\paperwidth,0.3580\paperheight) -- cycle;
+  % Cell 12 — seed (34,52)
+  \fill[#1!97!black]
+    (0.3312\paperwidth,0.5100\paperheight) --
+    (0.1965\paperwidth,0.3159\paperheight) --
+    (0.1468\paperwidth,0.3580\paperheight) --
+    (0.1085\paperwidth,0.5726\paperheight) --
+    (0.1862\paperwidth,0.7342\paperheight) --
+    (0.3365\paperwidth,0.6709\paperheight) -- cycle;
+  % Cell 13 — seed (72,50)
+  \fill[#1!103!black]
+    (0.3312\paperwidth,0.5100\paperheight) --
+    (0.3365\paperwidth,0.6709\paperheight) --
+    (0.3658\paperwidth,0.7037\paperheight) --
+    (0.5592\paperwidth,0.6263\paperheight) --
+    (0.5795\paperwidth,0.4214\paperheight) --
+    (0.4555\paperwidth,0.2892\paperheight) -- cycle;
+  % Cell 14 — seed (110,56)
+  \fill[#1!97!black]
+    (0.8326\paperwidth,0.4866\paperheight) --
+    (0.8016\paperwidth,0.3775\paperheight) --
+    (0.7140\paperwidth,0.3138\paperheight) --
+    (0.5795\paperwidth,0.4214\paperheight) --
+    (0.5592\paperwidth,0.6263\paperheight) --
+    (0.6364\paperwidth,0.7688\paperheight) --
+    (0.7913\paperwidth,0.6959\paperheight) -- cycle;
+  % Cell 15 — seed (52,32)
+  \fill[#1!113!black]
+    (0.2222\paperwidth,0.2100\paperheight) --
+    (0.1965\paperwidth,0.3159\paperheight) --
+    (0.3312\paperwidth,0.5100\paperheight) --
+    (0.4555\paperwidth,0.2892\paperheight) --
+    (0.4406\paperwidth,0.2100\paperheight) -- cycle;
+  % Cell edges — faint lines at Voronoi boundaries
+  \draw[#1!60!black, line width=0pt]
+    (0.1931\paperwidth,0.0000\paperheight) --
+    (0.0000\paperwidth,0.0000\paperheight) --
+    (0.0000\paperwidth,0.2677\paperheight) --
+    (0.1468\paperwidth,0.3580\paperheight) --
+    (0.1965\paperwidth,0.3159\paperheight) --
+    (0.2222\paperwidth,0.2100\paperheight) --
+    (0.4406\paperwidth,0.2100\paperheight) --
+    (0.4734\paperwidth,0.0000\paperheight) --
+    (0.6727\paperwidth,0.0000\paperheight) --
+    (0.7140\paperwidth,0.3138\paperheight) --
+    (0.5795\paperwidth,0.4214\paperheight) --
+    (0.4555\paperwidth,0.2892\paperheight) --
+    (0.3312\paperwidth,0.5100\paperheight) --
+    (0.1965\paperwidth,0.3159\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.8016\paperwidth,0.3775\paperheight) --
+    (1.0000\paperwidth,0.0600\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.8016\paperwidth,0.3775\paperheight) --
+    (0.7140\paperwidth,0.3138\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.8016\paperwidth,0.3775\paperheight) --
+    (0.8326\paperwidth,0.4866\paperheight) --
+    (1.0000\paperwidth,0.5369\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.8326\paperwidth,0.4866\paperheight) --
+    (0.7913\paperwidth,0.6959\paperheight) --
+    (0.9406\paperwidth,1.0000\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.7913\paperwidth,0.6959\paperheight) --
+    (0.6364\paperwidth,0.7688\paperheight) --
+    (0.6075\paperwidth,1.0000\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.6364\paperwidth,0.7688\paperheight) --
+    (0.5592\paperwidth,0.6263\paperheight) --
+    (0.3658\paperwidth,0.7037\paperheight) --
+    (0.4069\paperwidth,1.0000\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.3658\paperwidth,0.7037\paperheight) --
+    (0.3365\paperwidth,0.6709\paperheight) --
+    (0.1862\paperwidth,0.7342\paperheight) --
+    (0.1031\paperwidth,1.0000\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.1862\paperwidth,0.7342\paperheight) --
+    (0.1085\paperwidth,0.5726\paperheight) --
+    (0.0000\paperwidth,0.5850\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.1085\paperwidth,0.5726\paperheight) --
+    (0.1468\paperwidth,0.3580\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.3365\paperwidth,0.6709\paperheight) --
+    (0.3312\paperwidth,0.5100\paperheight) --
+    (0.4555\paperwidth,0.2892\paperheight);
+  \draw[#1!60!black, line width=0pt]
+    (0.5592\paperwidth,0.6263\paperheight) --
+    (0.5795\paperwidth,0.4214\paperheight);
+}
+
+\renewcommand{\bgpattern}{\bgpatternvoronoi{wcprimary}}
+\renewcommand{\bgpatternblock}[1]{\bgpatternvoronoi{#1}}

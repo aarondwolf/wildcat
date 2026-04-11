@@ -1,6 +1,7 @@
 # Claude Code
 .claude/
 CLAUDE.md
+GEMINI.md
 
 # LaTeX auxiliary files
 *.aux

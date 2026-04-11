@@ -26,8 +26,9 @@
 %   via xcolor mixing. Omit to keep the default Northwestern purple.
 %
 % [font=<name>] — font theme. Options:
-%   (omitted)  — default: Campton + Akkurat Pro loaded from OTF files in fonts/
-%   overleaf   — TeX Gyre fonts; no proprietary files needed; safe on Overleaf
+%   (omitted)  — default: Fira Sans; ships with MiKTeX/TeX Live, no bundling needed
+%   poppins    — Poppins + IBM Plex Sans (free Google Fonts, files required)
+%   nu         — official NU brand fonts (Campton + Akkurat Pro) from fonts/
 %   installed  — Campton + Akkurat Pro loaded from system-installed fonts
 \DeclareOptionBeamer{pattern}{\def\wc@pattern{#1}}
 \DeclareOptionBeamer{color}{\def\wc@coloropt{#1}}
@@ -39,13 +40,7 @@
 \useinnertheme{wildcat}
 \useoutertheme{wildcat}
 \usecolortheme{wildcat}
-\def\wc@tmp{overleaf}\ifx\wc@fontopt\wc@tmp
-  \usefonttheme{wildcat-overleaf}%
-\else\def\wc@tmp{installed}\ifx\wc@fontopt\wc@tmp
-  \usefonttheme{wildcat-installed}%
-\else
-  \usefonttheme{wildcat}%
-\fi\fi
+\usefonttheme{wildcat}
 
 % Apply color option: if [color=X] was given, redefine wcprimary and
 % auto-generate all variants via xcolor mixing. Must run inline (before

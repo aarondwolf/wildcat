@@ -1,0 +1,221 @@
+% This file defines the inner theme "wildcat" for the beamer class.
+% It contains commands and templates for customizing the background, title page, section pages, and special blocks.
+% The main pattern for the background is defined in the \bgpattern command, which is used in various templates and environments.
+% The \bgpatternlight command creates a lighter version of the background pattern for section pages.
+% The \bgpatternblock command creates a color-specific version of the background pattern for tblocks.
+% The background template is set using the \setbeamertemplate{background} command, which includes the main pattern and optional logo.
+% The title page template is defined using the \defbeamertemplate*{title page}{wildcat} command, which positions the title, author, and date.
+% Section pages are generated using the \AtBeginSection[] command, which sets the background template and displays the section name.
+% Special blocks for alerts, examples, and facets are defined using the \newtcolorbox command, which sets the background pattern and color.
+% The \standout command creates a standout frame with a blank background and centered text.
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Create a new command, bgpattern, which stores all the tikz code for the background
+% pattern. This is used in the background template, tblock environments, section
+% pages, standout frames, and the title page.
+% If you want to change the background pattern, this is the place to do it.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main pattern: Used in title page and standout frames, plus tblocks
+\newcommand{\bgpattern}{
+  \draw[color=wcprimary,fill=wcprimary, line width=0.05pt] (0,0) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- cycle;
+  \draw[color=wcprimary110,fill=wcprimary110,, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
+  \draw[color=wcprimary120,fill=wcprimary120, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
+  \draw[color=wcprimary130,fill=wcprimary130, line width=0.05pt] (7.7,0) -- (13.2,0.82*\the\paperheight) -- (11.6,0) -- cycle;
+  \draw[color=wcprimary110,fill=wcprimary110, line width=0.05pt] (11.6,0) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,0.18*\the\paperheight) -- (12,0) -- cycle;
+  \draw[color=wcprimary,fill=wcprimary, line width=0.05pt] (12,0) -- (\the\paperwidth,0.18*\the\paperheight) -- (\the\paperwidth,0) -- cycle;
+  \draw[color=wcprimary,fill=wcprimary,  line width=0.05pt] (12.8,\the\paperheight) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,\the\paperheight) -- cycle;
+}
+
+% Make a light version for section pages
+\newcommand{\bgpatternlight}{
+  \draw[color=wcprimary10!30,fill=wcprimary10!30, line width=0.05pt] (0,0) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- cycle;
+  \draw[color=wcprimary20!30,fill=wcprimary20!30, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
+  \draw[color=wcprimary30!30,fill=wcprimary30!30, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
+  \draw[color=wcprimary40!30,fill=wcprimary40!30, line width=0.05pt] (7.7,0) -- (13.2,0.82*\the\paperheight) -- (11.6,0) -- cycle;
+  \draw[color=wcprimary20!30,fill=wcprimary20!30, line width=0.05pt] (11.6,0) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,0.18*\the\paperheight) -- (12,0) -- cycle;
+  \draw[color=wcprimary10!30,fill=wcprimary10!30, line width=0.05pt] (12,0) -- (\the\paperwidth,0.18*\the\paperheight) -- (\the\paperwidth,0) -- cycle;
+  \draw[color=wcprimary10!30,fill=wcprimary10!30,  line width=0.05pt] (12.8,\the\paperheight) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,\the\paperheight) -- cycle;
+}
+
+% Make a color-specific version for tblocks that aren't purple. This accepts one
+% argument, the color.
+\newcommand{\bgpatternblock}[1]{
+  \draw[color=#1,fill=#1, line width=0.05pt] (0,0) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- cycle;
+  \draw[color=#1!110,fill=#1!110,, line width=0.05pt] (0,\the\paperheight) -- (0,0.9*\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,\the\paperheight) -- cycle;
+  \draw[color=#1!120,fill=#1!120, line width=0.05pt] (6.4,\the\paperheight) -- (4.4,0.75*\the\paperheight) -- (6.4,0) -- (7.7,0) -- (13.2,0.82*\the\paperheight) -- (12.8,\the\paperheight) -- cycle;
+  \draw[color=#1!130,fill=#1!130, line width=0.05pt] (7.7,0) -- (13.2,0.82*\the\paperheight) -- (11.6,0) -- cycle;
+  \draw[color=#1!110,fill=#1!110, line width=0.05pt] (11.6,0) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,0.18*\the\paperheight) -- (12,0) -- cycle;
+  \draw[color=#1,fill=#1, line width=0.05pt] (12,0) -- (\the\paperwidth,0.18*\the\paperheight) -- (\the\paperwidth,0) -- cycle;
+  \draw[color=#1,fill=#1,  line width=0.05pt] (12.8,\the\paperheight) -- (13.2,0.82*\the\paperheight) -- (\the\paperwidth,0.55*\the\paperheight) -- (\the\paperwidth,\the\paperheight) -- cycle;
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set the background template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{background}{
+    \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    % Add main pattern only on the cover page
+    \ifnum\thepage=1
+      \bgpattern
+      % Add the logo if \titlegraphic is not blank
+      \ifx\inserttitlegraphic\@empty\relax
+      \else
+        \node[anchor=west,inner sep=0] at (0.05*\the\paperwidth,0.89*\the\paperheight) {\inserttitlegraphic};
+      \fi
+    \else
+      % Plain white background for every other page
+      \fill[white,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \fi
+    % If the frame specifies [plain] as an option, draw a full white background
+    \ifbeamer@plainframe
+      \fill[white,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \fi
+  \end{tikzpicture}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set the title page text positioning
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\defbeamertemplate*{title page}{wildcat}[1][]
+{ 
+% Clear the headline/footline template
+\setbeamertemplate{headline}{} 
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}   
+\vfill
+\vskip4cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,sep=8pt,#1]{title page header}
+        \raggedright\usebeamerfont{title}\inserttitle\par%
+    \end{beamercolorbox}%
+    \vskip0.75cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,#1]{author}
+        \raggedright\usebeamerfont{author}\insertauthor%
+    \end{beamercolorbox}
+     \vskip0.2cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,#1]{date}
+        \raggedright\usebeamerfont{author}\insertdate%
+    \end{beamercolorbox}
+\vfill
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Generate a section page whenever \section{} is called
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection[]{
+  {\setbeamertemplate{background}{
+    \begin{tikzpicture}
+      \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \bgpatternlight
+    \end{tikzpicture}
+  }
+  \setbeamertemplate{headline}{} % Remove header
+  \setbeamertemplate{footline}{} % Remove footer
+  \begin{frame}
+    \vfill
+    \vskip4cm%
+    \begin{beamercolorbox}[sep=8pt,left,shadow=false,rounded=false]{title}
+      {\color{wcprimary}\raggedright\usebeamerfont{section}\insertsectionhead\par}%
+    \end{beamercolorbox}
+  \end{frame}
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Create special blocks for alerts, examples, and facets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% If you want the facet design to come through faintly in the interior, replace the fill
+% color of the overlay to \fill[white, fill opacity=0.8]
+\newtcolorbox{tblock}[1]{
+  enhanced,
+  underlay={
+    \begin{tcbclipframe}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpattern  
+      \end{tcbclipframe}
+  },
+  overlay={
+    \begin{tcbclipinterior}
+      \fill[wcprimary10] (frame.south west) rectangle (frame.north east);
+    \end{tcbclipinterior}
+  },
+  title=#1
+}
+
+\newtcolorbox{talert}[1]{
+  enhanced,
+  underlay={
+    \begin{tcbclipframe}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpatternblock{wcalerted}  
+    \end{tcbclipframe}
+  },
+  overlay={
+    \begin{tcbclipinterior}
+      \fill[wcalerted!10] (frame.south west) rectangle (frame.north east);
+    \end{tcbclipinterior}
+  },
+  title=#1
+}
+
+\newtcolorbox{texample}[1]{
+  enhanced,
+  underlay={
+    \begin{tcbclipframe}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpatternblock{wcexample}  
+    \end{tcbclipframe}
+  },
+  overlay={
+    \begin{tcbclipinterior}
+      \fill[wcexample!10] (frame.south west) rectangle (frame.north east);
+    \end{tcbclipinterior}
+  },
+  title=#1
+}
+
+% And a general facet block which takes a second (optional) argument for the color
+\newtcolorbox{tfacetbox}[2][wcprimary]{
+  enhanced,
+  underlay={
+    \begin{tcbclipframe}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpatternblock{#1}  
+      \end{tcbclipframe}
+  },
+  overlay={
+    \begin{tcbclipinterior}
+      \fill[#1!10] (frame.south west) rectangle (frame.north east);
+    \end{tcbclipinterior}
+  },
+  title=#2
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Standout Frame
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Create a standout frame for important points. It should be blank, with the body 
+% text centered vertically and horizontally. There should be no title
+\newcommand{\standout}[1]{
+    {
+        \setbeamertemplate{background}{
+            \begin{tikzpicture}
+              \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+                \bgpattern
+            \end{tikzpicture}
+        }
+        \setbeamertemplate{footline}{}
+        \begin{frame}
+            \vfill
+            \begin{beamercolorbox}[sep=8pt,center,shadow=false,rounded=false]{title}
+                {\color{wcprimary10}\usebeamerfont{section}#1\par}
+            \end{beamercolorbox}
+        \end{frame}
+    }
+}
+
+
+
+\mode
+<all>

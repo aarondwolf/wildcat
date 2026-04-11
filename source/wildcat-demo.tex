@@ -9,10 +9,10 @@
 %
 % pattern: facet (default), facetrand, triangle, triangleiso, trianglemesh,
 %          squares, circles, hexraise, hexrand, network, quilt, plain
-%
 % color: any named color (nu* colors are all available after theme loads).
 %        All wcprimary shades are auto-generated. Omit to keep NU purple.
-% font: overleaf (TeX Gyre), installed (system fonts), or omit for default
+% font: poppins (Poppins+IBM Plex), nu (Campton+Akkurat), installed (system fonts),
+%        or omit for default (Fira Sans — no files needed)
 \usetheme{wildcat}
 
 % You change the titlegraphic to whatever you want, or comment it out to remove it.
@@ -41,6 +41,10 @@
 % % Turn off section slides
 % \AtBeginSection{}
 
+% % Use a custom background pattern 
+% % (see bg-gallery/bg-template.tex for an example 
+% % of how to define your own pattern):
+% \input{bg-gallery/bg-template}
 
 \begin{document}
 
@@ -48,15 +52,17 @@
 \titlepage
 \end{frame}
 
-% \begin{frame}{Table of Contents}
-%     \tableofcontents
-% \end{frame}
-
 \begin{frame}{Introduction}
-    The Wildcat theme is a Beamer theme for Northwestern University, but which can be modified easily with different colors, fonts, and even background patterns. 
+    The Wildcat theme is a Beamer theme for Northwestern University that can be easily customized with different colors, fonts, and background patterns.
     \\ ~ \\
-    The theme is inspired by the \href{https://github.com/matze/mtheme}{Metropolis theme} by Matthias Vogelgesang. It incorporates the Northwestern University facet design pattern, but otherwise has a clean, simple look, and relatively few bells and whistles. It is licensed under the GNU GENERAL PUBLIC LICENSE.
+    It is inspired by the \href{https://github.com/matze/mtheme}{Metropolis theme} by Matthias Vogelgesang, and incorporates the Northwestern University facet design pattern. Licensed under the GNU GENERAL PUBLIC LICENSE.
 \end{frame}
+
+\begin{frame}{Contents}
+    \tableofcontents
+\end{frame}
+
+\section{Background Patterns}
 
 \begin{frame}[fragile]{Background Patterns}
     The theme ships with 12 built-in background patterns. The easiest way to switch is via a theme option:
@@ -90,6 +96,9 @@
     \vskip0.5em
     {\footnotesize See \href{https://github.com/aarondwolf/wildcat/blob/main/source/wildcat-gallery.pdf}{\texttt{wildcat-gallery.pdf}} for a visual preview of all patterns.}
 \end{frame}
+
+
+\section{Colors}
 
 \begin{frame}
     \frametitle{Colors}
@@ -160,13 +169,15 @@
 \usetheme[color=myblue]{wildcat}
     \end{verbatim}
     \normalsize
+    When you pass a color via the \texttt{color} option, that color becomes available to use as \texttt{wcprimary} in your slides, and the theme auto-generates the lighter and darker shades as \texttt{wcprimary10}–\texttt{40} and \texttt{wcprimary110}–\texttt{140}, respectively. These are also available as named colors you can use in your slides, and the theme uses them internally for block backgrounds and pattern fills.
+    \\ ~ \\
     The auto-generated shades follow a simple scale: \texttt{wcprimary10}–\texttt{40} mix the base color with white (lighter tints), and \texttt{wcprimary110}–\texttt{140} mix it with black (darker shades). These are sufficient for most use cases — if you need precise per-shade control, see the Advanced Customization section at the end of this document.
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
     %You can use the colors in your graphs in Python, R, and Stata using the following commands:
-    \begin{tblock}{Python Code}
+    \begin{tblock}{Python}
         \footnotesize
         \begin{verbatim}
 import matplotlib.pyplot as plt
@@ -196,7 +207,7 @@ plt.show()
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
-    \begin{tblock}{R Code}
+    \begin{tblock}{R}
         \footnotesize
         \begin{verbatim}
 library(ggplot2)
@@ -223,7 +234,7 @@ ggsave("source/graphs/plot-R.pdf", plot, width = 8, height = 5)
     \frametitle{Using Colors in Graphs}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{graphs/plot-R.pdf}
+        \includegraphics[width=0.7\textwidth]{graphs/plot-R.pdf}
         \caption{R Graph Example}
         \label{fig:graph-R}
     \end{figure}
@@ -231,17 +242,17 @@ ggsave("source/graphs/plot-R.pdf", plot, width = 8, height = 5)
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
-    \begin{tblock}{Stata Code}
+    \begin{tblock}{Stata}
         \footnotesize
         \begin{verbatim}
-*ssc install schemepack, replace
+ssc install schemepack, replace
 sysuse auto, clear
 local wcprimary "78 42 132"
 
 twoway (scatter mpg weight, mcolor("`wcprimary'")), ///
         scheme(gg_tableau)
         
-graph export "plot-stata.pdf", replace
+graph export "source/graphs/plot-stata.pdf", replace
         \end{verbatim}
     \end{tblock}
 \end{frame}
@@ -256,80 +267,42 @@ graph export "plot-stata.pdf", replace
     \end{figure}
 \end{frame}
 
-
-\begin{frame}{Pattern Blocks (tcolorbox)}
-    You can use tcolorbox style blocks with the background pattern instead of the default beamer blocks. You can create this with a \texttt{\textbackslash begin\{tblock\}} environment. You can also use \texttt{talert} and \texttt{texample} for alert and example blocks, respectively.
-    \begin{tblock}{T Block Title}
-        This is a tcolorbox style block.
-    \end{tblock}
-    \begin{talert}{T Alert Title}
-        This is a tcolorbox style alert block.
-    \end{talert}
-    \begin{texample}{T Example Title}
-        This is a tcolorbox style example block.
-    \end{texample}
-\end{frame}
-
-\begin{frame}[fragile]{Custom Color Pattern Blocks}
-    There is also a special block called \texttt{tpatternbox} which allows you to specify the color. This only works with non-primary (not red, green, or blue) colors, as you can't shade those easily.
-    \begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
-        This is a tpatternbox block. It can be created with the following code:
-        \begin{verbatim}
-\begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
-    This is a tpatternbox block...
-\end{tpatternbox}
-        \end{verbatim}
-    \end{tpatternbox}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Box Examples (Default)}
-    You can also just use the Beamer default blocks in the usual way. The default is non-rounded corners, non-shaded.
-    \begin{block}{Main Block}
-    This is an example block
-    \end{block}
-    \begin{alertblock}{Alert Box}
-    This is an alert box
-    \end{alertblock}
-    \begin{exampleblock}{Example Box}
-        This is an example box
-    \end{exampleblock}
-    \end{frame}
-
-\begin{frame}[fragile]{Fonts}
-    The theme uses Campton (titles) and Akkurat Pro (body) by default — these are proprietary fonts that must be purchased separately. Place the OTF files in a \texttt{fonts/} folder next to your \texttt{.tex} file:
+\section{Fonts}
+\begin{frame}[fragile]{Fonts: Default (Fira Sans)}
+    By default, the theme uses \textbf{Fira Sans} --- a clean, geometric sans-serif that ships with TeX Live and MiKTeX and is pre-installed on Overleaf. No font files need to be downloaded or bundled:
     \scriptsize
+    \begin{verbatim}
+\usetheme{wildcat}          % Fira Sans loads automatically
+    \end{verbatim}
+    \normalsize
+    \textbf{Overleaf:} works out of the box. \\
+    \textbf{MiKTeX:} auto-installs on first compile. \\
+    \textbf{TeX Live:} if the font is not found, run \texttt{tlmgr install fira} in your terminal, then recompile. \\[0.5em]
+    Requires \textbf{XeLaTeX} or \textbf{LuaLaTeX} — PDFLaTeX will fail.
+\end{frame}
+
+\begin{frame}[fragile]{Fonts: Poppins + IBM Plex Sans}
+    For a closer match to Northwestern's recommended free fonts, use \texttt{font=poppins}. Download both families from Google Fonts and place them in a \texttt{fonts/} folder next to your \texttt{.tex} file:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[font=poppins]{wildcat}
+    \end{verbatim}
     \begin{verbatim}
 your-presentation/
   your-slides.tex
   fonts/
-    Campton/
-      Campton Medium.otf
-      Campton Light.otf
-    Akkurat/
-      AkkuratProLight-Regular.otf
-      AkkuratProLight-Italic.otf
-      AkkuratPro-Regular.otf
-      AkkuratPro-Bold.otf
+    Poppins/
+      Poppins-Medium.ttf    Poppins-MediumItalic.ttf
+      Poppins-SemiBold.ttf  Poppins-SemiBoldItalic.ttf
+      Poppins-Light.ttf     Poppins-LightItalic.ttf
+      Poppins-Regular.ttf   Poppins-Italic.ttf
+    IBM_Plex_Sans/
+      static/
+        IBMPlexSans-Light.ttf      IBMPlexSans-LightItalic.ttf
+        IBMPlexSans-Regular.ttf    IBMPlexSans-Italic.ttf
     \end{verbatim}
     \normalsize
-    Requires \textbf{XeLaTeX} or \textbf{LuaLaTeX} — PDFLaTeX will fail.
-\end{frame}
-
-\begin{frame}[fragile]{Fonts: Overleaf / No Proprietary Fonts}
-    If you are on Overleaf or do not have the proprietary fonts, use the \texttt{font=overleaf} option. This switches to TeX Gyre fonts, which are universally available with no files to upload:
-    \scriptsize
-    \begin{verbatim}
-\usetheme[font=overleaf]{wildcat}
-    \end{verbatim}
-    \normalsize
-    You can combine all three options in one line:
-    \scriptsize
-    \begin{verbatim}
-\usetheme[font=overleaf, color=nudarkblue, pattern=triangle]{wildcat}
-    \end{verbatim}
-    \normalsize
-    For advanced font customization (loading fonts manually, using system-installed fonts), see the Advanced Customization section at the end of this document.
+    For proprietary Northwestern brand fonts (Campton + Akkurat Pro), see the Advanced Customization section.
 \end{frame}
 
 \begin{frame}{Font Style: Examples}
@@ -345,35 +318,104 @@ your-presentation/
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Sections}
-    You can use \texttt{\textbackslash section\{\}} to group slides into sections. This will automatically add a section title slide at the beginning of each section.
-    \\ ~ \\
-    You can turn this off by adding \texttt{\textbackslash AtBeginSection\{\}} to your preamble (this tells beamer to do precisely nothing when a new section starts).
+\section{Block Environments}
+
+\begin{frame}{Pattern Blocks (tcolorbox)}
+    Three patterned block environments are available as drop-in replacements for standard Beamer blocks: \texttt{tblock}, \texttt{talert}, and \texttt{texample}.
+    \begin{tblock}{T Block Title}
+        This is a tcolorbox style block.
+    \end{tblock}
+    \begin{talert}{T Alert Title}
+        This is a tcolorbox style alert block.
+    \end{talert}
+    \begin{texample}{T Example Title}
+        This is a tcolorbox style example block.
+    \end{texample}
 \end{frame}
+
+\begin{frame}[fragile]{Custom Color Pattern Blocks}
+    \texttt{tpatternbox} is a variant that accepts an optional color argument, letting you use any named color for the block header.
+    \begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
+        This is a tpatternbox block. It can be created with the following code:
+        \begin{verbatim}
+\begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
+    This is a tpatternbox block...
+\end{tpatternbox}
+        \end{verbatim}
+    \end{tpatternbox}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Box Examples (Default)}
+    Standard Beamer blocks work as usual. The theme styles them with flat (non-rounded, non-shaded) colors.
+    \begin{block}{Main Block}
+    This is an example block
+    \end{block}
+    \begin{alertblock}{Alert Box}
+    This is an alert box
+    \end{alertblock}
+    \begin{exampleblock}{Example Box}
+        This is an example box
+    \end{exampleblock}
+    \end{frame}
+
+\section{Special Frames}
+
+% Sections
+\begin{frame}{Sections}
+    \texttt{\textbackslash section\{\}} groups slides and automatically inserts a section title slide. To disable section slides, add this to your preamble:
+    \\ ~ \\
+    \texttt{\textbackslash AtBeginSection\{\}}
+\end{frame}
+
+% Blank Frame
+\begin{frame}[plain]{}
+    The \texttt{[plain]} option produces a fully blank frame with no header, footer, or background. Use it for title cards, full-bleed figures, or transition slides:
+    \\ ~ \\
+    \texttt{\textbackslash begin\{frame\}[plain]\{\}} \\
+    \texttt{...} \\
+    \texttt{\textbackslash end\{frame\}}
+\end{frame}
+
+% Standout frame
+\begin{frame}{Standout Slides}
+    \texttt{\textbackslash standout\{text\}} creates a full-pattern slide with large centered white text — useful for section breaks, closing slides, or anything that needs emphasis:
+    \\ ~ \\
+    \texttt{\textbackslash standout\{Appendix\}}
+
+\end{frame}
+
+\standout{Appendix}
 
 
 \section{Advanced Customization}
 
-\begin{frame}[fragile]{Advanced: Custom Fonts}
-    If you have Campton and Akkurat Pro installed system-wide, use:
+\begin{frame}[fragile]{Advanced: NU Brand Fonts (Bundled)}
+    Northwestern affiliates can use the official brand fonts --- \textbf{Campton} (headings) and \textbf{Akkurat Pro} (body). These are proprietary; obtain them from \href{https://www.northwestern.edu/brand/visual-identity/typography/}{\texttt{northwestern.edu/brand}}. Bundle the OTF files in a \texttt{fonts/} folder and use:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[font=nu]{wildcat}
+    \end{verbatim}
+    \begin{verbatim}
+your-presentation/
+  your-slides.tex
+  fonts/
+    Campton/
+      Campton Medium.otf    Campton Light.otf
+    Akkurat/
+      AkkuratProLight-Regular.otf  AkkuratProLight-Italic.otf
+      AkkuratPro-Regular.otf       AkkuratPro-Bold.otf
+    \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Advanced: NU Brand Fonts (System-Installed)}
+    If Campton and Akkurat Pro are already installed as system fonts (visible in Word, etc.), no \texttt{fonts/} folder is needed. Use:
     \scriptsize
     \begin{verbatim}
 \usetheme[font=installed]{wildcat}
     \end{verbatim}
     \normalsize
-    To load OTF files from a custom path (e.g.\ when uploading to Overleaf), add these lines to your preamble \textit{after} \texttt{\textbackslash usetheme}:
-    \footnotesize
-    \begin{verbatim}
-\newfontfamily\CamptonMedium[Path=fonts/Campton/, Extension=.otf]{Campton Medium}
-\newfontfamily\CamptonLight[Path=fonts/Campton/, Extension=.otf]{Campton Light}
-\setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
-\setbeamerfont{author}{family=\CamptonLight, size=\small}
-\setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
-\setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
-\setsansfont[Path=fonts/Akkurat/, UprightFont=*Light-Regular,
-    ItalicFont=*Light-Italic, BoldFont=*-Regular,
-    BoldItalicFont=*-Bold, Extension=.otf]{AkkuratPro}
-    \end{verbatim}
+    fontspec loads the fonts directly from the OS font registry — no \texttt{fonts/} folder needed. This is convenient for local compilation, but won't work on Overleaf or when sharing with collaborators who don't have the fonts installed. In those cases, use \texttt{font=nu} with bundled OTF files as described on the previous slide.
 \end{frame}
 
 \begin{frame}[fragile]{Advanced: Fine-Grained Color Control}
@@ -406,7 +448,7 @@ your-presentation/
     \normalsize
     The pattern command is called inside a \texttt{tikzpicture} environment whose bounding box already covers the full slide, so you only need to provide the drawing commands — no \texttt{\textbackslash begin\{tikzpicture\}} wrapper is needed.
     \\ ~ \\
-    Any valid TikZ commands work. The built-in patterns each take one color argument and use \texttt{\textbackslash the\textbackslash paperwidth} / \texttt{\textbackslash the\textbackslash paperheight} to scale to the slide dimensions automatically.
+    Any valid TikZ commands work. The built-in patterns each take one color argument and use \texttt{\textbackslash paperwidth} / \texttt{\textbackslash paperheight} to scale to the slide dimensions automatically.
 \end{frame}
 
 \begin{frame}[fragile]{Advanced: Custom Background Pattern (II)}
@@ -432,24 +474,18 @@ your-presentation/
     The \texttt{\textbackslash bgpatternblock} variant used in \texttt{tblock} headers is typically identical to \texttt{\textbackslash bgpattern}, just registered separately so the theme can pass the block's color through as an argument.
 \end{frame}
 
-% Blank Frame
-\begin{frame}[plain]{}
-    Here is a blank frame. You can use this to add a blank page to your presentation. You can specify this via:
+\begin{frame}[fragile]{Advanced: Community Background Patterns}
+    A pattern template and example patterns are available in the \texttt{bg-gallery/} folder. To use one, add a single \texttt{\textbackslash input} line to your preamble \textit{after} \texttt{\textbackslash usetheme\{wildcat\}}:
+    \scriptsize
+    \begin{verbatim}
+\usetheme{wildcat}
+\input{bg-gallery/bg-template}   % swap in any pattern file
+    \end{verbatim}
+    \normalsize
+    Use \texttt{\textbackslash input\{\}}, not \texttt{\textbackslash include\{\}} — pattern commands must be set in the preamble, and \texttt{\textbackslash include} only works in the document body.
     \\ ~ \\
-    \texttt{\textbackslash begin\{frame\}[plain]\{\}} \\
-    \texttt{...} \\
-    \texttt{\textbackslash end\{frame\}}
+    \textbf{Want to contribute?} Copy \texttt{bg-gallery/bg-template.tex}, replace the drawing commands with your own TikZ, and open a pull request at \href{https://github.com/aarondwolf/wildcat}{\texttt{github.com/aarondwolf/wildcat}}. Community patterns are welcome!
 \end{frame}
-
-% Standout frame
-\begin{frame}{Standout Slides}
-    You can use the \texttt{standout} command to create a slide with a large font and no title. This is useful for a slide that you want to stand out, but which doesn't need a title.
-    \\ ~ \\
-    \texttt{\textbackslash standout\{Questions?\}}
-
-\end{frame}
-
-\standout{Questions?}
 
 
 \end{document}

@@ -1,45 +1,169 @@
-% This file defines the font theme "wildcat" for the beamer class in LaTeX.
-% It sets the fonts used for the title, author, frametitle, and section headings.
-% The font families are created from OTF fonts located in the "fonts" directory.
-% The Campton font family is used for the title and frametitle, while the Campton Light font family is used for the author and section headings.
-% The AkkuratPro font family is used as the sans font, and the TeX Gyre Cursor font is used as the mono font.
-% Make sure to have the required OTF font files in the correct relative directory or update the font paths accordingly.
+% Font theme for the Wildcat Beamer theme.
+% Controlled by the font= option passed to \usetheme{wildcat}:
+%
+%   font= (omitted)  DEFAULT: Fira Sans (ships with MiKTeX/TeX Live, no bundling)
+%   font=poppins     Poppins + IBM Plex Sans (free Google Fonts, files required)
+%   font=nu          Official NU brand fonts: Campton + Akkurat Pro (files required)
+%   font=installed   Campton + Akkurat Pro loaded from system-installed fonts
+%
 \mode<presentation>
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This requires the following files:
-%       fonts/Campton/Campton Medium.otf
-%       fonts/Campton/Campton Light.otf
-%       fonts/Akkurat/AkkuratProLight-Regular.otf
-%       fonts/Akkurat/AkkuratProLight-Italic.otf
-%       fonts/Akkurat/AkkuratPro-Regular.otf
-%       fonts/Akkurat/AkkuratPro-Bold.otf
-% Make sure these files are in the correct relative directory to the main file,
-% or else replace the paths with the correct path.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DEFAULT — Fira Sans
+%%
+%% Ships with MiKTeX and TeX Live as the "fira" package; pre-installed on
+%% Overleaf. No font files need to be bundled with your presentation.
+%%
+%% MiKTeX:  auto-installs on first compile.
+%% TeX Live: run  tlmgr install fira  if not already installed.
+%% Overleaf: works out of the box.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\wc@tmp{nu}\ifx\wc@fontopt\wc@tmp\else
+\def\wc@tmp{poppins}\ifx\wc@fontopt\wc@tmp\else
+\def\wc@tmp{installed}\ifx\wc@fontopt\wc@tmp\else
 
-% Create new font families from OTF fonts
+\newfontfamily\FiraMedium{FiraSans-Medium}[
+    Extension      = .otf,
+    ItalicFont     = FiraSans-MediumItalic,
+    BoldFont       = FiraSans-SemiBold,
+    BoldItalicFont = FiraSans-SemiBoldItalic,
+]
+\newfontfamily\FiraLight{FiraSans-Light}[
+    Extension      = .otf,
+    ItalicFont     = FiraSans-LightItalic,
+    BoldFont       = FiraSans-Regular,
+    BoldItalicFont = FiraSans-Italic,
+]
+\setbeamerfont{title}{family=\FiraMedium, size=\LARGE}
+\setbeamerfont{author}{family=\FiraLight, size=\small}
+\setbeamerfont{frametitle}{family=\FiraMedium, size=\Large}
+\setbeamerfont{section}{family=\FiraLight, size=\LARGE}
+\setsansfont{FiraSans-Book}[
+    Extension      = .otf,
+    ItalicFont     = FiraSans-BookItalic,
+    BoldFont       = FiraSans-Bold,
+    BoldItalicFont = FiraSans-BoldItalic,
+]
+
+\fi\fi\fi  % end default block
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% font=poppins — Poppins + IBM Plex Sans (free Google Fonts)
+%%
+%% Northwestern-recommended free substitutes for the proprietary NU fonts.
+%% Font files must be bundled with your presentation:
+%%
+%%   your-presentation/
+%%     your-slides.tex
+%%     fonts/
+%%       Poppins/
+%%         Poppins-Medium.ttf
+%%         Poppins-MediumItalic.ttf
+%%         Poppins-SemiBold.ttf
+%%         Poppins-SemiBoldItalic.ttf
+%%         Poppins-Light.ttf
+%%         Poppins-LightItalic.ttf
+%%         Poppins-Regular.ttf
+%%         Poppins-Italic.ttf
+%%       IBM_Plex_Sans/
+%%         static/
+%%           IBMPlexSans-Light.ttf
+%%           IBMPlexSans-LightItalic.ttf
+%%           IBMPlexSans-Regular.ttf
+%%           IBMPlexSans-Italic.ttf
+%%
+%% Download: https://fonts.google.com/specimen/Poppins
+%%           https://fonts.google.com/specimen/IBM+Plex+Sans
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\wc@tmp{poppins}\ifx\wc@fontopt\wc@tmp
+
+\newfontfamily\PoppinsMedium[
+    Path           = fonts/Poppins/,
+    Extension      = .ttf,
+    UprightFont    = *-Medium,
+    ItalicFont     = *-MediumItalic,
+    BoldFont       = *-SemiBold,
+    BoldItalicFont = *-SemiBoldItalic,
+]{Poppins}
+\newfontfamily\PoppinsLight[
+    Path           = fonts/Poppins/,
+    Extension      = .ttf,
+    UprightFont    = *-Light,
+    ItalicFont     = *-LightItalic,
+    BoldFont       = *-Regular,
+    BoldItalicFont = *-Italic,
+]{Poppins}
+\setbeamerfont{title}{family=\PoppinsMedium, size=\LARGE}
+\setbeamerfont{author}{family=\PoppinsLight, size=\small}
+\setbeamerfont{frametitle}{family=\PoppinsMedium, size=\Large}
+\setbeamerfont{section}{family=\PoppinsLight, size=\LARGE}
+\setsansfont[
+    Path           = fonts/IBM_Plex_Sans/static/,
+    Extension      = .ttf,
+    UprightFont    = IBMPlexSans-Light,
+    ItalicFont     = IBMPlexSans-LightItalic,
+    BoldFont       = IBMPlexSans-Regular,
+    BoldItalicFont = IBMPlexSans-Italic,
+]{IBMPlexSans}
+
+\fi  % end poppins block
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% font=nu — Official NU brand fonts: Campton + Akkurat Pro
+%%
+%% Proprietary fonts available to Northwestern affiliates from:
+%%   https://www.northwestern.edu/brand/visual-identity/typography/
+%%
+%%   your-presentation/
+%%     your-slides.tex
+%%     fonts/
+%%       Campton/
+%%         Campton Medium.otf
+%%         Campton Light.otf
+%%       Akkurat/
+%%         AkkuratProLight-Regular.otf
+%%         AkkuratProLight-Italic.otf
+%%         AkkuratPro-Regular.otf
+%%         AkkuratPro-Bold.otf
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\wc@tmp{nu}\ifx\wc@fontopt\wc@tmp
+
 \newfontfamily\CamptonMedium[Path=fonts/Campton/, Extension=.otf]{Campton Medium}
 \newfontfamily\CamptonLight[Path=fonts/Campton/, Extension=.otf]{Campton Light}
-
-% Change title font to Campton
 \setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
 \setbeamerfont{author}{family=\CamptonLight, size=\small}
 \setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
 \setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
-
-% Set sans font
 \setsansfont[
-    Path = fonts/Akkurat/,
-    UprightFont = *Light-Regular,
-    ItalicFont = *Light-Italic,
-    BoldFont = *-Regular,
+    Path           = fonts/Akkurat/,
+    UprightFont    = *Light-Regular,
+    ItalicFont     = *Light-Italic,
+    BoldFont       = *-Regular,
     BoldItalicFont = *-Bold,
-    Extension = .otf
+    Extension      = .otf,
 ]{AkkuratPro}
+
+\fi  % end nu block
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% font=installed — Campton + Akkurat Pro (system-installed)
+%%
+%% For users who have installed Campton and Akkurat Pro as system fonts.
+%% No fonts/ directory needed — fontspec loads them by name from the OS.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\wc@tmp{installed}\ifx\wc@fontopt\wc@tmp
+
+\newfontfamily\CamptonMedium{Campton Medium}
+\newfontfamily\CamptonLight{Campton Light}
+\setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
+\setbeamerfont{author}{family=\CamptonLight, size=\small}
+\setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
+\setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
+\setsansfont[BoldFont={Akkurat Pro}]{Akkurat Light Pro}
+
+\fi  % end installed block
 
 % Mono font: no explicit setting — fontspec falls back to Latin Modern Mono,
 % which is universally available across TeX Live, MiKTeX, and Overleaf.
-% (TeX Gyre Cursor is not reliably found by XeLaTeX on MiKTeX/Windows.)
-
 
 \mode<all>

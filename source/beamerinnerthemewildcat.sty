@@ -430,7 +430,7 @@
 %   \wc@bgsectionbox   — full pattern + white bottom-quarter band (section pages)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newsavebox{\wc@bgpatternbox}
-\newsavebox{\wc@bgsectionbox}
+% \newsavebox{\wc@bgsectionbox}
 \AtBeginDocument{%
   \savebox{\wc@bgpatternbox}{%
     \begin{tikzpicture}
@@ -438,13 +438,12 @@
       \bgpattern
     \end{tikzpicture}%
   }%
-  \savebox{\wc@bgsectionbox}{%
-    \begin{tikzpicture}
-      \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-      \bgpattern
-      \fill[white] (0,0) rectangle(\the\paperwidth,0.25*\the\paperheight);
-    \end{tikzpicture}%
-  }%
+  % \savebox{\wc@bgsectionbox}{%
+  %   \begin{tikzpicture}
+  %     \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+  %     \bgpatternblock{wcprimary}
+  %   \end{tikzpicture}%
+  % }%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -502,7 +501,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginSection[]{
   {\setbeamertemplate{background}{%
-    \usebox{\wc@bgsectionbox}%
+    \usebox{\wc@bgpatternbox}%
   }
   \setbeamertemplate{headline}{} % Remove header
   \setbeamertemplate{footline}{} % Remove footer
@@ -510,7 +509,7 @@
     \vfill
     \vskip0.72\paperheight%
     \begin{beamercolorbox}[sep=8pt,left,shadow=false,rounded=false]{title}
-      {\color{wcprimary}\raggedright\usebeamerfont{section}\insertsectionhead\par}%
+      {\color{white}\raggedright\usebeamerfont{section}\insertsectionhead\par}%
     \end{beamercolorbox}
   \end{frame}
   }
@@ -575,7 +574,7 @@
   underlay={
     \begin{tcbclipframe}
         \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \bgpatternblock{#1}  
+        \bgpatternblock{#1}
       \end{tcbclipframe}
   },
   overlay={
@@ -585,6 +584,11 @@
   },
   title=#2
 }
+% Backward-compatibility alias: \tfacetbox was renamed to \tpatternbox.
+% Old code using \begin{tfacetbox}...\end{tfacetbox} will still work.
+\NewDocumentEnvironment{tfacetbox}{O{wcprimary} m}
+  {\begin{tpatternbox}[#1]{#2}}
+  {\end{tpatternbox}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Standout Frame

@@ -1,0 +1,44 @@
+% This file defines the font theme "wildcat" for the beamer class in LaTeX.
+% It sets the fonts used for the title, author, frametitle, and section headings.
+% The font families are created from OTF fonts located in the "fonts" directory.
+% The Campton font family is used for the title and frametitle, while the Campton Light font family is used for the author and section headings.
+% The AkkuratPro font family is used as the sans font, and the TeX Gyre Cursor font is used as the mono font.
+% Make sure to have the required OTF font files in the correct relative directory or update the font paths accordingly.
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This requires the following files:
+%       fonts/Campton/Campton Medium.otf
+%       fonts/Campton/Campton Light.otf
+%       fonts/Akkurat/AkkuratProLight-Regular.otf
+%       fonts/Akkurat/AkkuratProLight-Italic.otf
+%       fonts/Akkurat/AkkuratPro-Regular.otf
+%       fonts/Akkurat/AkkuratPro-Bold.otf
+% Make sure these files are in the correct relative directory to the main file,
+% or else replace the paths with the correct path.
+
+% Create new font families from OTF fonts
+\newfontfamily\CamptonMedium[Path=fonts/Campton/, Extension=.otf]{Campton Medium}
+\newfontfamily\CamptonLight[Path=fonts/Campton/, Extension=.otf]{Campton Light}
+
+% Change title font to Campton
+\setbeamerfont{title}{family=\CamptonMedium, size=\LARGE}
+\setbeamerfont{author}{family=\CamptonLight, size=\small}
+\setbeamerfont{frametitle}{family=\CamptonMedium, size=\Large}
+\setbeamerfont{section}{family=\CamptonLight, size=\LARGE}
+
+% Set sans font
+\setsansfont[
+    Path = fonts/Akkurat/,
+    UprightFont = *Light-Regular,
+    ItalicFont = *Light-Italic,
+    BoldFont = *-Regular,
+    BoldItalicFont = *-Bold,
+    Extension = .otf
+]{AkkuratPro}
+
+% Set mono font (ships with LaTeX, no need to install)
+\setmonofont{TeX Gyre Cursor}
+
+
+\mode<all>

@@ -1,0 +1,26 @@
+{
+    "id": "07F3FFB1",
+    "path": "~/GitHub/wildcat/source/graphs/rplot.R",
+    "project_path": "rplot.R",
+    "type": "r_source",
+    "hash": "2128213208",
+    "contents": "",
+    "dirty": false,
+    "created": 1705779233659.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "14,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1705779597,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1705779597942,
+    "read_only": false,
+    "read_only_alternatives": []
+}
