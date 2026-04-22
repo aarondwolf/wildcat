@@ -13,7 +13,7 @@
 %        All wcprimary shades are auto-generated. Omit to keep NU purple.
 % font: poppins (Poppins+IBM Plex), nu (Campton+Akkurat), installed (system fonts),
 %        or omit for default (Fira Sans — no files needed)
-\usetheme{wildcat}
+\usetheme[sectionpage=on,subsectionpage=on]{wildcat}
 
 % You change the titlegraphic to whatever you want, or comment it out to remove it.
 \titlegraphic{\includegraphics[scale=0.25]{logo-northwestern.pdf}}
@@ -38,8 +38,8 @@
 % % you can use the following command:
 %\setbeamercolor{background canvas}{bg=nupurple10!30}
 
-% % Turn off section slides
-% \AtBeginSection{}
+% % Turn off section slides (pass sectionpage=none to \usetheme)
+% \usetheme[sectionpage=none]{wildcat}
 
 % % Use a custom background pattern 
 % % (see bg-gallery/bg-template.tex for an example 
@@ -361,11 +361,24 @@ your-presentation/
 \section{Special Frames}
 
 % Sections
-\begin{frame}{Sections}
-    \texttt{\textbackslash section\{\}} groups slides and automatically inserts a section title slide. To disable section slides, add this to your preamble:
-    \\ ~ \\
-    \texttt{\textbackslash AtBeginSection\{\}}
+\begin{frame}[fragile]{Sections}
+    \texttt{\textbackslash section\{\}} groups slides and automatically inserts a section title slide. Pass \texttt{sectionpage=none} to \texttt{\textbackslash usetheme} to disable them:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[sectionpage=none]{wildcat}
+    \end{verbatim}
+    \normalsize
 \end{frame}
+
+% Subsections
+\begin{frame}{Subsections}
+    The normal \texttt{\textbackslash subsection\{\}} command creates subsections, and there is an option to create a subsection title slide (disabled by default). To enable them, use the \texttt{subsectionpage=on} option when loading the theme:
+    \\ ~ \\
+    \texttt{\textbackslash usetheme[subsectionpage=on]\{wildcat\}}
+\end{frame}
+
+% Subsection Example
+\subsection{Subsection Title}
 
 % Blank Frame
 \begin{frame}[plain]{}
@@ -378,10 +391,15 @@ your-presentation/
 
 % Standout frame
 \begin{frame}{Standout Slides}
-    \texttt{\textbackslash standout\{text\}} creates a full-pattern slide with large centered white text — useful for section breaks, closing slides, or anything that needs emphasis:
+    The \texttt{[standout]} frame option creates a full-pattern slide with centered white text — useful for section breaks, closing slides, or emphasis. No manual formatting needed:
     \\ ~ \\
-    \texttt{\textbackslash standout\{Appendix\}}
-
+    \scriptsize
+    \texttt{\textbackslash begin\{frame\}[standout]}\\
+    \texttt{\quad Appendix} \\
+    \texttt{\textbackslash end\{frame\}}
+    \normalsize
+    \\ ~ \\
+    The legacy \texttt{\textbackslash standout\{text\}} command is still supported for backward compatibility.
 \end{frame}
 
 \standout{Appendix}

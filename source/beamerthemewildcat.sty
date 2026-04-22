@@ -30,10 +30,22 @@
 %   poppins    — Poppins + IBM Plex Sans (free Google Fonts, files required)
 %   nu         — official NU brand fonts (Campton + Akkurat Pro) from fonts/
 %   installed  — Campton + Akkurat Pro loaded from system-installed fonts
+%
+% [sectionpage=<on|none>] — section divider pages. Default: none
+%
+% [subsectionpage=<on|none>] — subsection divider pages. Default: none
+%
+% [numbering=<fraction|number|none>] — slide numbering style. Default: fraction
+%   fraction — i/N  (slide i of N, excluding title page)
+%   number   — slide number only
+%   none     — no slide numbering
 \DeclareOptionBeamer{pattern}{\def\wc@pattern{#1}}
 \DeclareOptionBeamer{color}{\def\wc@coloropt{#1}}
 \DeclareOptionBeamer{font}{\def\wc@fontopt{#1}}
-\ExecuteOptionsBeamer{pattern=facet,color=,font=}  % defaults
+\DeclareOptionBeamer{sectionpage}{\def\wc@sectionpage{#1}}
+\DeclareOptionBeamer{subsectionpage}{\def\wc@subsectionpage{#1}}
+\DeclareOptionBeamer{numbering}{\def\wc@numbering{#1}}
+\ExecuteOptionsBeamer{pattern=facet,color=,font=,sectionpage=none,subsectionpage=none,numbering=fraction}
 \ProcessOptionsBeamer
 
 % Settings

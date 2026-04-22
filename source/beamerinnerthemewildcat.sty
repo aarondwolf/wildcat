@@ -10,6 +10,10 @@
 % The \standout command creates a standout frame with a blank background and centered text.
 \mode<presentation>
 
+% Defaults for standalone usage (without beamerthemewildcat.sty)
+\providecommand{\wc@sectionpage}{none}
+\providecommand{\wc@subsectionpage}{none}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BACKGROUND PATTERN DESIGNS
 %
@@ -497,23 +501,84 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Generate a section page whenever \section{} is called
+% Section and subsection divider pages
+%
+% Layout: bgpattern covers the full slide; a white rectangle masks the left
+% 2/3, leaving the pattern visible only on the right 1/3. Text is placed
+% in the white area:
+%   - Section/subsection number  (large, wcprimary, section font family)
+%   - Section title              (LARGE, wcprimary, section font)
+%   - Subsection title           (large italic, wcprimary — subsection pages only)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\AtBeginSection[]{
-  {\setbeamertemplate{background}{%
-    \usebox{\wc@bgpatternbox}%
-  }
-  \setbeamertemplate{headline}{} % Remove header
-  \setbeamertemplate{footline}{} % Remove footer
-  \begin{frame}
-    \vfill
-    \vskip0.72\paperheight%
-    \begin{beamercolorbox}[sep=8pt,left,shadow=false,rounded=false]{title}
-      {\color{white}\raggedright\usebeamerfont{section}\insertsectionhead\par}%
-    \end{beamercolorbox}
-  \end{frame}
-  }
+
+% Shared background for both section and subsection pages
+\newcommand{\wc@sectionpagebg}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
+    \fill[white] (0,0) rectangle (0.6667*\the\paperwidth,\the\paperheight);
+  \end{tikzpicture}%
 }
+
+% Shared foreground layout for both section and subsection pages
+\newcommand{\wc@sectionpagecontent}[3]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[
+      anchor=north west,
+      inner sep=0pt,
+      text=wcprimary,
+      text opacity=0.1
+    ] at ($(current page.north west)+(0.08\paperwidth,-0.33\paperheight)$) {%
+      {\fontsize{54}{54}\selectfont\bfseries #1}%
+    };
+    \node[
+      anchor=north west,
+      inner sep=0pt,
+      text width=0.50\paperwidth,
+      align=left
+    ] at ($(current page.north west)+(0.08\paperwidth,-0.67\paperheight)$) {%
+      {\color{wcprimary}\usebeamerfont{section}#2\par}%
+      #3%
+    };
+  \end{tikzpicture}%
+}
+
+% Section pages (enabled only when sectionpage=on)
+\def\wc@tmp{on}\ifx\wc@sectionpage\wc@tmp
+\AtBeginSection[]{%
+  {%
+    \setbeamertemplate{background}{\wc@sectionpagebg}%
+    \setbeamertemplate{headline}{}%
+    \setbeamertemplate{footline}{}%
+    \setbeamertemplate{frametitle}{}%
+    \begin{frame}[plain]
+      \wc@sectionpagecontent{\insertsectionnumber}{\insertsectionhead}{}
+    \end{frame}
+  }%
+}%
+\fi
+
+% Subsection pages (enabled only when subsectionpage=on)
+\def\wc@tmp{on}\ifx\wc@subsectionpage\wc@tmp
+\AtBeginSubsection[]{%
+  {%
+    \setbeamertemplate{background}{\wc@sectionpagebg}%
+    \setbeamertemplate{headline}{}%
+    \setbeamertemplate{footline}{}%
+    \setbeamertemplate{frametitle}{}%
+    \begin{frame}[plain]
+      \wc@sectionpagecontent{%
+        \insertsectionnumber.\insertsubsectionnumber%
+      }{%
+        \insertsectionhead%
+      }{%
+        \vspace{6pt}%
+        {\color{wcprimary}\large\itshape\insertsubsectionhead\par}%
+      }%
+    \end{frame}
+  }%
+}%
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Create special blocks for alerts, examples, and facets

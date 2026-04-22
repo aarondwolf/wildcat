@@ -1,5 +1,8 @@
 \mode<presentation>
 
+% Default for standalone usage (without beamerthemewildcat.sty)
+\providecommand{\wc@numbering}{fraction}
+
 % Ensure hyperref package is included
 \usepackage{hyperref}
 
@@ -38,11 +41,16 @@
   \ifnum\insertframenumber>1
     \begin{beamercolorbox}[wd=\paperwidth,ht=-2.5ex,dp=1.125ex,right]{page number in head/foot}
       \usebeamerfont{page number in head/foot}%
-      \color{black!20} % Change the color to black!40
-      \ifnum\inserttotalframenumber>1
-        \the\numexpr\insertframenumber-1\relax/\the\numexpr\inserttotalframenumber-1\relax
-      \fi
-      \hspace{1em} % Add some space to the right margin
+      \color{black!20}%
+      \def\wc@tmp{none}\ifx\wc@numbering\wc@tmp\else
+      \def\wc@tmp{number}\ifx\wc@numbering\wc@tmp
+        \the\numexpr\insertframenumber-1\relax
+      \else
+        \ifnum\inserttotalframenumber>1
+          \the\numexpr\insertframenumber-1\relax/\the\numexpr\inserttotalframenumber-1\relax
+        \fi
+      \fi\fi
+      \hspace{1em}
     \end{beamercolorbox}
   \fi
 }
