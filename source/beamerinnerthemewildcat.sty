@@ -581,6 +581,72 @@
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of contents ("Agenda") layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+\newcommand{\wc@tocsectionline}[2]{%
+  \noindent\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}%
+    {{\usebeamerfont{section}\usebeamercolor[fg]{frametitle}\footnotesize #1}} &
+    {{\usebeamerfont{section}\color{black!60}\footnotesize #2}}%
+  \end{tabular*}\par
+  \vspace{-0.8em}%
+  {\color{black!35}\rule{\linewidth}{0.25pt}}\par
+}
+
+\newcommand{\wc@tocsubsectionline}[2]{%
+  \noindent\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}%
+    {{\usebeamerfont{section}\color{black!65}\scriptsize #1}} &
+    {{\usebeamerfont{section}\color{black!65}\scriptsize #2}}%
+  \end{tabular*}\par
+  \vspace{-0.1em}%
+}
+
+\defbeamertemplate*{section in toc}{wildcat}{%
+  \vspace{0.5em}
+  \wc@tocsectionline{\inserttocsection}{\inserttocsectionnumber}%
+}
+
+\defbeamertemplate*{section in toc shaded}{wildcat}[1][20]{%
+  \usebeamertemplate{section in toc}%
+}
+
+\defbeamertemplate*{subsection in toc}{wildcat}{%
+  \wc@tocsubsectionline{\inserttocsubsection}{\inserttocsectionnumber.\inserttocsubsectionnumber}%
+}
+
+\defbeamertemplate*{subsection in toc shaded}{wildcat}[1][20]{%
+  \usebeamertemplate{subsection in toc}%
+}
+
+\defbeamertemplate*{subsubsection in toc}{wildcat}{}
+\defbeamertemplate*{subsubsection in toc shaded}{wildcat}[1][20]{}
+
+\setbeamertemplate{section in toc}[wildcat]
+\setbeamertemplate{section in toc shaded}[wildcat]
+\setbeamertemplate{subsection in toc}[wildcat]
+\setbeamertemplate{subsection in toc shaded}[wildcat]
+\setbeamertemplate{subsubsection in toc}[wildcat]
+\setbeamertemplate{subsubsection in toc shaded}[wildcat]
+
+\let\wc@origtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}[1][]{%
+  \vspace{1em}%
+  \begin{columns}[T,onlytextwidth]
+    \column{0.35\textwidth}
+    {\usebeamerfont{section}\color{wcprimary} Agenda}
+
+    \column{0.65\textwidth}
+    {%
+      \begingroup
+        \let\vfill\relax
+        \wc@origtableofcontents[#1]%
+      \endgroup
+    }%
+  \end{columns}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Create special blocks for alerts, examples, and facets
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % If you want the facet design to come through faintly in the interior, replace the fill
@@ -676,6 +742,8 @@
 }
 
 
+
+\makeatother
 
 \mode
 <all>

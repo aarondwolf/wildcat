@@ -22,9 +22,9 @@
 \def\wc@tmp{poppins}\ifx\wc@fontopt\wc@tmp\else
 \def\wc@tmp{installed}\ifx\wc@fontopt\wc@tmp\else
 
-\newfontfamily\FiraMedium{FiraSans-Medium}[
+\newfontfamily\FiraRegular{FiraSans-Regular}[
     Extension      = .otf,
-    ItalicFont     = FiraSans-MediumItalic,
+    ItalicFont     = FiraSans-Italic,
     BoldFont       = FiraSans-SemiBold,
     BoldItalicFont = FiraSans-SemiBoldItalic,
 ]
@@ -34,15 +34,22 @@
     BoldFont       = FiraSans-Regular,
     BoldItalicFont = FiraSans-Italic,
 ]
-\setbeamerfont{title}{family=\FiraMedium, size=\LARGE}
-\setbeamerfont{author}{family=\FiraLight, size=\small}
-\setbeamerfont{frametitle}{family=\FiraMedium, size=\Large}
-\setbeamerfont{section}{family=\FiraLight, size=\LARGE}
-\setsansfont{FiraSans-Book}[
+\newfontfamily\FiraExtraLight{FiraSans-ExtraLight}[
     Extension      = .otf,
-    ItalicFont     = FiraSans-BookItalic,
-    BoldFont       = FiraSans-Bold,
-    BoldItalicFont = FiraSans-BoldItalic,
+    ItalicFont     = FiraSans-ExtraLightItalic,
+    BoldFont       = FiraSans-Light,
+    BoldItalicFont = FiraSans-LightItalic,
+]
+
+\setbeamerfont{title}{family=\FiraRegular, size=\LARGE}
+\setbeamerfont{author}{family=\FiraLight, size=\small}
+\setbeamerfont{frametitle}{family=\FiraLight, size=\Large}
+\setbeamerfont{section}{family=\FiraExtraLight, size=\LARGE}
+\setsansfont{FiraSans-ExtraLight}[
+    Extension      = .otf,
+    ItalicFont     = FiraSans-LightItalic,
+    BoldFont       = FiraSans-Regular,
+    BoldItalicFont = FiraSans-Italic,
 ]
 
 \fi\fi\fi  % end default block
