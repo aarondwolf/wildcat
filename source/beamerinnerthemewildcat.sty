@@ -511,15 +511,6 @@
 %   - Subsection title           (large italic, wcprimary — subsection pages only)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Shared background for both section and subsection pages
-\newcommand{\wc@sectionpagebg}{%
-  \begin{tikzpicture}
-    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-    \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
-    \fill[white] (0,0) rectangle (0.6667*\the\paperwidth,\the\paperheight);
-  \end{tikzpicture}%
-}
-
 % Shared foreground layout for both section and subsection pages
 \newcommand{\wc@sectionpagecontent}[3]{%
   \begin{tikzpicture}[remember picture,overlay]
@@ -547,7 +538,7 @@
 \def\wc@tmp{on}\ifx\wc@sectionpage\wc@tmp
 \AtBeginSection[]{%
   {%
-    \setbeamertemplate{background}{\wc@sectionpagebg}%
+    \setbeamertemplate{background}{}%
     \setbeamertemplate{headline}{}%
     \setbeamertemplate{footline}{}%
     \setbeamertemplate{frametitle}{}%
@@ -562,7 +553,7 @@
 \def\wc@tmp{on}\ifx\wc@subsectionpage\wc@tmp
 \AtBeginSubsection[]{%
   {%
-    \setbeamertemplate{background}{\wc@sectionpagebg}%
+    \setbeamertemplate{background}{}%
     \setbeamertemplate{headline}{}%
     \setbeamertemplate{footline}{}%
     \setbeamertemplate{frametitle}{}%
@@ -591,7 +582,7 @@
     {{\usebeamerfont{section}\color{black!60}\footnotesize #2}}%
   \end{tabular*}\par
   \vspace{-0.8em}%
-  {\color{black!35}\rule{\linewidth}{0.25pt}}\par
+  {\color{black!35}\rule{\linewidth}{0.1pt}}\par
 }
 
 \newcommand{\wc@tocsubsectionline}[2]{%
@@ -603,7 +594,7 @@
 }
 
 \defbeamertemplate*{section in toc}{wildcat}{%
-  \vspace{0.5em}
+  \vspace{0.75em}
   \wc@tocsectionline{\inserttocsection}{\inserttocsectionnumber}%
 }
 
@@ -661,7 +652,7 @@
   },
   overlay={
     \begin{tcbclipinterior}
-      \fill[wcprimary10] (frame.south west) rectangle (frame.north east);
+      \fill[wcprimary!5] (frame.south west) rectangle (frame.north east);
     \end{tcbclipinterior}
   },
   title=#1
@@ -677,7 +668,7 @@
   },
   overlay={
     \begin{tcbclipinterior}
-      \fill[wcalerted!10] (frame.south west) rectangle (frame.north east);
+      \fill[wcalerted!5] (frame.south west) rectangle (frame.north east);
     \end{tcbclipinterior}
   },
   title=#1
@@ -693,7 +684,7 @@
   },
   overlay={
     \begin{tcbclipinterior}
-      \fill[wcexample!10] (frame.south west) rectangle (frame.north east);
+      \fill[wcexample!5] (frame.south west) rectangle (frame.north east);
     \end{tcbclipinterior}
   },
   title=#1
@@ -710,7 +701,7 @@
   },
   overlay={
     \begin{tcbclipinterior}
-      \fill[#1!10] (frame.south west) rectangle (frame.north east);
+      \fill[#1!5] (frame.south west) rectangle (frame.north east);
     \end{tcbclipinterior}
   },
   title=#2

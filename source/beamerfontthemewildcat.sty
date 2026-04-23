@@ -2,6 +2,7 @@
 % Controlled by the font= option passed to \usetheme{wildcat}:
 %
 %   font= (omitted)  DEFAULT: Fira Sans (ships with MiKTeX/TeX Live, no bundling)
+%   font=noto        Noto Sans (ships with Overleaf/TeX Live, no bundling)
 %   font=poppins     Poppins + IBM Plex Sans (free Google Fonts, files required)
 %   font=nu          Official NU brand fonts: Campton + Akkurat Pro (files required)
 %   font=installed   Campton + Akkurat Pro loaded from system-installed fonts
@@ -21,6 +22,7 @@
 \def\wc@tmp{nu}\ifx\wc@fontopt\wc@tmp\else
 \def\wc@tmp{poppins}\ifx\wc@fontopt\wc@tmp\else
 \def\wc@tmp{installed}\ifx\wc@fontopt\wc@tmp\else
+\def\wc@tmp{noto}\ifx\wc@fontopt\wc@tmp\else
 
 \newfontfamily\FiraRegular{FiraSans-Regular}[
     Extension      = .otf,
@@ -47,12 +49,58 @@
 \setbeamerfont{section}{family=\FiraExtraLight, size=\LARGE}
 \setsansfont{FiraSans-ExtraLight}[
     Extension      = .otf,
-    ItalicFont     = FiraSans-LightItalic,
-    BoldFont       = FiraSans-Regular,
-    BoldItalicFont = FiraSans-Italic,
+    ItalicFont     = FiraSans-ExtraLightItalic,
+    BoldFont       = FiraSans-Light,
+    BoldItalicFont = FiraSans-LightItalic,
 ]
 
-\fi\fi\fi  % end default block
+\fi\fi\fi\fi  % end default block
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% font=noto — Noto Sans
+%%
+%% Broad Unicode sans-serif family distributed with TeX Live/Overleaf.
+%% Weight usage mirrors the default Fira setup:
+%%   title      -> Regular
+%%   author     -> Light
+%%   frametitle -> Light
+%%   section    -> ExtraLight
+%%   body       -> ExtraLight
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\wc@tmp{noto}\ifx\wc@fontopt\wc@tmp
+\RequirePackage[sf]{noto}
+
+\newfontfamily\NotoRegular{NotoSans}[
+    UprightFont    = *-Regular,
+    ItalicFont     = *-Italic,
+    BoldFont       = *-SemiBold,
+    BoldItalicFont = *-SemiBoldItalic,
+]
+\newfontfamily\NotoLight{NotoSans}[
+    UprightFont    = *-Light,
+    ItalicFont     = *-LightItalic,
+    BoldFont       = *-Regular,
+    BoldItalicFont = *-Italic,
+]
+\newfontfamily\NotoExtraLight{NotoSans}[
+    UprightFont    = *-ExtraLight,
+    ItalicFont     = *-ExtraLightItalic,
+    BoldFont       = *-Light,
+    BoldItalicFont = *-LightItalic,
+]
+
+\setbeamerfont{title}{family=\NotoRegular, size=\LARGE}
+\setbeamerfont{author}{family=\NotoLight, size=\small}
+\setbeamerfont{frametitle}{family=\NotoLight, size=\Large}
+\setbeamerfont{section}{family=\NotoExtraLight, size=\LARGE}
+\setsansfont{NotoSans}[
+    UprightFont    = *-ExtraLight,
+    ItalicFont     = *-ExtraLightItalic,
+    BoldFont       = *-Light,
+    BoldItalicFont = *-LightItalic,
+]
+
+\fi  % end noto block
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% font=poppins — Poppins + IBM Plex Sans (free Google Fonts)

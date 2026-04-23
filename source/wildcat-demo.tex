@@ -18,8 +18,8 @@
 %          squares, circles, hexraise, hexrand, network, quilt, plain
 % color: any named color (nu* colors are all available after theme loads).
 %        All wcprimary shades are auto-generated. Omit to keep NU purple.
-% font: poppins (Poppins+IBM Plex), nu (Campton+Akkurat), installed (system fonts),
-%        or omit for default (Fira Sans — no files needed)
+% font: noto (Noto Sans), poppins (Poppins+IBM Plex), nu (Campton+Akkurat),
+%        installed (system fonts), or omit for default (Fira Sans — no files needed)
 % numbering: fraction (default), number, progressbar, none
 % sectionpage: on or none (default)
 % subsectionpage: on or none (default)
@@ -289,6 +289,16 @@ graph export "source/graphs/plot-stata.pdf", replace
     \textbf{MiKTeX:} auto-installs on first compile. \\
     \textbf{TeX Live:} if the font is not found, run \texttt{tlmgr install fira} in your terminal, then recompile. \\[0.5em]
     Requires \textbf{XeLaTeX} or \textbf{LuaLaTeX} — PDFLaTeX will fail.
+\end{frame}
+
+\begin{frame}[fragile]{Fonts: Noto Sans}
+    For another bundled, Overleaf-friendly option, use \texttt{font=noto}. It uses \textbf{Noto Sans} and mirrors the same weight structure as the default Fira setup:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[font=noto]{wildcat}
+    \end{verbatim}
+    \normalsize
+    This is a good default when you want broad Unicode coverage and don't want to upload font files. As with the other theme fonts, compile with \textbf{XeLaTeX} or \textbf{LuaLaTeX}.
 \end{frame}
 
 \begin{frame}[fragile]{Fonts: Poppins + IBM Plex Sans}
