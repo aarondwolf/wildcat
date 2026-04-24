@@ -682,6 +682,34 @@
   },
   title=#2
 }
+
+% Material-style outline block with a floating label-like title.
+\newtcolorbox{mblock}[2][colframe=wcprimary,coltitle=wcprimary]{
+  enhanced,
+  colback=white,
+  boxrule=0.7pt,
+  arc=2.5pt,
+  left=8pt,
+  right=8pt,
+  top=10pt,
+  bottom=8pt,
+  before skip=8pt,
+  after skip=8pt,
+  title={#2},
+  fonttitle=\footnotesize\bfseries,
+  attach boxed title to top left={xshift=10pt,yshift*=-\tcboxedtitleheight/2},
+  boxed title style={
+    frame hidden,
+    boxrule=0pt,
+    sharp corners,
+    top=0pt,
+    bottom=0pt,
+    left=3pt,
+    right=3pt,
+    colback=white
+  },
+  #1
+}
 % Backward-compatibility alias: \tfacetbox was renamed to \tpatternbox.
 % Old code using \begin{tfacetbox}...\end{tfacetbox} will still work.
 \NewDocumentEnvironment{tfacetbox}{O{wcprimary} m}

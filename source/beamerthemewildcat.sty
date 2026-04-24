@@ -53,6 +53,12 @@
 \usecolortheme{wildcat}
 \usefonttheme{wildcat}
 
+% Let translated Beamer strings (for example \appendixname) become plain text
+% in PDF bookmarks to avoid hyperref warnings during compilation.
+\pdfstringdefDisableCommands{%
+  \def\translate#1{#1}%
+}
+
 % Apply color option: if [color=X] was given, redefine wcprimary and
 % auto-generate all variants via xcolor mixing. Must run inline (before
 % \AtBeginDocument) so that the pattern saveboxes pick up the right colors.

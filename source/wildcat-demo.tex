@@ -319,7 +319,7 @@ your-presentation/
       IBMPlexSans-Regular.ttf    IBMPlexSans-Italic.ttf
     \end{verbatim}
     \normalsize
-    For proprietary Northwestern brand fonts (Campton + Akkurat Pro), see the Advanced Customization section.
+    For proprietary Northwestern brand fonts (Campton + Akkurat Pro), see the Advanced Customization section.  \hyperlink{advanced-fonts}{\beamerbutton{Appendix}}
 \end{frame}
 
 \begin{frame}{Font Style: Examples}
@@ -373,6 +373,22 @@ your-presentation/
 \end{tpatternbox}
         \end{verbatim}
     \end{tpatternbox}
+\end{frame}
+
+\begin{frame}[fragile]{Material Blocks}
+    \texttt{mblock} creates a Material-style outlined block with a floating title label. It takes a required title and an optional tcolorbox-style color override:
+    \begin{mblock}{Primary Material Block}
+        This variant is just an outline, so the interior visually stays on the slide background.
+    \end{mblock}
+    \begin{mblock}[colframe=wcalerted,coltitle=wcalerted]{Custom Color Material Block}
+        Use any named color for the border and title label.
+    \end{mblock}
+    \scriptsize
+    \begin{verbatim}
+\begin{mblock}[colframe=wcprimary,coltitle=wcprimary]{Title}
+  Insert content here
+\end{mblock}
+    \end{verbatim}
 \end{frame}
 
 \begin{frame}
@@ -438,6 +454,7 @@ your-presentation/
 \section{Advanced Customization}
 
 \begin{frame}[fragile]{Advanced: NU Brand Fonts (Bundled)}
+    \hypertarget{advanced-fonts}{}
     Northwestern affiliates can use the official brand fonts --- \textbf{Campton} (headings) and \textbf{Akkurat Pro} (body). These are proprietary; obtain them from \href{https://www.northwestern.edu/brand/visual-identity/typography/}{\texttt{northwestern.edu/brand}}. Bundle the OTF files in a \texttt{fonts/} folder and use:
     \scriptsize
     \begin{verbatim}
