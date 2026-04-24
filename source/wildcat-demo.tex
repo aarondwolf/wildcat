@@ -185,7 +185,7 @@
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
     %You can use the colors in your graphs in Python, R, and Stata using the following commands:
-    \begin{tblock}{Python}
+    \begin{mblock}{Python}
         \footnotesize
         \begin{verbatim}
 import matplotlib.pyplot as plt
@@ -200,7 +200,7 @@ plt.ylabel("MPG")
 plt.savefig("source/graphs/plot-python.pdf")
 plt.show()
         \end{verbatim}
-    \end{tblock}
+    \end{mblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -215,7 +215,7 @@ plt.show()
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
-    \begin{tblock}{R}
+    \begin{mblock}{R}
         \footnotesize
         \begin{verbatim}
 library(ggplot2)
@@ -233,7 +233,7 @@ plot <- ggplot(df, aes(x = weight, y = mpg)) +
 # Save the plot to a file with a specific size
 ggsave("source/graphs/plot-R.pdf", plot, width = 8, height = 5)
         \end{verbatim}
-    \end{tblock}
+    \end{mblock}
 \end{frame}
 
 
@@ -250,7 +250,7 @@ ggsave("source/graphs/plot-R.pdf", plot, width = 8, height = 5)
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
-    \begin{tblock}{Stata}
+    \begin{mblock}{Stata}
         \footnotesize
         \begin{verbatim}
 ssc install schemepack, replace
@@ -262,7 +262,7 @@ twoway (scatter mpg weight, mcolor("`wcprimary'")), ///
         
 graph export "source/graphs/plot-stata.pdf", replace
         \end{verbatim}
-    \end{tblock}
+    \end{mblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -350,60 +350,51 @@ your-presentation/
 
 \section{Block Environments}
 
-\begin{frame}{Pattern Blocks (tcolorbox)}
-    Three patterned block environments are available as drop-in replacements for standard Beamer blocks: \texttt{tblock}, \texttt{talert}, and \texttt{texample}.
+\begin{frame}[fragile]{Material Blocks}
+
+    \begin{mblock}{Primary Material Block}
+        \texttt{mblock} is the main custom block style in the documentation. It gives you a Material-style outlined box with a floating title label.
+    \end{mblock}
+    \begin{mblock}[colframe=wcalerted,coltitle=wcalerted]{Alert Material Block}
+        Use \texttt{wcalerted} for warnings or emphasis.
+    \end{mblock}
+    \begin{mblock}[colframe=wcexample,coltitle=wcexample]{Example Material Block}
+        Use \texttt{wcexample} for examples or supportive notes.
+    \end{mblock}
+    \footnotesize
+\end{frame}
+
+\begin{frame}{Alternate: Pattern Blocks}
     \begin{tblock}{T Block Title}
-        This is a tcolorbox style block.
+    If you want the patterned title treatment, the theme also includes \texttt{tblock}, \texttt{talert}, \texttt{texample}, and \texttt{tpatternbox}.
     \end{tblock}
     \begin{talert}{T Alert Title}
-        This is a tcolorbox style alert block.
+        Patterned alert block.
     \end{talert}
     \begin{texample}{T Example Title}
-        This is a tcolorbox style example block.
+        Patterned example block.
     \end{texample}
 \end{frame}
 
-\begin{frame}[fragile]{Custom Color Pattern Blocks}
-    \texttt{tpatternbox} is a variant that accepts an optional color argument, letting you use any named color for the block header.
+\begin{frame}[fragile]{Alternate: Custom Pattern Block}
+    \texttt{tpatternbox} accepts an optional color argument so you can reuse the patterned block style with any named color.
     \begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
-        This is a tpatternbox block. It can be created with the following code:
-        \begin{verbatim}
-\begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
-    This is a tpatternbox block...
-\end{tpatternbox}
-        \end{verbatim}
+        This is a \texttt{tpatternbox} block with a custom color.
     \end{tpatternbox}
 \end{frame}
 
-\begin{frame}[fragile]{Material Blocks}
-    \texttt{mblock} creates a Material-style outlined block with a floating title label. It takes a required title and an optional tcolorbox-style color override:
-    \begin{mblock}{Primary Material Block}
-        This variant is just an outline, so the interior visually stays on the slide background.
-    \end{mblock}
-    \begin{mblock}[colframe=wcalerted,coltitle=wcalerted]{Custom Color Material Block}
-        Use any named color for the border and title label.
-    \end{mblock}
-    \scriptsize
-    \begin{verbatim}
-\begin{mblock}[colframe=wcprimary,coltitle=wcprimary]{Title}
-  Insert content here
-\end{mblock}
-    \end{verbatim}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Box Examples (Default)}
-    Standard Beamer blocks work as usual. The theme styles them with flat (non-rounded, non-shaded) colors.
+\begin{frame}{Alternate: Default Beamer Blocks}
+    Standard Beamer \texttt{block}, \texttt{alertblock}, and \texttt{exampleblock} still work as usual.
     \begin{block}{Main Block}
-    This is an example block
+        This is a standard Beamer block.
     \end{block}
     \begin{alertblock}{Alert Box}
-    This is an alert box
+        This is a standard Beamer alert block.
     \end{alertblock}
     \begin{exampleblock}{Example Box}
-        This is an example box
+        This is a standard Beamer example block.
     \end{exampleblock}
-    \end{frame}
+\end{frame}
 
 \section{Special Frames}
 

@@ -505,6 +505,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
 
+% The agenda-style TOC and section pages need a small amount of aux-backed state:
+% 1. where the appendix begins, so appendix sections stay out of the agenda
+% 2. which sections have subsections, plus the formatted subsection lines to show
+%    inside the expanded section-page block
 \AtBeginDocument{%
   \immediate\write\@auxout{\string\gdef\string\wc@appendixsectionthreshold{9999}}%
 }
@@ -518,20 +522,102 @@
   \wc@origappendix%
 }
 
-\newcommand{\wc@agendalayout}[1]{%
-  \vspace{1em}%
-  \begin{columns}[T,onlytextwidth]
-    \column{0.35\textwidth}
-    {\usebeamerfont{section}\color{wcprimary} Agenda}
+% Mark that section #1 has at least one subsection.
+\newcommand{\wc@marksectionhassubsections}[1]{%
+  \expandafter\gdef\csname wc@sectionhaschildren@#1\endcsname{1}%
+}
 
-    \column{0.65\textwidth}
+% Cache preformatted subsection lines for section #1 so the active section page can
+% render one complete mblock without relying on nested TOC callbacks.
+\newcommand{\wc@recordsubsection}[3]{%
+  \expandafter\ifx\csname wc@subsectionsfor@#1\endcsname\relax
+    \expandafter\gdef\csname wc@subsectionsfor@#1\endcsname{}%
+  \fi
+  \expandafter\g@addto@macro\csname wc@subsectionsfor@#1\endcsname{%
+    {\usebeamerfont{normal text}\color{black!65}\scriptsize #1.#2\space #3\par}%
+    \vspace{0.25em}%
+  }%
+}
+
+\newcommand{\wc@ifsectionhassubsections}[3]{%
+  \ifcsname wc@sectionhaschildren@#1\endcsname
+    #2%
+  \else
+    #3%
+  \fi
+}
+
+\newcommand{\wc@insertstoredsubsections}[1]{%
+  \ifcsname wc@subsectionsfor@#1\endcsname
+    \csname wc@subsectionsfor@#1\endcsname
+  \fi
+}
+
+% Beamer calls \subsection while writing the .toc, so we piggyback there and persist
+% the agenda metadata to the aux file for the next compile pass.
+\let\wc@origbeamer@subsection\beamer@subsection
+\def\beamer@subsection[#1]#2{%
+  \wc@origbeamer@subsection[{#1}]{#2}%
+  \immediate\write\@auxout{%
+    \string\wc@marksectionhassubsections{\number\value{section}}%
+  }%
+  \immediate\write\@auxout{%
+    \string\wc@recordsubsection{\number\value{section}}{\number\value{subsection}}{#2}%
+  }%
+}
+
+\newif\ifwc@agendasectionpage
+
+\newcommand{\wc@agendatitle}{Agenda}
+\newcommand{\wc@agendasubsectionline}[3]{%
+  {\usebeamerfont{normal text}\color{black!65}\scriptsize #1.#2\space #3\par}%
+  \vspace{0.25em}%
+}
+
+\newcommand{\wc@agendacollapsed}[2]{%
+  \begin{mlineblock}[colframe=#1,coltitle=#2]{\inserttocsectionnumber.\space\inserttocsection}%
+  \end{mlineblock}%
+}
+
+\newcommand{\wc@agendaexpanded}[2]{%
+  \begin{mblock}[colframe=#1,coltitle=#2]{\inserttocsectionnumber.\space\inserttocsection}%
+    \wc@insertstoredsubsections{\number\inserttocsectionnumber}%
+  \end{mblock}%
+}
+
+% #1 is the fallback rendering used on the main TOC page. On section pages we ignore
+% Beamer's shaded/unshaded routing and instead compare against the live section counter
+% so the current section reliably expands even with custom TOC filtering.
+\newcommand{\wc@renderagendasection}[1]{%
+  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
+    \ifwc@agendasectionpage
+      \ifnum\inserttocsectionnumber=\value{section}\relax
+        \wc@ifsectionhassubsections{\number\value{section}}{%
+          \wc@agendaexpanded{wcprimary}{wcprimary}%
+        }{%
+          \wc@agendacollapsed{wcprimary}{wcprimary}%
+        }%
+      \else
+        \wc@agendacollapsed{white}{wcprimary!20}%
+      \fi
+    \else
+      #1%
+    \fi
+  \fi
+}
+
+\newcommand{\wc@agendalayout}[2]{%
+  \vspace{1em}%
+  \noindent\begin{minipage}{0.75\textwidth}
+    \begin{mblock}[colframe=#1,coltitle=wcprimary,fonttitle=\Large\bfseries]{\wc@agendatitle}
     {%
       \begingroup
         \let\vfill\relax
-        \wc@origtableofcontents[#1]%
+        \wc@origtableofcontents[#2]%
       \endgroup
     }%
-  \end{columns}%
+    \end{mblock}
+  \end{minipage}%
 }
 
 % Section pages (enabled only when sectionpage=on)
@@ -544,53 +630,30 @@
       \setbeamertemplate{footline}{}%
       \setbeamertemplate{frametitle}{}%
       \begin{frame}[plain]
-        \wc@agendalayout{currentsection,hideothersubsections}%
+        \wc@agendasectionpagetrue
+        \wc@agendalayout{white}{currentsection,hideothersubsections}%
       \end{frame}
     }%
   \fi
 }%
 \fi
 
-\newcommand{\wc@tocsectionline}[3]{%
-  \noindent\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}%
-    {#1} &
-    {#2}%
-  \end{tabular*}\par
-  \vspace{-0.8em}%
-  {\color{#3}\rule{\linewidth}{0.1pt}}\par
-}
-
-\newcommand{\wc@tocsubsectionline}[2]{%
-  \noindent\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}%
-    {{\usebeamerfont{section}\color{black!65}\scriptsize #1}} &
-    {{\usebeamerfont{section}\color{black!65}\scriptsize #2}}%
-  \end{tabular*}\par
-  \vspace{-0.1em}%
-}
-
 \defbeamertemplate*{section in toc}{wildcat}{%
-  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
-    \vspace{-1em}
-    \wc@tocsectionline%
-      {{\usebeamerfont{section}\usebeamercolor[fg]{frametitle}\footnotesize\inserttocsection}}%
-      {{\usebeamerfont{section}\color{black!60}\footnotesize\inserttocsectionnumber}}%
-      {black!35}%
-  \fi
+  \wc@renderagendasection{\wc@agendacollapsed{white}{wcprimary}}%
 }
 
 \defbeamertemplate*{section in toc shaded}{wildcat}[1][20]{%
-  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
-    \vspace{-1em}
-    \wc@tocsectionline%
-      {{\usebeamerfont{section}\color{black!20}\footnotesize\inserttocsection}}%
-      {{\usebeamerfont{section}\color{black!20}\footnotesize\inserttocsectionnumber}}%
-      {black!20}%
-  \fi
+  \wc@renderagendasection{\wc@agendacollapsed{white}{wcprimary!20}}%
 }
 
 \defbeamertemplate*{subsection in toc}{wildcat}{%
-  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
-    \wc@tocsubsectionline{\inserttocsubsection}{\inserttocsectionnumber.\inserttocsubsectionnumber}%
+  \ifwc@agendasectionpage\else
+    \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
+      \wc@agendasubsectionline
+        {\inserttocsectionnumber}
+        {\inserttocsubsectionnumber}
+        {\inserttocsubsection}%
+    \fi
   \fi
 }
 
@@ -610,7 +673,8 @@
 
 \let\wc@origtableofcontents\tableofcontents
 \renewcommand{\tableofcontents}[1][]{%
-  \wc@agendalayout{hideallsubsections,#1}%
+  \wc@agendasectionpagefalse
+  \wc@agendalayout{wcprimary}{hideallsubsections,#1}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -710,6 +774,39 @@
   },
   #1
 }
+
+\pgfkeys{
+  /wc/mline/.is family,
+  /wc/mline,
+  colframe/.store in=\wc@mlinecolframe,
+  coltitle/.store in=\wc@mlinecoltitle,
+  colframe=wcprimary,
+  coltitle=wcprimary
+}
+
+\NewDocumentEnvironment{mlineblock}{O{} m}
+  {%
+    \pgfkeys{/wc/mline,colframe=wcprimary,coltitle=wcprimary,#1}%
+    \par\medskip
+    \noindent
+    \begin{tikzpicture}[baseline=(title.base)]
+      \node[
+        anchor=west,
+        inner xsep=3pt,
+        inner ysep=0pt,
+        fill=white,
+        text=\wc@mlinecoltitle,
+        font=\footnotesize\bfseries
+      ] (title) at (10pt,0) {#2};
+      \draw[
+        draw=\wc@mlinecolframe,
+        line width=0.7pt
+      ] (0,0) -- ([xshift=-4pt]title.west);
+    \end{tikzpicture}\par
+    \vspace{0.35em}%
+  }
+  {\par}
+
 % Backward-compatibility alias: \tfacetbox was renamed to \tpatternbox.
 % Old code using \begin{tfacetbox}...\end{tfacetbox} will still work.
 \NewDocumentEnvironment{tfacetbox}{O{wcprimary} m}
