@@ -345,7 +345,7 @@ your-presentation/
 \usetheme[numbering=none]{wildcat}         % no numbering
     \end{verbatim}
     \normalsize
-    The count excludes the title page. The \texttt{progressbar} mode fills the bottom bar using \texttt{wcprimary} and leaves the remainder at 10\% opacity. Section pages, subsection pages, title slides, standout slides, and \texttt{[plain]} frames do not show the bar.
+    The count excludes the title page. The \texttt{progressbar} mode fills the bottom bar using \texttt{wcprimary} and leaves the remainder at 10\% opacity. Section pages, title slides, standout slides, \texttt{[plain]} frames, and all appendix slides do not show numbering.
 \end{frame}
 
 \section{Block Environments}
@@ -403,7 +403,7 @@ your-presentation/
 
 % Subsections
 \begin{frame}{Subsections}
-    The normal \texttt{\textbackslash subsection\{\}} command still creates subsections for the agenda slide and the expanded current-section view on section divider slides.
+    The normal \texttt{\textbackslash subsection\{\}} command creates subsections for the agenda slide and the expanded current-section view on section divider slides.
 \end{frame}
 
 % Subsection Example
@@ -433,6 +433,7 @@ your-presentation/
 
 \standout{Appendix}
 
+\appendix
 
 \section{Advanced Customization}
 

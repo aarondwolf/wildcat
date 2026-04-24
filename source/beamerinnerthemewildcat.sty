@@ -12,6 +12,7 @@
 
 % Defaults for standalone usage (without beamerthemewildcat.sty)
 \providecommand{\wc@sectionpage}{none}
+\providecommand{\wc@appendixsectionthreshold}{9999}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BACKGROUND PATTERN DESIGNS
@@ -502,6 +503,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Section divider pages and agenda-style table of contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+\AtBeginDocument{%
+  \immediate\write\@auxout{\string\gdef\string\wc@appendixsectionthreshold{9999}}%
+}
+
+\let\wc@origappendix\appendix
+\renewcommand{\appendix}{%
+  \xdef\wc@appendixsectionthreshold{\number\value{section}}%
+  \immediate\write\@auxout{%
+    \string\gdef\string\wc@appendixsectionthreshold{\wc@appendixsectionthreshold}%
+  }%
+  \wc@origappendix%
+}
 
 \newcommand{\wc@agendalayout}[1]{%
   \vspace{1em}%
@@ -522,19 +537,19 @@
 % Section pages (enabled only when sectionpage=on)
 \def\wc@tmp{on}\ifx\wc@sectionpage\wc@tmp
 \AtBeginSection[]{%
-  {%
-    \setbeamertemplate{background}{}%
-    \setbeamertemplate{headline}{}%
-    \setbeamertemplate{footline}{}%
-    \setbeamertemplate{frametitle}{}%
-    \begin{frame}[plain]
-      \wc@agendalayout{currentsection,hideothersubsections}%
-    \end{frame}
-  }%
+  \ifbeamer@inappendix\else
+    {%
+      \setbeamertemplate{background}{}%
+      \setbeamertemplate{headline}{}%
+      \setbeamertemplate{footline}{}%
+      \setbeamertemplate{frametitle}{}%
+      \begin{frame}[plain]
+        \wc@agendalayout{currentsection,hideothersubsections}%
+      \end{frame}
+    }%
+  \fi
 }%
 \fi
-
-\makeatletter
 
 \newcommand{\wc@tocsectionline}[3]{%
   \noindent\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}%
@@ -554,23 +569,29 @@
 }
 
 \defbeamertemplate*{section in toc}{wildcat}{%
-  \vspace{-1em}
-  \wc@tocsectionline%
-    {{\usebeamerfont{section}\usebeamercolor[fg]{frametitle}\footnotesize\inserttocsection}}%
-    {{\usebeamerfont{section}\color{black!60}\footnotesize\inserttocsectionnumber}}%
-    {black!35}%
+  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
+    \vspace{-1em}
+    \wc@tocsectionline%
+      {{\usebeamerfont{section}\usebeamercolor[fg]{frametitle}\footnotesize\inserttocsection}}%
+      {{\usebeamerfont{section}\color{black!60}\footnotesize\inserttocsectionnumber}}%
+      {black!35}%
+  \fi
 }
 
 \defbeamertemplate*{section in toc shaded}{wildcat}[1][20]{%
-  \vspace{-1em}
-  \wc@tocsectionline%
-    {{\usebeamerfont{section}\color{black!20}\footnotesize\inserttocsection}}%
-    {{\usebeamerfont{section}\color{black!20}\footnotesize\inserttocsectionnumber}}%
-    {black!20}%
+  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
+    \vspace{-1em}
+    \wc@tocsectionline%
+      {{\usebeamerfont{section}\color{black!20}\footnotesize\inserttocsection}}%
+      {{\usebeamerfont{section}\color{black!20}\footnotesize\inserttocsectionnumber}}%
+      {black!20}%
+  \fi
 }
 
 \defbeamertemplate*{subsection in toc}{wildcat}{%
-  \wc@tocsubsectionline{\inserttocsubsection}{\inserttocsectionnumber.\inserttocsubsectionnumber}%
+  \ifnum\inserttocsectionnumber>\wc@appendixsectionthreshold\relax\else
+    \wc@tocsubsectionline{\inserttocsubsection}{\inserttocsectionnumber.\inserttocsubsectionnumber}%
+  \fi
 }
 
 \defbeamertemplate*{subsection in toc shaded}{wildcat}[1][20]{%

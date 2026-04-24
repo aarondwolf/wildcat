@@ -3,6 +3,8 @@
 % Default for standalone usage (without beamerthemewildcat.sty)
 \providecommand{\wc@numbering}{fraction}
 
+\makeatletter
+
 % Ensure hyperref package is included
 \usepackage{hyperref}
 
@@ -38,34 +40,38 @@
 % Footer (Pages)
 %% NOTE: ON OVERLEAF USE ht=-2.5ex. Not sure why this is needed.
 \setbeamertemplate{footline}{
-  \ifnum\insertframenumber>1
-    \def\wc@tmp{none}\ifx\wc@numbering\wc@tmp\else
-      \def\wc@tmp{progressbar}\ifx\wc@numbering\wc@tmp
-        \ifnum\inserttotalframenumber>1
+  \ifbeamer@inappendix\else
+    \ifnum\insertframenumber>1
+      \def\wc@tmp{none}\ifx\wc@numbering\wc@tmp\else
+        \def\wc@tmp{progressbar}\ifx\wc@numbering\wc@tmp
+          \ifnum\insertmainframenumber>1
           \begin{tikzpicture}[remember picture,overlay]
-            \pgfmathsetmacro{\wc@progress}{(\insertframenumber-1)/(\inserttotalframenumber-1)}
+            \pgfmathsetmacro{\wc@progress}{(\insertframenumber-1)/(\insertmainframenumber-1)}
             \fill[wcprimary,opacity=0.1]
               (current page.south west) rectangle ([yshift=1.8pt]current page.south east);
             \fill[wcprimary]
               (current page.south west) rectangle ([xshift=\wc@progress\paperwidth,yshift=1.8pt]current page.south west);
           \end{tikzpicture}%
-        \fi
-      \else
-        \begin{beamercolorbox}[wd=\paperwidth,ht=-2.5ex,dp=1.125ex,right]{page number in head/foot}
-          \usebeamerfont{page number in head/foot}%
-          \color{black!20}%
-          \def\wc@tmp{number}\ifx\wc@numbering\wc@tmp
-            \the\numexpr\insertframenumber-1\relax
-          \else
-            \ifnum\inserttotalframenumber>1
-              \the\numexpr\insertframenumber-1\relax/\the\numexpr\inserttotalframenumber-1\relax
-            \fi
           \fi
-          \hspace{1em}
-        \end{beamercolorbox}
+        \else
+          \begin{beamercolorbox}[wd=\paperwidth,ht=-2.5ex,dp=1.125ex,right]{page number in head/foot}
+            \usebeamerfont{page number in head/foot}%
+            \color{black!20}%
+            \def\wc@tmp{number}\ifx\wc@numbering\wc@tmp
+              \the\numexpr\insertframenumber-1\relax
+            \else
+              \ifnum\insertmainframenumber>1
+                \the\numexpr\insertframenumber-1\relax/\the\numexpr\insertmainframenumber-1\relax
+              \fi
+            \fi
+            \hspace{1em}
+          \end{beamercolorbox}
+        \fi
       \fi
     \fi
   \fi
 }
+
+\makeatother
 
 \mode<all>
