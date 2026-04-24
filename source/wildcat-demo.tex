@@ -10,8 +10,7 @@
 %     color=nudarkblue,
 %     font=poppins,
 %     numbering=progressbar,
-%     sectionpage=on,
-%     subsectionpage=on
+%     sectionpage=on
 %   ]{wildcat}
 %
 % pattern: facet (default), facetrand, triangle, triangleiso, trianglemesh,
@@ -21,9 +20,8 @@
 % font: noto (Noto Sans), poppins (Poppins+IBM Plex), nu (Campton+Akkurat),
 %        installed (system fonts), or omit for default (Fira Sans — no files needed)
 % numbering: fraction (default), number, progressbar, none
-% sectionpage: on or none (default)
-% subsectionpage: on or none (default)
-\usetheme[sectionpage=on,subsectionpage=on]{wildcat}
+% sectionpage: on (default) or none
+\usetheme{wildcat}
 
 % You change the titlegraphic to whatever you want, or comment it out to remove it.
 \titlegraphic{\includegraphics[scale=0.25]{logo-northwestern.pdf}}
@@ -405,9 +403,7 @@ your-presentation/
 
 % Subsections
 \begin{frame}{Subsections}
-    The normal \texttt{\textbackslash subsection\{\}} command creates subsections, and there is an option to create a subsection title slide (disabled by default). To enable them, use the \texttt{subsectionpage=on} option when loading the theme:
-    \\ ~ \\
-    \texttt{\textbackslash usetheme[subsectionpage=on]\{wildcat\}}
+    The normal \texttt{\textbackslash subsection\{\}} command still creates subsections for the agenda slide and the expanded current-section view on section divider slides.
 \end{frame}
 
 % Subsection Example

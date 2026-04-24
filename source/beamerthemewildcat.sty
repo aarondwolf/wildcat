@@ -32,9 +32,7 @@
 %   nu         — official NU brand fonts (Campton + Akkurat Pro) from fonts/
 %   installed  — Campton + Akkurat Pro loaded from system-installed fonts
 %
-% [sectionpage=<on|none>] — section divider pages. Default: none
-%
-% [subsectionpage=<on|none>] — subsection divider pages. Default: none
+% [sectionpage=<on|none>] — section divider pages. Default: on
 %
 % [numbering=<fraction|number|progressbar|none>] — slide numbering style. Default: fraction
 %   fraction — i/N  (slide i of N, excluding title page)
@@ -45,9 +43,8 @@
 \DeclareOptionBeamer{color}{\def\wc@coloropt{#1}}
 \DeclareOptionBeamer{font}{\def\wc@fontopt{#1}}
 \DeclareOptionBeamer{sectionpage}{\def\wc@sectionpage{#1}}
-\DeclareOptionBeamer{subsectionpage}{\def\wc@subsectionpage{#1}}
 \DeclareOptionBeamer{numbering}{\def\wc@numbering{#1}}
-\ExecuteOptionsBeamer{pattern=facet,color=,font=,sectionpage=none,subsectionpage=none,numbering=fraction}
+\ExecuteOptionsBeamer{pattern=facet,color=,font=,sectionpage=on,numbering=fraction}
 \ProcessOptionsBeamer
 
 % Settings
