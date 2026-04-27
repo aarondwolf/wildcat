@@ -716,12 +716,14 @@
     \begin{tikzpicture}[remember picture,overlay]
       \begin{scope}[shift={(current page.south west)}]
         \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        % This overlay is inserted as frame content, after the frametitle has
+        % been typeset. Clip it to the right strip so it cannot cover "Agenda".
+        \clip (0.6\paperwidth,0) rectangle (\paperwidth,\paperheight);
         \ifwc@plainpattern
           \bgpattern
         \else
           \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
         \fi
-        \fill[white] (0,0) rectangle (0.6\paperwidth,\paperheight);
       \end{scope}
     \end{tikzpicture}%
   \fi

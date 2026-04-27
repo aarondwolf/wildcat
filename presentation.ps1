@@ -18,18 +18,17 @@ try {
     # Copy the demo and style files (placing them at the root of the zip)
     Copy-Item (Join-Path $PSScriptRoot "source/wildcat-demo.tex") -Destination (Join-Path $stagingDir "main.tex")
     Copy-Item (Join-Path $PSScriptRoot "source/*.sty") -Destination $stagingDir
+    Copy-Item (Join-Path $PSScriptRoot "source/logo-northwestern.pdf") -Destination $stagingDir
 
-    # # Copy fonts (maintaining the Poppins and IBM_Plex_Sans folders)
-    # $fontsStaging = New-Item -ItemType Directory -Path (Join-Path $stagingDir "fonts")
-    # Copy-Item (Join-Path $PSScriptRoot "source/fonts/Poppins") -Destination $fontsStaging -Recurse
-    # $ibmDest = New-Item -ItemType Directory -Path (Join-Path $fontsStaging "IBM_Plex_Sans")
-    # Copy-Item (Join-Path $PSScriptRoot "source/fonts/IBM_Plex_Sans/*.ttf") -Destination $ibmDest
+    # Copy demo graph outputs used by main.tex.
+    $graphsStaging = New-Item -ItemType Directory -Path (Join-Path $stagingDir "graphs")
+    Copy-Item (Join-Path $PSScriptRoot "source/graphs/plot-*.pdf") -Destination $graphsStaging
 
     Write-Host "Creating archive..."
     # Use -Path "$stagingDir/*" so the zip contents start at the root
     Compress-Archive -Path "$stagingDir/*" -DestinationPath $zipName -Force
 
-    Write-Host "Successfully created presentation.zip with core files and open-source fonts."
+    Write-Host "Successfully created presentation.zip with core files, logo, and demo graph PDFs."
 }
 catch {
     Write-Error "Failed to create presentation.zip: $($_.Exception.Message)"
