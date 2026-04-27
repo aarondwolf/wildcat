@@ -10,7 +10,8 @@
 %     color=nudarkblue,
 %     font=poppins,
 %     numbering=progressbar,
-%     sectionpage=on
+%     sectionpage=on,
+%     agendastyle=pattern
 %   ]{wildcat}
 %
 % pattern: facet (default), facetrand, triangle, triangleiso, trianglemesh,
@@ -21,6 +22,8 @@
 %        installed (system fonts), or omit for default (Fira Sans — no files needed)
 % numbering: fraction (default), number, progressbar, none
 % sectionpage: on (default) or none
+% agendastyle: plain (default) or pattern
+% breadcrumb: on or none (default)
 \usetheme{wildcat}
 
 % You change the titlegraphic to whatever you want, or comment it out to remove it.
@@ -185,7 +188,7 @@
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
     %You can use the colors in your graphs in Python, R, and Stata using the following commands:
-    \begin{mblock}{Python}
+    \begin{block}{Python}
         \footnotesize
         \begin{verbatim}
 import matplotlib.pyplot as plt
@@ -200,14 +203,14 @@ plt.ylabel("MPG")
 plt.savefig("source/graphs/plot-python.pdf")
 plt.show()
         \end{verbatim}
-    \end{mblock}
+    \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
     \begin{figure}
         \centering
-        \includegraphics[width=0.65\textwidth]{graphs/plot-python.pdf}
+        \includegraphics[width=0.62\textwidth]{graphs/plot-python.pdf}
         \caption{Python Graph Example}
         \label{fig:graph-python}
     \end{figure}
@@ -215,7 +218,7 @@ plt.show()
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
-    \begin{mblock}{R}
+    \begin{block}{R}
         \footnotesize
         \begin{verbatim}
 library(ggplot2)
@@ -233,7 +236,7 @@ plot <- ggplot(df, aes(x = weight, y = mpg)) +
 # Save the plot to a file with a specific size
 ggsave("source/graphs/plot-R.pdf", plot, width = 8, height = 5)
         \end{verbatim}
-    \end{mblock}
+    \end{block}
 \end{frame}
 
 
@@ -250,7 +253,7 @@ ggsave("source/graphs/plot-R.pdf", plot, width = 8, height = 5)
 
 \begin{frame}[fragile]
     \frametitle{Using Colors in Graphs}
-    \begin{mblock}{Stata}
+    \begin{block}{Stata}
         \footnotesize
         \begin{verbatim}
 ssc install schemepack, replace
@@ -262,7 +265,7 @@ twoway (scatter mpg weight, mcolor("`wcprimary'")), ///
         
 graph export "source/graphs/plot-stata.pdf", replace
         \end{verbatim}
-    \end{mblock}
+    \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -300,7 +303,7 @@ graph export "source/graphs/plot-stata.pdf", replace
 \end{frame}
 
 \begin{frame}[fragile]{Fonts: Poppins + IBM Plex Sans}
-    For a closer match to Northwestern's recommended free fonts, use \texttt{font=poppins}. Download both families from Google Fonts and place them in a \texttt{fonts/} folder next to your \texttt{.tex} file:
+    For a closer match to Northwestern's recommended free fonts, use \texttt{font=poppins}. Download \href{https://fonts.google.com/specimen/Poppins}{Poppins} and \href{https://fonts.google.com/specimen/IBM+Plex+Sans}{IBM Plex Sans} from Google Fonts and place them in a \texttt{fonts/} folder next to your \texttt{.tex} file:
     \scriptsize
     \begin{verbatim}
 \usetheme[font=poppins]{wildcat}
@@ -339,7 +342,7 @@ your-presentation/
     The \texttt{numbering} option controls the footer style on normal slides:
     \scriptsize
     \begin{verbatim}
-\usetheme[numbering=fraction]{wildcat}     % default: i/N
+\usetheme[numbering=fraction]{wildcat}     % default: n/N
 \usetheme[numbering=number]{wildcat}       % slide number only
 \usetheme[numbering=progressbar]{wildcat}  % bottom progress bar
 \usetheme[numbering=none]{wildcat}         % no numbering
@@ -348,52 +351,52 @@ your-presentation/
     The count excludes the title page. The \texttt{progressbar} mode fills the bottom bar using \texttt{wcprimary} and leaves the remainder at 10\% opacity. Section pages, title slides, standout slides, \texttt{[plain]} frames, and all appendix slides do not show numbering.
 \end{frame}
 
+\begin{frame}[fragile]{Breadcrumb Options}
+    The \texttt{breadcrumb} option controls whether normal frame titles show the current section and subsection above the title:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[breadcrumb=none]{wildcat}  % default
+\usetheme[breadcrumb=on]{wildcat}
+    \end{verbatim}
+    \normalsize
+    Breadcrumbs appear only after the first section starts. They are hidden on title, plain, section, and standout slides.
+\end{frame}
+
 \section{Block Environments}
 
-\begin{frame}[fragile]{Material Blocks}
+\begin{frame}{Blocks}
 
-    \begin{mblock}{Primary Material Block}
-        \texttt{mblock} is the main custom block style in the documentation. It gives you a Material-style outlined box with a floating title label.
-    \end{mblock}
-    \begin{mblock}[colframe=wcalerted,coltitle=wcalerted]{Alert Material Block}
-        Use \texttt{wcalerted} for warnings or emphasis.
-    \end{mblock}
-    \begin{mblock}[colframe=wcexample,coltitle=wcexample]{Example Material Block}
-        Use \texttt{wcexample} for examples or supportive notes.
-    \end{mblock}
+    \begin{block}{Primary Block}
+        The standard Beamer \texttt{block} environment uses the material-style outlined box with a floating title label.
+    \end{block}
+    \begin{alertblock}{Alert Block}
+        \texttt{alertblock} uses the theme alert color.
+    \end{alertblock}
+    \begin{exampleblock}{Example Block}
+        \texttt{exampleblock} uses the theme example color.
+    \end{exampleblock}
     \footnotesize
 \end{frame}
 
 \begin{frame}{Alternate: Pattern Blocks}
-    \begin{tblock}{T Block Title}
-    If you want the patterned title treatment, the theme also includes \texttt{tblock}, \texttt{talert}, \texttt{texample}, and \texttt{tpatternbox}.
-    \end{tblock}
-    \begin{talert}{T Alert Title}
+    \begin{pblock}{Pattern Block}
+    If you want the patterned title treatment, the theme also includes \texttt{pblock}, \texttt{palertblock}, and \texttt{pexampleblock}.
+    \end{pblock}
+    \begin{palertblock}{Pattern Alert Block}
         Patterned alert block.
-    \end{talert}
-    \begin{texample}{T Example Title}
+    \end{palertblock}
+    \begin{pexampleblock}{Pattern Example Block}
         Patterned example block.
-    \end{texample}
+    \end{pexampleblock}
 \end{frame}
 
-\begin{frame}[fragile]{Alternate: Custom Pattern Block}
-    \texttt{tpatternbox} accepts an optional color argument so you can reuse the patterned block style with any named color.
-    \begin{tpatternbox}[nudarkyellow]{Custom Pattern Block Title}
-        This is a \texttt{tpatternbox} block with a custom color.
-    \end{tpatternbox}
-\end{frame}
-
-\begin{frame}{Alternate: Default Beamer Blocks}
-    Standard Beamer \texttt{block}, \texttt{alertblock}, and \texttt{exampleblock} still work as usual.
-    \begin{block}{Main Block}
-        This is a standard Beamer block.
-    \end{block}
-    \begin{alertblock}{Alert Box}
-        This is a standard Beamer alert block.
-    \end{alertblock}
-    \begin{exampleblock}{Example Box}
-        This is a standard Beamer example block.
-    \end{exampleblock}
+\begin{frame}{Alternate: Custom Block Colors}
+    \begin{mblock}[colframe=nudarkyellow,coltitle=nudarkyellow]{Custom Material Block}
+        This material-style block uses a custom color.
+    \end{mblock}
+    \begin{pblock}[nudarkyellow]{Custom Pattern Block}
+        This patterned block uses a custom color.
+    \end{pblock}
 \end{frame}
 
 \section{Special Frames}
@@ -404,6 +407,13 @@ your-presentation/
     \scriptsize
     \begin{verbatim}
 \usetheme[sectionpage=none]{wildcat}
+    \end{verbatim}
+    \normalsize
+
+    Pass \texttt{agendastyle=pattern} to keep the 60\% agenda panel white and show the active background pattern in the remaining 40\%:
+    \scriptsize
+    \begin{verbatim}
+\usetheme[agendastyle=pattern]{wildcat}
     \end{verbatim}
     \normalsize
 \end{frame}
@@ -427,15 +437,11 @@ your-presentation/
 
 % Standout frame
 \begin{frame}{Standout Slides}
-    The \texttt{[standout]} frame option creates a full-pattern slide with centered white text — useful for section breaks, closing slides, or emphasis. No manual formatting needed:
+    The \texttt{\textbackslash standout\{\}} command creates a full-pattern slide with centered white text — useful for section breaks, closing slides, or emphasis. No manual formatting needed:
     \\ ~ \\
     \scriptsize
-    \texttt{\textbackslash begin\{frame\}[standout]}\\
-    \texttt{\quad Appendix} \\
-    \texttt{\textbackslash end\{frame\}}
+    \texttt{\textbackslash standout\{Appendix\}}
     \normalsize
-    \\ ~ \\
-    The legacy \texttt{\textbackslash standout\{text\}} command is still supported for backward compatibility.
 \end{frame}
 
 \standout{Appendix}
@@ -517,7 +523,7 @@ your-presentation/
     Two commands are needed because the theme uses the pattern in two different ways:
     \begin{itemize}
         \item \texttt{\textbackslash bgpattern} — title page, section slides, and standout frames. The color is fixed, so you bake it in when registering.
-        \item \texttt{\textbackslash bgpatternblock\{color\}} — pattern block headers (\texttt{tblock}, \texttt{talert}, \texttt{texample}, \texttt{tpatternbox}), where each block supplies its own color at render time.
+        \item \texttt{\textbackslash bgpatternblock\{color\}} — pattern block headers (\texttt{pblock}, \texttt{palertblock}, \texttt{pexampleblock}), where each block supplies its own color at render time.
     \end{itemize}
 \end{frame}
 
@@ -526,7 +532,7 @@ your-presentation/
     \\ ~ \\
     \texttt{\textbackslash bgpatternplain} (line 384) is the simplest — a single \texttt{\textbackslash fill} command — and is a good template to copy and modify. The other patterns show progressively more complex TikZ techniques: coordinate scaling, \texttt{\textbackslash foreach} loops, random seeds, scopes, and drop shadows.
     \\ ~ \\
-    The \texttt{\textbackslash bgpatternblock} variant used in \texttt{tblock} headers is typically identical to \texttt{\textbackslash bgpattern}, just registered separately so the theme can pass the block's color through as an argument.
+    The \texttt{\textbackslash bgpatternblock} variant used in \texttt{pblock} headers is typically identical to \texttt{\textbackslash bgpattern}, just registered separately so the theme can pass the block's color through as an argument.
 \end{frame}
 
 \begin{frame}[fragile]{Advanced: Community Background Patterns}

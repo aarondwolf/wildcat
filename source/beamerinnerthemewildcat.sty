@@ -2,7 +2,7 @@
 % It contains commands and templates for customizing the background, title page, section pages, and special blocks.
 % The main pattern for the background is defined in the \bgpattern command, which is used in various templates and environments.
 % The \bgpatternlight command creates a lighter version of the background pattern for section pages.
-% The \bgpatternblock command creates a color-specific version of the background pattern for tblocks.
+% The \bgpatternblock command creates a color-specific version of the background pattern for pblocks.
 % The background template is set using the \setbeamertemplate{background} command, which includes the main pattern and optional logo.
 % The title page template is defined using the \defbeamertemplate*{title page}{wildcat} command, which positions the title, author, and date.
 % Section pages are generated using the \AtBeginSection[] command, which sets the background template and displays the section name.
@@ -11,8 +11,22 @@
 \mode<presentation>
 
 % Defaults for standalone usage (without beamerthemewildcat.sty)
+\providecommand{\wc@pattern}{facet}
+\providecommand{\wc@agendastyle}{plain}
 \providecommand{\wc@sectionpage}{none}
 \providecommand{\wc@appendixsectionthreshold}{9999}
+\newif\ifwc@plainpattern
+\def\wc@tmp{plain}\ifx\wc@pattern\wc@tmp
+  \wc@plainpatterntrue
+\else
+  \wc@plainpatternfalse
+\fi
+\newif\ifwc@agendapattern
+\def\wc@tmp{pattern}\ifx\wc@agendastyle\wc@tmp
+  \wc@agendapatterntrue
+\else
+  \wc@agendapatternfalse
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BACKGROUND PATTERN DESIGNS
@@ -436,12 +450,14 @@
 \newsavebox{\wc@bgpatternbox}
 % \newsavebox{\wc@bgsectionbox}
 \AtBeginDocument{%
-  \savebox{\wc@bgpatternbox}{%
-    \begin{tikzpicture}
-      \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-      \bgpattern
-    \end{tikzpicture}%
-  }%
+  \ifwc@plainpattern\else
+    \savebox{\wc@bgpatternbox}{%
+      \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpattern
+      \end{tikzpicture}%
+    }%
+  \fi
   % \savebox{\wc@bgsectionbox}{%
   %   \begin{tikzpicture}
   %     \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
@@ -453,27 +469,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set the background template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setbeamertemplate{background}{
-    \begin{tikzpicture}
-    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-    % Add main pattern only on the cover page
+\ifwc@plainpattern
+  \setbeamertemplate{background canvas}{%
     \ifnum\insertframenumber=1
-      \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
-      % Add the logo if \titlegraphic is not blank
+      \color{wcprimary}\rule{\paperwidth}{\paperheight}%
+    \else
+      \color{white}\rule{\paperwidth}{\paperheight}%
+    \fi
+  }
+  \setbeamertemplate{background}{%
+    \ifnum\insertframenumber=1
       \ifx\inserttitlegraphic\@empty\relax
       \else
-        \node[anchor=west,inner sep=0] at (0.05*\the\paperwidth,0.89*\the\paperheight) {\inserttitlegraphic};
+        \vbox to 0pt{%
+          \vskip0.11\paperheight
+          \hbox to \paperwidth{\hskip0.05\paperwidth\inserttitlegraphic\hfil}%
+          \vss
+        }%
       \fi
-    \else
-      % Plain white background for every other page
-      \fill[white,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
     \fi
-    % If the frame specifies [plain] as an option, draw a full white background
-    \ifbeamer@plainframe
-      \fill[white,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+  }
+\else
+  \setbeamertemplate{background}{
+    \ifnum\insertframenumber=1
+      \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
+        % Add the logo if \titlegraphic is not blank
+        \ifx\inserttitlegraphic\@empty\relax
+        \else
+          \node[anchor=west,inner sep=0] at (0.05*\the\paperwidth,0.89*\the\paperheight) {\inserttitlegraphic};
+        \fi
+      \end{tikzpicture}%
     \fi
-  \end{tikzpicture}
-}
+  }
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set the title page text positioning
@@ -567,6 +597,8 @@
 }
 
 \newif\ifwc@agendasectionpage
+\newlength{\wc@agendatitleinset}
+\setlength{\wc@agendatitleinset}{9pt}
 
 \newcommand{\wc@agendatitle}{Agenda}
 \newcommand{\wc@agendasubsectionline}[3]{%
@@ -580,7 +612,7 @@
 }
 
 \newcommand{\wc@agendaexpanded}[2]{%
-  \begin{mblock}[colframe=#1,coltitle=#2]{\inserttocsectionnumber.\space\inserttocsection}%
+  \begin{mblock}[colframe=#1,coltitle=#2,attach boxed title to top left={xshift=\dimexpr\wc@agendatitleinset-3pt\relax,yshift*=-\tcboxedtitleheight/2}]{\inserttocsectionnumber.\space\inserttocsection}%
     \wc@insertstoredsubsections{\number\inserttocsectionnumber}%
   \end{mblock}%
 }
@@ -607,8 +639,17 @@
 }
 
 \newcommand{\wc@agendalayout}[2]{%
+  \ifwc@agendapattern
+    \begin{tikzpicture}[remember picture,overlay]
+      \begin{scope}[shift={(current page.south west)}]
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpattern
+        \fill[white] (0,0) rectangle (0.6\paperwidth,\paperheight);
+      \end{scope}
+    \end{tikzpicture}%
+  \fi
   \vspace{1em}%
-  \noindent\begin{minipage}{0.75\textwidth}
+  \noindent\begin{minipage}{0.6\textwidth}
     \begin{mblock}[colframe=#1,coltitle=wcprimary,fonttitle=\Large\bfseries]{\wc@agendatitle}
     {%
       \begingroup
@@ -674,7 +715,7 @@
 \let\wc@origtableofcontents\tableofcontents
 \renewcommand{\tableofcontents}[1][]{%
   \wc@agendasectionpagefalse
-  \wc@agendalayout{wcprimary}{hideallsubsections,#1}%
+  \wc@agendalayout{white}{hideallsubsections,#1}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -682,70 +723,80 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % If you want the facet design to come through faintly in the interior, replace the fill
 % color of the overlay to \fill[white, fill opacity=0.8]
-\newtcolorbox{tblock}[1]{
-  enhanced,
-  underlay={
-    \begin{tcbclipframe}
-        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \bgpattern  
+% Patterned block with an optional color argument.
+\ifwc@plainpattern
+  \newtcolorbox{pblock}[2][wcprimary]{
+    colback=#1!5,
+    colframe=#1,
+    colbacktitle=#1,
+    coltitle=white,
+    title=#2
+  }
+
+  \newtcolorbox{palertblock}[1]{
+    colback=wcalerted!5,
+    colframe=wcalerted,
+    colbacktitle=wcalerted,
+    coltitle=white,
+    title=#1
+  }
+
+  \newtcolorbox{pexampleblock}[1]{
+    colback=wcexample!5,
+    colframe=wcexample,
+    colbacktitle=wcexample,
+    coltitle=white,
+    title=#1
+  }
+\else
+  \newtcolorbox{pblock}[2][wcprimary]{
+    enhanced,
+    underlay={
+      \begin{tcbclipframe}
+          \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+          \bgpatternblock{#1}
+        \end{tcbclipframe}
+    },
+    overlay={
+      \begin{tcbclipinterior}
+        \fill[#1!5] (frame.south west) rectangle (frame.north east);
+      \end{tcbclipinterior}
+    },
+    title=#2
+  }
+
+  \newtcolorbox{palertblock}[1]{
+    enhanced,
+    underlay={
+      \begin{tcbclipframe}
+          \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+          \bgpatternblock{wcalerted}  
       \end{tcbclipframe}
-  },
-  overlay={
-    \begin{tcbclipinterior}
-      \fill[wcprimary!5] (frame.south west) rectangle (frame.north east);
-    \end{tcbclipinterior}
-  },
-  title=#1
-}
+    },
+    overlay={
+      \begin{tcbclipinterior}
+        \fill[wcalerted!5] (frame.south west) rectangle (frame.north east);
+      \end{tcbclipinterior}
+    },
+    title=#1
+  }
 
-\newtcolorbox{talert}[1]{
-  enhanced,
-  underlay={
-    \begin{tcbclipframe}
-        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \bgpatternblock{wcalerted}  
-    \end{tcbclipframe}
-  },
-  overlay={
-    \begin{tcbclipinterior}
-      \fill[wcalerted!5] (frame.south west) rectangle (frame.north east);
-    \end{tcbclipinterior}
-  },
-  title=#1
-}
-
-\newtcolorbox{texample}[1]{
-  enhanced,
-  underlay={
-    \begin{tcbclipframe}
-        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \bgpatternblock{wcexample}  
-    \end{tcbclipframe}
-  },
-  overlay={
-    \begin{tcbclipinterior}
-      \fill[wcexample!5] (frame.south west) rectangle (frame.north east);
-    \end{tcbclipinterior}
-  },
-  title=#1
-}
-
-% And a general pattern block which takes a second (optional) argument for the color
-\newtcolorbox{tpatternbox}[2][wcprimary]{
-  enhanced,
-  underlay={
-    \begin{tcbclipframe}
-        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \bgpatternblock{#1}
+  \newtcolorbox{pexampleblock}[1]{
+    enhanced,
+    underlay={
+      \begin{tcbclipframe}
+          \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+          \bgpatternblock{wcexample}  
       \end{tcbclipframe}
-  },
-  overlay={
-    \begin{tcbclipinterior}
-      \fill[#1!5] (frame.south west) rectangle (frame.north east);
-    \end{tcbclipinterior}
-  },
-  title=#2
-}
+    },
+    overlay={
+      \begin{tcbclipinterior}
+        \fill[wcexample!5] (frame.south west) rectangle (frame.north east);
+      \end{tcbclipinterior}
+    },
+    title=#1
+  }
+\fi
 
 % Material-style outline block with a floating label-like title.
 \newtcolorbox{mblock}[2][colframe=wcprimary,coltitle=wcprimary]{
@@ -765,6 +816,7 @@
   boxed title style={
     frame hidden,
     boxrule=0pt,
+    boxsep=0pt,
     sharp corners,
     top=0pt,
     bottom=0pt,
@@ -774,6 +826,36 @@
   },
   #1
 }
+
+\RenewDocumentEnvironment{block}{d<> m}
+  {%
+    \IfNoValueF{#1}{\begin{actionenv}<#1>}%
+    \begin{mblock}[colframe=wcprimary,coltitle=wcprimary]{#2}%
+  }
+  {%
+    \end{mblock}%
+    \IfNoValueF{#1}{\end{actionenv}}%
+  }
+
+\RenewDocumentEnvironment{alertblock}{d<> m}
+  {%
+    \IfNoValueF{#1}{\begin{actionenv}<#1>}%
+    \begin{mblock}[colframe=wcalerted,coltitle=wcalerted]{#2}%
+  }
+  {%
+    \end{mblock}%
+    \IfNoValueF{#1}{\end{actionenv}}%
+  }
+
+\RenewDocumentEnvironment{exampleblock}{d<> m}
+  {%
+    \IfNoValueF{#1}{\begin{actionenv}<#1>}%
+    \begin{mblock}[colframe=wcexample,coltitle=wcexample]{#2}%
+  }
+  {%
+    \end{mblock}%
+    \IfNoValueF{#1}{\end{actionenv}}%
+  }
 
 \pgfkeys{
   /wc/mline/.is family,
@@ -788,30 +870,17 @@
   {%
     \pgfkeys{/wc/mline,colframe=wcprimary,coltitle=wcprimary,#1}%
     \par\medskip
-    \noindent
-    \begin{tikzpicture}[baseline=(title.base)]
-      \node[
-        anchor=west,
-        inner xsep=3pt,
-        inner ysep=0pt,
-        fill=white,
-        text=\wc@mlinecoltitle,
-        font=\footnotesize\bfseries
-      ] (title) at (10pt,0) {#2};
-      \draw[
-        draw=\wc@mlinecolframe,
-        line width=0.7pt
-      ] (0,0) -- ([xshift=-4pt]title.west);
-    \end{tikzpicture}\par
+    \noindent\makebox[\wc@agendatitleinset][l]{\color{\wc@mlinecolframe}\raisebox{0.45ex}{\rule{0.5em}{0.7pt}}}%
+    {\color{\wc@mlinecoltitle}\footnotesize\bfseries #2\par}%
     \vspace{0.35em}%
   }
   {\par}
 
-% Backward-compatibility alias: \tfacetbox was renamed to \tpatternbox.
+% Backward-compatibility alias: \tfacetbox was renamed to \pblock.
 % Old code using \begin{tfacetbox}...\end{tfacetbox} will still work.
 \NewDocumentEnvironment{tfacetbox}{O{wcprimary} m}
-  {\begin{tpatternbox}[#1]{#2}}
-  {\end{tpatternbox}}
+  {\begin{pblock}[#1]{#2}}
+  {\end{pblock}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Standout Frame
@@ -820,9 +889,14 @@
 % text centered vertically and horizontally. There should be no title
 \newcommand{\standout}[1]{
     {
-        \setbeamertemplate{background}{%
-            \usebox{\wc@bgpatternbox}%
-        }
+        \ifwc@plainpattern
+          \setbeamertemplate{background canvas}{\color{wcprimary}\rule{\paperwidth}{\paperheight}}%
+          \setbeamertemplate{background}{}%
+        \else
+          \setbeamertemplate{background}{%
+              \usebox{\wc@bgpatternbox}%
+          }
+        \fi
         \setbeamertemplate{footline}{}
         \begin{frame}
             \vfill

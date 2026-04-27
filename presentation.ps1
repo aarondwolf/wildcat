@@ -19,11 +19,11 @@ try {
     Copy-Item (Join-Path $PSScriptRoot "source/wildcat-demo.tex") -Destination (Join-Path $stagingDir "main.tex")
     Copy-Item (Join-Path $PSScriptRoot "source/*.sty") -Destination $stagingDir
 
-    # Copy fonts (maintaining the Poppins and IBM_Plex_Sans folders)
-    $fontsStaging = New-Item -ItemType Directory -Path (Join-Path $stagingDir "fonts")
-    Copy-Item (Join-Path $PSScriptRoot "source/fonts/Poppins") -Destination $fontsStaging -Recurse
-    $ibmDest = New-Item -ItemType Directory -Path (Join-Path $fontsStaging "IBM_Plex_Sans")
-    Copy-Item (Join-Path $PSScriptRoot "source/fonts/IBM_Plex_Sans/*.ttf") -Destination $ibmDest
+    # # Copy fonts (maintaining the Poppins and IBM_Plex_Sans folders)
+    # $fontsStaging = New-Item -ItemType Directory -Path (Join-Path $stagingDir "fonts")
+    # Copy-Item (Join-Path $PSScriptRoot "source/fonts/Poppins") -Destination $fontsStaging -Recurse
+    # $ibmDest = New-Item -ItemType Directory -Path (Join-Path $fontsStaging "IBM_Plex_Sans")
+    # Copy-Item (Join-Path $PSScriptRoot "source/fonts/IBM_Plex_Sans/*.ttf") -Destination $ibmDest
 
     Write-Host "Creating archive..."
     # Use -Path "$stagingDir/*" so the zip contents start at the root

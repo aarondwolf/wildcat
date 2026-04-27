@@ -2,6 +2,7 @@
 
 % Default for standalone usage (without beamerthemewildcat.sty)
 \providecommand{\wc@numbering}{fraction}
+\providecommand{\wc@breadcrumb}{on}
 
 \makeatletter
 
@@ -14,17 +15,24 @@
 % Frame title
 \defbeamertemplate*{frametitle}{wildcat}[1][]
 {
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1.4cm]{frametitle} 
-  \begin{tikzpicture}
-  \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-  \ifx\insertframesubtitle\@empty%
-      {\node[anchor=west, frametitle.fg,font=\Large] at (0.05*\the\paperwidth,0.61){\raggedright\insertframetitle};}
-  \else%
-      {\node[anchor= west, frametitle.fg,font=\large] at (0.05*\the\paperwidth,0.81){\raggedright\insertframetitle};%
-       \node[anchor= west, frametitle.fg,font=\small] at (0.05*\the\paperwidth,0.41){\raggedright\insertframesubtitle};}%
-  \fi
-  \end{tikzpicture}
-  \end{beamercolorbox}
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth,sep=0pt,leftskip=0.55cm,rightskip=0.55cm,#1]{frametitle}
+    \vskip0.32cm%
+    \def\wc@tmp{none}\ifx\wc@breadcrumb\wc@tmp\else
+      \ifnum\value{section}>0
+        {\tiny\color{wcprimary!20}\MakeUppercase{\insertsectionhead}%
+          \ifnum\value{subsection}>0
+            \space\space›\space\space\MakeUppercase{\insertsubsectionhead}%
+          \fi\par}%
+        \vskip0.14cm%
+      \fi
+    \fi
+    {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
+    \ifx\insertframesubtitle\@empty\else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
+    \fi%
+    \vskip0.12cm%
+  \end{beamercolorbox}%
 }
 
 % % Header (Navigation) - Uncomment if you want navigation symbols
@@ -45,13 +53,14 @@
       \def\wc@tmp{none}\ifx\wc@numbering\wc@tmp\else
         \def\wc@tmp{progressbar}\ifx\wc@numbering\wc@tmp
           \ifnum\insertmainframenumber>1
-          \begin{tikzpicture}[remember picture,overlay]
-            \pgfmathsetmacro{\wc@progress}{(\insertframenumber-1)/(\insertmainframenumber-1)}
-            \fill[wcprimary,opacity=0.1]
-              (current page.south west) rectangle ([yshift=1.8pt]current page.south east);
-            \fill[wcprimary]
-              (current page.south west) rectangle ([xshift=\wc@progress\paperwidth,yshift=1.8pt]current page.south west);
-          \end{tikzpicture}%
+            \begingroup
+              \dimen@=\paperwidth
+              \multiply\dimen@ by \numexpr\insertframenumber-1\relax
+              \divide\dimen@ by \numexpr\insertmainframenumber-1\relax
+              \leavevmode
+              \rlap{\color{wcprimary!10}\rule{\paperwidth}{1.8pt}}%
+              {\color{wcprimary}\rule{\dimen@}{1.8pt}}%
+            \endgroup
           \fi
         \else
           \begin{beamercolorbox}[wd=\paperwidth,ht=-2.5ex,dp=1.125ex,right]{page number in head/foot}
