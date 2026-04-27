@@ -449,6 +449,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newsavebox{\wc@bgpatternbox}
 % \newsavebox{\wc@bgsectionbox}
+\newsavebox{\wc@pblockpatternbox}
+\newsavebox{\wc@palertpatternbox}
+\newsavebox{\wc@pexamplepatternbox}
+\newif\ifwc@pblockpatterncached
+\newif\ifwc@palertpatterncached
+\newif\ifwc@pexamplepatterncached
 \AtBeginDocument{%
   \ifwc@plainpattern\else
     \savebox{\wc@bgpatternbox}{%
@@ -464,6 +470,73 @@
   %     \bgpatternblock{wcprimary}
   %   \end{tikzpicture}%
   % }%
+}
+
+% Pattern block backgrounds are rendered lazily. Most decks never use pblock
+% variants, so the expensive full-slide pattern boxes are populated only on
+% first use of the matching built-in block color.
+\newcommand{\wc@ensurepblockpattern}{%
+  \ifwc@pblockpatterncached\else
+    \global\setbox\wc@pblockpatternbox=\hbox{%
+      \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpatternblock{wcprimary}%
+      \end{tikzpicture}%
+    }%
+    \global\wd\wc@pblockpatternbox=0pt
+    \global\ht\wc@pblockpatternbox=0pt
+    \global\dp\wc@pblockpatternbox=0pt
+    \global\wc@pblockpatterncachedtrue
+  \fi
+}
+\newcommand{\wc@ensurepalertpattern}{%
+  \ifwc@palertpatterncached\else
+    \global\setbox\wc@palertpatternbox=\hbox{%
+      \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpatternblock{wcalerted}%
+      \end{tikzpicture}%
+    }%
+    \global\wd\wc@palertpatternbox=0pt
+    \global\ht\wc@palertpatternbox=0pt
+    \global\dp\wc@palertpatternbox=0pt
+    \global\wc@palertpatterncachedtrue
+  \fi
+}
+\newcommand{\wc@ensurepexamplepattern}{%
+  \ifwc@pexamplepatterncached\else
+    \global\setbox\wc@pexamplepatternbox=\hbox{%
+      \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \bgpatternblock{wcexample}%
+      \end{tikzpicture}%
+    }%
+    \global\wd\wc@pexamplepatternbox=0pt
+    \global\ht\wc@pexamplepatternbox=0pt
+    \global\dp\wc@pexamplepatternbox=0pt
+    \global\wc@pexamplepatterncachedtrue
+  \fi
+}
+\newcommand{\wc@ifdefaultpblockcolor}[3]{%
+  \def\wc@tmpa{#1}%
+  \def\wc@tmpb{wcprimary}%
+  \ifx\wc@tmpa\wc@tmpb
+    #2%
+  \else
+    #3%
+  \fi
+}
+\newcommand{\wc@patternblockunderlay}[1]{%
+  \wc@ifdefaultpblockcolor{#1}{%
+    \pgftext[left,bottom,at={\pgfpoint{0pt}{0pt}}]{\copy\wc@pblockpatternbox}%
+  }{%
+    \bgpatternblock{#1}%
+  }%
+}
+\newcommand{\wc@ensuredefaultpblockpattern}[1]{%
+  \wc@ifdefaultpblockcolor{#1}{%
+    \wc@ensurepblockpattern
+  }{}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -638,26 +711,26 @@
   \fi
 }
 
-\newcommand{\wc@agendalayout}[2]{%
+\newcommand{\wc@agendalayout}[1]{%
   \ifwc@agendapattern
     \begin{tikzpicture}[remember picture,overlay]
       \begin{scope}[shift={(current page.south west)}]
         \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \bgpattern
+        \ifwc@plainpattern
+          \bgpattern
+        \else
+          \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
+        \fi
         \fill[white] (0,0) rectangle (0.6\paperwidth,\paperheight);
       \end{scope}
     \end{tikzpicture}%
   \fi
   \vspace{1em}%
   \noindent\begin{minipage}{0.6\textwidth}
-    \begin{mblock}[colframe=#1,coltitle=wcprimary,fonttitle=\Large\bfseries]{\wc@agendatitle}
-    {%
-      \begingroup
-        \let\vfill\relax
-        \wc@origtableofcontents[#2]%
-      \endgroup
-    }%
-    \end{mblock}
+    \begingroup
+      \let\vfill\relax
+      \wc@origtableofcontents[#1]%
+    \endgroup
   \end{minipage}%
 }
 
@@ -669,10 +742,9 @@
       \setbeamertemplate{background}{}%
       \setbeamertemplate{headline}{}%
       \setbeamertemplate{footline}{}%
-      \setbeamertemplate{frametitle}{}%
-      \begin{frame}[plain]
+      \begin{frame}[plain]{\wc@agendatitle}
         \wc@agendasectionpagetrue
-        \wc@agendalayout{white}{currentsection,hideothersubsections}%
+        \wc@agendalayout{currentsection,hideothersubsections}%
       \end{frame}
     }%
   \fi
@@ -714,8 +786,9 @@
 
 \let\wc@origtableofcontents\tableofcontents
 \renewcommand{\tableofcontents}[1][]{%
+  \frametitle{\wc@agendatitle}%
   \wc@agendasectionpagefalse
-  \wc@agendalayout{white}{hideallsubsections,#1}%
+  \wc@agendalayout{hideallsubsections,#1}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -749,12 +822,12 @@
     title=#1
   }
 \else
-  \newtcolorbox{pblock}[2][wcprimary]{
+  \newtcolorbox{wcpblockbox}[2][wcprimary]{
     enhanced,
     underlay={
       \begin{tcbclipframe}
           \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-          \bgpatternblock{#1}
+          \wc@patternblockunderlay{#1}
         \end{tcbclipframe}
     },
     overlay={
@@ -765,12 +838,19 @@
     title=#2
   }
 
-  \newtcolorbox{palertblock}[1]{
+  \NewDocumentEnvironment{pblock}{O{wcprimary} m}
+    {%
+      \wc@ensuredefaultpblockpattern{#1}%
+      \begin{wcpblockbox}[#1]{#2}%
+    }
+    {\end{wcpblockbox}}
+
+  \newtcolorbox{wcpalertblockbox}[1]{
     enhanced,
     underlay={
       \begin{tcbclipframe}
           \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-          \bgpatternblock{wcalerted}  
+          \pgftext[left,bottom,at={\pgfpoint{0pt}{0pt}}]{\copy\wc@palertpatternbox}%
       \end{tcbclipframe}
     },
     overlay={
@@ -781,12 +861,19 @@
     title=#1
   }
 
-  \newtcolorbox{pexampleblock}[1]{
+  \NewDocumentEnvironment{palertblock}{m}
+    {%
+      \wc@ensurepalertpattern
+      \begin{wcpalertblockbox}{#1}%
+    }
+    {\end{wcpalertblockbox}}
+
+  \newtcolorbox{wcpexampleblockbox}[1]{
     enhanced,
     underlay={
       \begin{tcbclipframe}
           \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-          \bgpatternblock{wcexample}  
+          \pgftext[left,bottom,at={\pgfpoint{0pt}{0pt}}]{\copy\wc@pexamplepatternbox}%
       \end{tcbclipframe}
     },
     overlay={
@@ -796,6 +883,13 @@
     },
     title=#1
   }
+
+  \NewDocumentEnvironment{pexampleblock}{m}
+    {%
+      \wc@ensurepexamplepattern
+      \begin{wcpexampleblockbox}{#1}%
+    }
+    {\end{wcpexampleblockbox}}
 \fi
 
 % Material-style outline block with a floating label-like title.
