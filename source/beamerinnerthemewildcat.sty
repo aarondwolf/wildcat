@@ -542,16 +542,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set the background template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{background canvas}{%
+  \ifnum\insertframenumber=1%
+    \color{wcprimary}\rule{\paperwidth}{\paperheight}%
+  \else%
+    \color{white}\rule{\paperwidth}{\paperheight}%
+  \fi%
+}
+
 \ifwc@plainpattern
-  \setbeamertemplate{background canvas}{%
-    \ifnum\insertframenumber=1
-      \color{wcprimary}\rule{\paperwidth}{\paperheight}%
-    \else
-      \color{white}\rule{\paperwidth}{\paperheight}%
-    \fi
-  }
   \setbeamertemplate{background}{%
-    \ifnum\insertframenumber=1
+    \ifnum\insertframenumber=1%
       \ifx\inserttitlegraphic\@empty\relax
       \else
         \vbox to 0pt{%
@@ -560,21 +561,21 @@
           \vss
         }%
       \fi
-    \fi
+    \fi%
   }
 \else
-  \setbeamertemplate{background}{
-    \ifnum\insertframenumber=1
-      \begin{tikzpicture}
-        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-        \node[anchor=south west,inner sep=0] at (0,0) {\usebox{\wc@bgpatternbox}};
+  \setbeamertemplate{background}{%
+    \ifnum\insertframenumber=1%
+      \begin{tikzpicture}%
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);%
+        \node[anchor=south west,inner sep=0pt,outer sep=0pt] at (0,0) {\usebox{\wc@bgpatternbox}};%
         % Add the logo if \titlegraphic is not blank
         \ifx\inserttitlegraphic\@empty\relax
         \else
-          \node[anchor=west,inner sep=0] at (0.05*\the\paperwidth,0.89*\the\paperheight) {\inserttitlegraphic};
+          \node[anchor=west,inner sep=0pt,outer sep=0pt] at (0.05*\the\paperwidth,0.89*\the\paperheight) {\inserttitlegraphic};%
         \fi
       \end{tikzpicture}%
-    \fi
+    \fi%
   }
 \fi
 
@@ -985,13 +986,13 @@
 % text centered vertically and horizontally. There should be no title
 \newcommand{\standout}[1]{
     {
+        \setbeamertemplate{background canvas}{\color{wcprimary}\rule{\paperwidth}{\paperheight}}%
         \ifwc@plainpattern
-          \setbeamertemplate{background canvas}{\color{wcprimary}\rule{\paperwidth}{\paperheight}}%
           \setbeamertemplate{background}{}%
         \else
           \setbeamertemplate{background}{%
               \usebox{\wc@bgpatternbox}%
-          }
+          }%
         \fi
         \setbeamertemplate{footline}{}
         \begin{frame}
