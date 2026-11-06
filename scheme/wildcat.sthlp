@@ -8,6 +8,7 @@
 {viewerjumpto "Appendix: R ggplot2 Code Equivalents" "wildcat##appendix_r"}{...}
 {viewerjumpto "Customizing the Scheme" "wildcat##custom"}{...}
 {viewerjumpto "Palette Commands" "wildcat##palette"}{...}
+{viewerjumpto "Repository & Updates" "wildcat##repository"}{...}
 {title:Title}
 
 {p2colset 5 18 20 2}{...}
@@ -35,7 +36,7 @@ Apply to an individual graph:
 {title:Description}
 
 {pstd}
-{cmd:wildcat} is a modern, publication-grade Stata graph scheme designed to align closely with the clean, minimalist aesthetic of R's {cmd:ggplot2} ({cmd:theme_minimal()} and companion {cmd:theme_wildcat()}).
+{cmd:wildcat} is a modern, publication-grade Stata graph scheme designed to align closely with the clean, minimalist aesthetic of R's {cmd:ggplot2} ({cmd:theme_minimal()} and companion {cmd:theme_wildcat()}). It is part of the {browse "https://github.com/aarondwolf/wildcat":Wildcat repository}, which also includes a companion Northwestern University Beamer presentation theme and matching R and Python graph themes.
 
 {pstd}
 Key design features include:
@@ -296,10 +297,20 @@ If you have Ben Jann's {cmd:palettes} package installed, you can visualize the p
 {phang2}{stata "colorpalette wildcat, title(Northwestern University Brand Colors)":. colorpalette wildcat, title(Northwestern University Brand Colors)}{p_end}
 
 
+{marker repository}{...}
+{title:Repository & Updates}
+
+{pstd}
+The latest version of the scheme, full documentation, issue tracker, and companion Beamer presentation and R/Python themes are hosted on GitHub:{break}
+{browse "https://github.com/aarondwolf/wildcat":https://github.com/aarondwolf/wildcat}
+
+
+{marker author}{...}
 {title:Author}
 
 {pstd}
 Aaron Wolf{break}
 Northwestern University{break}
-Email: {browse "mailto:aaron.wolf@u.northwestern.edu":aaron.wolf@u.northwestern.edu}
+Email: {browse "mailto:aaron.wolf@u.northwestern.edu":aaron.wolf@u.northwestern.edu}{break}
+GitHub: {browse "https://github.com/aarondwolf/wildcat":https://github.com/aarondwolf/wildcat}
 {p_end}
