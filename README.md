@@ -1,5 +1,5 @@
 # wildcat
-A modern, highly customizable Beamer theme.
+Modern, customizable beamer and Stata/Python/R themes.
 
 ## Overview
 This Beamer theme uses branding guidelines (colors, fonts, and logos) from [Northwestern University](https://www.northwestern.edu/brand/visual-identity/). The design mimics Northwestern's facets Zoom backgrounds, and the style files build on the amazing Stack Exchange answer by [Claudio Fiandrino](https://tex.stackexchange.com/questions/146529/design-a-custom-beamer-theme-from-scratch). This is not an official Northwestern-approved Beamer template.
