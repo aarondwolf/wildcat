@@ -1,6 +1,13 @@
 # Wildcat Graph Theme System (Stata, R ggplot2 & Python Matplotlib)
 
-A unified, publication-grade graph theme and styling repository featuring official **Northwestern University** branding. This system provides synchronized styling implementations for **Stata** (`scheme-wildcat`), **R** (`theme_wildcat`), and **Python** (`theme_wildcat` / `wildcat.mplstyle`), ensuring that figures produced across all three environments share an identical visual language, typographic hierarchy, and brand-compliant color palette.
+> **Repository Context:**
+> This directory is part of the [**Wildcat**](https://github.com/aarondwolf/wildcat) repository. While the parent repository provides a modern Northwestern University Beamer presentation theme, the `scheme/` folder houses the companion publication-grade graph styling system across **Stata** (`scheme-wildcat`), **R** (`theme_wildcat`), and **Python** (`theme_wildcat` / `wildcat.mplstyle`).
+
+A unified, publication-grade graph theme and styling system featuring official **Northwestern University** branding. This system provides synchronized styling implementations for **Stata**, **R**, and **Python**, ensuring that figures produced across all three environments share an identical visual language, typographic hierarchy, and brand-compliant color palette anchored to R's `ggplot2` `theme_minimal()` aesthetic.
+
+> [!TIP]
+> **Working with an AI Coding Agent?**
+> If you are using an AI coding agent (such as Claude, ChatGPT, Cursor, Copilot, or Gemini) to write scripts, create figures, or adapt these themes to a new institution or color palette, share [**`FOR_AGENTS.md`**](FOR_AGENTS.md) with the agent. It contains concise, structured instructions for downloading files, referencing them across all three languages, programmatically editing palettes, and maintaining visual parity.
 
 ---
 
@@ -88,11 +95,12 @@ The Python module provides the same discrete and continuous palettes as R and St
 
 ---
 
-## Repository Structure
+## Directory Structure
 
-The repository is structured for seamless GitHub hosting and native Stata `net install` packaging. The root directory contains only the core package distribution files, while datasets, tests, build scripts, and documentation are organized into dedicated subdirectories:
+The `scheme/` folder is structured for seamless GitHub hosting and native Stata `net install` packaging. The top level of this folder contains the core Stata package distribution files, while datasets, tests, build scripts, and multi-language theme implementations are organized into dedicated subdirectories:
 
 ```
+scheme/
 ├── stata.toc                 # Stata package directory table of contents
 ├── wildcat.pkg               # Stata net install package manifest
 ├── scheme-wildcat.scheme     # Compiled standalone Stata scheme file
@@ -101,6 +109,7 @@ The repository is structured for seamless GitHub hosting and native Stata `net i
 ├── colorpalette_wildcat.ado  # Native Wildcat palette for Ben Jann's colorpalette
 ├── colorpalette_nu.ado       # Backward-compatibility alias for colorpalette
 ├── color-*.style             # Standalone Stata color style definitions
+├── FOR_AGENTS.md             # Dedicated guide and instructions for AI coding agents
 ├── data/                     # Bundled benchmark datasets for validation & testing
 │   ├── auto.dta              # 1978 Automobile dataset
 │   ├── trends.dta            # Multi-line sector growth dataset (2010–2022)
@@ -135,7 +144,7 @@ The repository is structured for seamless GitHub hosting and native Stata `net i
 │   ├── update_py_r.ps1       # PowerShell script: compiles Python vs. R presentation_py_r.pdf
 │   ├── presentation_py_r.tex # Python vs. R Beamer presentation
 │   └── presentation_py_r.pdf # Compiled Python vs. R comparison presentation (16 slides)
-└── README.md                 # Complete documentation and user guide
+└── README.md                 # Scheme folder documentation and user guide
 ```
 
 ---
@@ -144,7 +153,7 @@ The repository is structured for seamless GitHub hosting and native Stata `net i
 
 ### 1. Northwestern University Official Brand Colors
 
-The installed color style files (`color-*.style`) provide direct, native access to official Northwestern University brand colors across all Stata graph commands (e.g., `mcolor(nupurple)`, `lcolor(nudarkorange)`, `fcolor(nupurple20%50)`):
+The installed color style files (`color-*.style`) provide direct, native access to official Northwestern University brand colors across all Stata graph commands (e.g., `mcolor(nupurple)`, `lcolor(nudarkorange)`, `fcolor(nupurple20%50)`), matched identically in R and Python:
 
 | Alias | RGB Values | Hex Code | Swatch / Description |
 | :--- | :--- | :--- | :--- |
@@ -209,18 +218,25 @@ Mapped for maximum contrast and accessibility across discrete series (with Dark 
 
 ## Typographic Hierarchy & Alignment
 
-Both environments share an aligned typographic hierarchy based on **Arial** (`arial.ttf` / `arialbd.ttf`):
+All three environments (**R `ggplot2`**, **Python `matplotlib`**, and **Stata**) share a synchronized typographic hierarchy based on **Arial** (`arial.ttf` / `arialbd.ttf`):
 
-| UI / Graph Element | ggplot2 Element Name | Font Family | Weight / Face | Relative Size | Points (at base=11) | Color (Hex / RGB) | Stata Scheme Equivalent |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Main Title** | `plot.title` | `Arial` (sans) | **Bold** (700) | `rel(1.30)` | ~14.3 pt | `#222222` | `heading` (`wc_title`), `title("{bf:...}")` |
-| **Subtitle** | `plot.subtitle` | `Arial` (sans) | Plain (400) | `rel(0.98)` | ~10.8 pt | `#666666` | `subheading` (`wc_body`), `size(small)` |
-| **Axis Titles** | `axis.title` (`.x`, `.y`) | `Arial` (sans) | Plain (400) | `rel(0.95)` | ~10.5 pt | `#222222` | `axis_title` (`wc_title`), `size(small)` |
-| **Axis Tick Numbers** | `axis.text` (`.x`, `.y`) | `Arial` (sans) | Plain (400) | `rel(0.85)` | ~9.35 pt | `#666666` | `tick_label` (`wc_body`), `size(small)` |
-| **Legend Title** | `legend.title` | `Arial` (sans) | **Bold** (700) | `rel(0.90)` | ~9.9 pt | `#222222` | `legend_title` (`wc_title`) |
-| **Legend Items** | `legend.text` | `Arial` (sans) | Plain (400) | `rel(0.85)` | ~9.35 pt | `#666666` | `key_label` (`wc_body`), `size(small)` |
-| **Facet Titles** | `strip.text` (`.x`, `.y`) | `Arial` (sans) | **Bold** (700) | `rel(1.05)` | ~11.55 pt | `#222222` | `bylabel` (`wc_title`), `size(medium)` |
-| **Footnotes / Note** | `plot.caption` | `Arial` (sans) | Plain (400) | `rel(0.82)` | ~9.0 pt | `#666666` | `note` / `caption` (`wc_body`), `size(2.4)` |
+| UI / Graph Element | R (`ggplot2`) | Python (`matplotlib` / `theme_wildcat`) | Stata (`scheme-wildcat`) | Weight / Face | Points (at base=11) | Color (Hex / Alias) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Main Title** | `plot.title` (`rel(1.30)`) | `axes.titlesize` / `labs(title=...)` | `heading`, `title("{bf:...}")` | **Bold** (700) | ~14.3 pt | `#222222` (`wc_title`) |
+| **Subtitle** | `plot.subtitle` (`rel(0.98)`) | `labs(subtitle=...)` | `subheading`, `size(small)` | Plain (400) | ~10.8 pt | `#666666` (`wc_body`) |
+| **Axis Titles** | `axis.title.x`, `.y` (`rel(0.95)`) | `axes.labelsize` / `labs(x=..., y=...)` | `axis_title`, `size(small)` | Plain (400) | ~10.5 pt | `#222222` (`wc_title`) |
+| **Axis Tick Numbers** | `axis.text.x`, `.y` (`rel(0.85)`) | `xtick.labelsize`, `ytick.labelsize` | `tick_label`, `size(small)` | Plain (400) | ~9.35 pt | `#666666` (`wc_body`) |
+| **Legend Title** | `legend.title` (`rel(0.90)`) | `legend.title_fontsize` | `legend_title` | **Bold** (700) | ~9.9 pt | `#222222` (`wc_title`) |
+| **Legend Items** | `legend.text` (`rel(0.85)`) | `legend.fontsize` / `legend_top()` | `key_label`, `size(small)` | Plain (400) | ~9.35 pt | `#666666` (`wc_body`) |
+| **Facet Titles** | `strip.text.x`, `.y` (`rel(1.05)`) | Subplot title / suptitle | `bylabel`, `size(medium)` | **Bold** (700) | ~11.55 pt | `#222222` (`wc_title`) |
+| **Footnotes / Caption**| `plot.caption` (`rel(0.82)`) | `labs(caption=...)` | `note` / `caption`, `size(2.4)` | Plain (400) | ~9.0 pt | `#666666` (`wc_body`) |
+
+### Cross-Platform Alignment Highlights
+
+- **Font Family**: Standardized to system sans-serif (`Arial`, with `Helvetica` and `DejaVu Sans` fallbacks).
+- **Titles & Subtitles**: Aligned flush left above the plot canvas across all three tools, using bold dark charcoal for titles and plain muted gray for subtitles.
+- **Top-Mounted Legends**: Positioned horizontally above the plot area flush with the left boundary (`11 o'clock` in Stata, `legend.position = "top"` in R, `legend_top()` in Python).
+- **Subtle Scales**: Y-axis vertical lines and tick marks are eliminated in all three environments, relying solely on thin horizontal gridlines (`#EAEAEA`) and light X-axis baselines (`#CCCCCC`).
 
 ---
 
@@ -233,25 +249,30 @@ Both environments share an aligned typographic hierarchy based on **Arial** (`ar
    - **Y-Axis Baseline & Ticks**: Completely eliminated (zero line, zero ticks) to match modern minimal aesthetics.
 
 2. **Legends:**
-   - Positioned at top-left (`11 o'clock`), spanning horizontally to flush with the left plot boundary.
-   - Square legend symbols (`medsmall`) with tight element padding matching R `ggplot2`.
+   - Positioned at top-left (`11 o'clock` in Stata, top-left horizontal in R and Python), spanning horizontally to flush with the left plot boundary.
+   - Square legend symbols with tight element padding matching R `ggplot2`.
 
 3. **Marker Sizing:**
-   - Default marker symbol set to filled circles (`circle`) with standard built-in `small` sizing (~1.04% of graph height), approximating `ggplot2` `geom_point()` defaults without external style dependencies.
+   - Default marker symbol set to filled circles (`circle`) with standard sizing (~1.04% of graph height), matching `ggplot2` `geom_point()` defaults without external dependencies.
 
 4. **Facet Strips (By-graphs):**
-   - Clean, transparent banner styling without shaded gray boxes (`areastyle by_title none`, `bylabel_outline none`), dark charcoal labels (`wc_title`), and embedded directly within `scheme-wildcat.scheme`.
+   - Clean, transparent banner styling without shaded gray boxes, dark charcoal labels (`wc_title`), and embedded directly within the themes.
 
 5. **Bar & Box Proportions:**
-   - Proportional bar gap (`bar_gap 100pct`) and box gap (`box_gap 75pct`) yielding refined, balanced bar widths without per-graph overrides.
+   - Proportional bar gap (`bar_gap 100pct` in Stata) and box gap (`box_gap 75pct`) yielding refined, balanced widths matching `ggplot2` defaults without per-graph overrides.
 
 ---
 
-## Customizing the Scheme / Building Your Own Theme
+## Customizing Themes / Building Your Own Brand Theme
+
+> [!TIP]
+> For automated editing or programmatic reconfiguration by AI coding agents, refer to [**`FOR_AGENTS.md`**](FOR_AGENTS.md) which details exact regex patterns and code blocks for theme customization.
+
+### 1. Customizing the Stata Scheme
 
 The repository includes a modular generator script, [`stata/make_scheme.do`](stata/make_scheme.do), allowing anyone to easily build their own custom Stata scheme (e.g., for another university, company, research lab, or personal preference).
 
-At the very top of [`stata/make_scheme.do`](stata/make_scheme.do), a dedicated **User Configuration & Customization Section** allows you to make quick modifications:
+At the top of [`stata/make_scheme.do`](stata/make_scheme.do), a dedicated **User Configuration & Customization Section** allows quick modifications:
 
 ```stata
 * ------------------------------------------------------------------------------
@@ -268,63 +289,43 @@ local custom_colors custom_color_1      // Triggers color style file generation 
 */
 ```
 
-### 1. Making a Lightly Touched Custom Scheme:
-
-1. **Change the Scheme Name:**
-   - Change `local scheme_name "wildcat"` to your preferred identifier (e.g., `local scheme_name "mytheme"`).
-   - Running the script will compile `scheme-mytheme.scheme` in the root directory. You can then use `set scheme mytheme` in Stata!
-
-2. **Add Custom Colors:**
-   - In lines 30–33 of `stata/make_scheme.do`, un-comment the custom colors block and define your RGB values:
-     ```stata
-     local mycrimson   "165 28 48"
-     local mygold      "255 199 44"
-     local custom_colors mycrimson mygold
-     ```
-   - When `make_color_styles` is set to `1`, `make_scheme.do` automatically creates `color-mycrimson.style` and `color-mygold.style`. This allows direct referencing in any graph command, such as `mcolor(mycrimson)` or `lcolor(mygold%80)`.
-
-3. **Reorder the Categorical Series Palette:**
-   - Modify the `color1` through `color12` assignments to prioritize your new custom colors for grouped charts:
-     ```stata
-     local color1 "`mycrimson'"
-     local color2 "`mygold'"
-     local color3 "`nubrightblue'"
-     ```
-
-4. **Customize Canvas and Structural Elements:**
-   - In Section 2 of `make_scheme.do`, adjust any structural theme elements:
-     - `wc_bg`: Background canvas color (default pure white `255 255 255`).
-     - `wc_grid`: Horizontal gridlines (default subtle gray `234 234 234`).
-     - `wc_axis`: Baseline axis line and ticks (default `#CCCCCC` / `204 204 204`).
-     - `wc_title`: Headings, axis titles, and facet strip text (default `#222222` / `34 34 34`).
-     - `wc_body`: Subtitles, captions, tick labels, and footnotes (default `#666666` / `102 102 102`).
-
-5. **Compile Your New Scheme:**
-   - Open Stata and execute:
-     ```stata
-     do stata/make_scheme.do
-     ```
-   - The compiled `scheme-<scheme_name>.scheme` and all corresponding `color-*.style` files are immediately generated and ready to use.
-
----
-
-### 4. Customizing the Python Theme
-
-To customize colors, palettes, or default properties in Python:
-1. In `py/theme_wildcat.py`, add custom hex colors into `wildcat_colors`:
-   ```python
-   wildcat_colors["mycrimson"] = "#A51C30"
-   wildcat_colors["mygold"] = "#FFC72C"
+#### Step-by-Step Stata Customization:
+1. **Change the Scheme Name:** Change `local scheme_name "wildcat"` to your preferred identifier (e.g., `local scheme_name "mytheme"`).
+2. **Add Custom Colors:** Un-comment the custom colors block and define your RGB values:
+   ```stata
+   local mycrimson   "165 28 48"
+   local mygold      "255 199 44"
+   local custom_colors mycrimson mygold
    ```
-2. Adjust `wildcat_palettes["default"]` or add custom named palettes to `wildcat_palettes`.
-3. To alter figure margins, font sizes, or grid styles, update the parameters in `get_wildcat_rcparams()` or pass them at runtime via `set_theme(base_size=12.0)`.
+3. **Reorder the Categorical Palette:** Update `color1` through `color12` with your custom color locals.
+4. **Compile:** Run `do stata/make_scheme.do` in Stata. The compiled `scheme-<scheme_name>.scheme` and all corresponding `color-*.style` files will be generated immediately.
 
 ---
 
-### 5. Customizing the R `ggplot2` Theme
+### 2. Packaging & Local Installation in Stata
 
-To customize colors, palettes, or default properties in R:
-1. In `r/theme_wildcat.R`, add custom hex colors into `wildcat_colors`:
+To install your custom scheme locally via Stata's `net install`:
+
+```stata
+* 1. Tell Stata to read from your local folder:
+net from "C:/path/to/mytheme_pkg"
+
+* 2. Inspect and install:
+net describe mytheme
+net install mytheme, replace
+
+* 3. Verify and activate:
+set scheme mytheme, permanently
+```
+
+Alternatively, copy `scheme-<scheme_name>.scheme` and `color-*.style` files directly into your Stata `PERSONAL` directory (`sysdir` in Stata resolves the path).
+
+---
+
+### 3. Customizing the R (`ggplot2`) Theme
+
+In `r/theme_wildcat.R`:
+1. Add custom hex colors into `wildcat_colors`:
    ```r
    wildcat_colors <- c(
      ...,
@@ -333,62 +334,20 @@ To customize colors, palettes, or default properties in R:
    )
    ```
 2. Update `wildcat_palettes$default` with your custom color vector.
-3. Call `theme_wildcat(base_size = 12)` or customize `theme()` elements as needed in standard `ggplot2` syntax.
+3. Call `theme_wildcat(base_size = 12)` or adjust element settings using standard `ggplot2` syntax.
 
 ---
 
-To bundle your custom scheme so that it can be shared with colleagues or archived as a standalone package:
+### 4. Customizing the Python (`matplotlib`) Theme
 
-1. Create a dedicated folder (e.g., `mytheme_pkg/`).
-2. Copy the following files into that folder:
-   - `scheme-<scheme_name>.scheme` (the compiled scheme file)
-   - Any custom `color-*.style` files generated by `make_scheme.do`
-   - (Optional) A help file `scheme-<scheme_name>.sthlp`
-3. Add a minimal **`stata.toc`** file:
-   ```text
-   v 3
-   d 'MYTHEME': Custom publication-grade Stata graph scheme
-   p mytheme
+In `py/theme_wildcat.py`:
+1. Add custom hex colors into `wildcat_colors`:
+   ```python
+   wildcat_colors["mycrimson"] = "#A51C30"
+   wildcat_colors["mygold"] = "#FFC72C"
    ```
-4. Add a minimal package manifest file **`<scheme_name>.pkg`** (e.g., `mytheme.pkg`):
-   ```text
-   v 3
-   d 'MYTHEME': Custom publication-grade Stata graph scheme
-   d Distribution-Date: 20261106
-   f scheme-mytheme.scheme
-   f color-mycrimson.style
-   f color-mygold.style
-   ```
-
----
-
-### 3. Installing Your Scheme Locally in Stata via `net install`
-
-Stata's `net` package manager supports installing packages directly from a local directory path:
-
-```stata
-* 1. Tell Stata to read from your local folder (use forward slashes or double quotes):
-net from "C:/path/to/mytheme_pkg"
-
-* 2. Inspect the package contents:
-net describe mytheme
-
-* 3. Install the package into your personal Stata ADO directory:
-net install mytheme, replace
-
-* 4. Verify and activate the scheme:
-which scheme-mytheme.scheme
-set scheme mytheme, permanently
-```
-
-#### Why use `net install` from local?
-- **Automatic Organization:** Stata automatically places the scheme file into `ado/plus/s/`, color styles into `ado/plus/c/`, and help files into `ado/plus/m/`.
-- **Global Availability:** The scheme and custom colors become immediately accessible from *any* working directory on your computer without needing to copy files between project folders.
-- **Package Management:** The package is tracked by Stata (`ado dir`), allowing clean updates (`net install mytheme, replace`) or uninstallation (`ado uninstall mytheme`).
-
-> [!TIP]
-> **Quick Manual Alternative:**
-> If you do not wish to create `.pkg` and `.toc` files, you can simply copy `scheme-<scheme_name>.scheme` and any `color-*.style` files directly into your Stata `PERSONAL` directory (type `sysdir` in Stata to find the exact path, typically `C:\ado\personal\` on Windows or `~/Library/Application Support/Stata/personal/` on macOS). Stata will immediately recognize the scheme.
+2. Adjust `wildcat_palettes["default"]` or register custom palettes.
+3. Update figure margins, font sizes, or gridline defaults in `get_wildcat_rcparams()` or at runtime via `set_theme(base_size=12.0)`.
 
 ---
 
@@ -402,3 +361,11 @@ Run the full validation suite across all 16 supported chart types:
 - **Slide Deck Compilations**:
   - **R vs. Stata Comparison**: Run `powershell -ExecutionPolicy Bypass -File latex/update.ps1` to compile `latex/presentation.pdf`.
   - **Python vs. R Comparison**: Run `powershell -ExecutionPolicy Bypass -File latex/update_py_r.ps1` to compile `latex/presentation_py_r.pdf`.
+
+---
+
+## Links & Further Reading
+
+- [Wildcat Parent Repository](https://github.com/aarondwolf/wildcat) — Main repository for the Northwestern Beamer presentation theme.
+- [AI Agent Guide (`FOR_AGENTS.md`)](FOR_AGENTS.md) — Targeted instructions for AI coding agents to automate theme usage, downloads, and custom rebuilds.
+- [Northwestern University Brand Guidelines](https://www.northwestern.edu/brand/visual-identity/) — Official brand colors, typography, and visual identity standards.
