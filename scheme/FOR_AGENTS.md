@@ -215,21 +215,17 @@ In [`py/theme_wildcat.py`](py/theme_wildcat.py):
 
 ## 5. Visual Consistency Guardrails for Agents
 
-When generating plots or modifying themes, maintain these parity rules:
+When generating plots or modifying themes, maintain these parity rules unless users request to change them specifically:
 
-1. **R is the Source of Truth:**
-   Do not modify R or Stata defaults when adjusting Python. Always align Python to match R.
-2. **Aspect Ratio & Canvas Geometry:**
+1. **Aspect Ratio & Canvas Geometry:**
    - Standard output canvas is $8.0 \times 5.0$ inches (ratio 1.60).
    - In Python, margins are configured in `get_wildcat_rcparams()`:
      `left=0.075`, `right=0.972`, `bottom=0.177`, `top=0.810`.
-3. **Legend Positioning:**
+2. **Legend Positioning:**
    - Standard top legend in R sits at row **236 px** ($y = 0.840$ in figure coordinates at $1500 \times 2400\text{ px}$).
    - In Python, always use `legend_top(ax)` or `bbox_to_anchor=(x0, 0.840)`, `bbox_transform=fig.transFigure`, `loc="center left"` to avoid shifting plot axes downward.
-4. **Typography & Hierarchy:**
+3. **Typography & Hierarchy:**
    - Font family: Arial (sans-serif).
    - Main title: Bold, charcoal `#222222`, 14.3 pt, flush left.
    - Subtitle: Regular, muted gray `#666666`, ~10.8 pt, placed below title.
    - Gridlines: Horizontal only, `#EAEAEA`. Y-axis line and ticks are hidden; X-axis has subtle `#CCCCCC` baseline.
-5. **No Temporary Files:**
-   Keep the repository root clean. Test scripts live in `tests/`, datasets in `data/`, and output checks in `output_checks/`.
