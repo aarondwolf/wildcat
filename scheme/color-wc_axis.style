@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: wc_axis
+sequence 9518
+label "wc_axis"
+set rgb "204 204 204"

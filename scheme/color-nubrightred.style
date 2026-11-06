@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nubrightred
+sequence 9510
+label "nubrightred"
+set rgb "239 85 63"

@@ -1,0 +1,55 @@
+﻿\documentclass[aspectratio=169]{beamer}
+
+% Suppress all slide decorations, headers, footers, and navigation symbols for a completely plain slide
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+% Minimize text margins so figures maximize available slide area
+\setbeamersize{text margin left=0.1cm, text margin right=0.1cm}
+
+\begin{document}
+
+% Discovered matching suffixes from output_checks/
+% R figure on the left, Stata figure on the right
+\foreach \suffix / \rstyle / \statatype in {
+  area/{geom\_area(position = 'stack')}/{twoway area},
+  bar/{geom\_col() + coord\_flip()}/{graph hbar, asyvars},
+  box/{geom\_boxplot()}/{graph box, asyvars},
+  bubble/{geom\_point(aes(size = ...))}/{twoway scatter [w=...]},
+  density/{geom\_density()}/{twoway kdensity (area + line)},
+  dot/{geom\_segment() + geom\_point()}/{graph dot, asyvars},
+  dumbbell/{geom\_segment() + geom\_point()}/{twoway rspike + scatter},
+  ecdf/{stat\_ecdf(geom = 'step')}/{cumul + twoway line},
+  facet/{geom\_point() + facet\_wrap()}/{twoway scatter, by()},
+  forest/{geom\_errorbar() + geom\_point()}/{twoway rcap + scatter},
+  histogram/{geom\_histogram() + geom\_density()}/{twoway histogram + kdensity},
+  line/{geom\_line()}/{twoway line},
+  lollipop/{geom\_segment() + geom\_point()}/{twoway dropline},
+  pyramid/{geom\_col() + geom\_vline()}/{twoway bar, horizontal},
+  ribbon/{geom\_ribbon() + geom\_line()}/{twoway rarea + line},
+  scatter/{geom\_point() + geom\_smooth(lm)}/{twoway lfitci + scatter}
+} {
+  \begin{frame}[plain]
+    \vspace{0.18cm}
+    \centerline{{\large \textbf{Graph Suffix:} \texttt{\suffix}}}
+    \vspace{0.14cm}
+    \begin{columns}[T]
+      \begin{column}{0.495\linewidth}
+        \centering
+        {\small \textbf{R (\texttt{ggplot2}):} \texttt{\rstyle}}\\[0.25em]
+        \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{../output_checks/r_\suffix}
+      \end{column}
+      \begin{column}{0.495\linewidth}
+        \centering
+        {\small \textbf{Stata:} \texttt{\statatype}}\\[0.25em]
+        \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{../output_checks/stata_\suffix}
+      \end{column}
+    \end{columns}
+  \end{frame}
+}
+
+\end{document}

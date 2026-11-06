@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nupurple
+sequence 9500
+label "nupurple"
+set rgb "78 42 132"

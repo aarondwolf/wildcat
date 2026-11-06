@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nubrightorange
+sequence 9509
+label "nubrightorange"
+set rgb "255 197 32"

@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nudarkteal
+sequence 9512
+label "nudarkteal"
+set rgb "0 127 164"

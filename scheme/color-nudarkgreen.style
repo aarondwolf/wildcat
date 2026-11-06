@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nudarkgreen
+sequence 9511
+label "nudarkgreen"
+set rgb "0 134 86"

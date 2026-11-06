@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: wc_bg
+sequence 9519
+label "wc_bg"
+set rgb "255 255 255"

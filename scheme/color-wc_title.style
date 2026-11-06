@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: wc_title
+sequence 9522
+label "wc_title"
+set rgb "34 34 34"

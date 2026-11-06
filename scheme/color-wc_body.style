@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: wc_body
+sequence 9520
+label "wc_body"
+set rgb "102 102 102"

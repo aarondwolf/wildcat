@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nudarkorange
+sequence 9515
+label "nudarkorange"
+set rgb "202 124 27"

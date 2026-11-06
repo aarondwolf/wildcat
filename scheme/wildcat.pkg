@@ -1,0 +1,36 @@
+v 3
+d 'WILDCAT': Stata graph scheme and Northwestern University brand colors
+d
+d A modern, publication-grade Stata graph scheme synchronized with R ggplot2,
+d featuring Northwestern University's official brand color palette.
+d
+d Distribution-Date: 20261106
+d
+f scheme-wildcat.scheme
+f wildcat.sthlp
+f scheme-wildcat.sthlp
+f colorpalette_wildcat.ado
+f colorpalette_nu.ado
+f color-nupurple.style
+f color-nupurple150.style
+f color-nupurple50.style
+f color-nupurple40.style
+f color-nupurple20.style
+f color-nubrightgreen.style
+f color-nubrightteal.style
+f color-nubrightblue.style
+f color-nubrightyellow.style
+f color-nubrightorange.style
+f color-nubrightred.style
+f color-nudarkgreen.style
+f color-nudarkteal.style
+f color-nudarkblue.style
+f color-nudarkyellow.style
+f color-nudarkorange.style
+f color-nudarkred.style
+f color-nurichblack.style
+f color-wc_axis.style
+f color-wc_bg.style
+f color-wc_body.style
+f color-wc_grid.style
+f color-wc_title.style

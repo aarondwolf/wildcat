@@ -1,0 +1,381 @@
+#include s2color
+color background white
+color plotregion none
+linestyle plotregion none
+color grid dimgray
+color major_grid dimgray
+color minor_grid dimgray
+linewidth grid thin
+linewidth major_grid thin
+linewidth minor_grid thin
+yesno draw_major_vgrid no
+yesno draw_major_hgrid no
+yesno draw_minor_vgrid no
+yesno draw_minor_hgrid no
+color heading black
+color textbox none
+color bylabel_outline none
+color mat_label_box none
+anglestyle vertical_tick horizontal
+color background "255 255 255"
+color plotregion none
+color graphregion "255 255 255"
+color plotregion_line none
+color graphregion_line none
+linestyle plotregion none
+linestyle graphregion none
+color filled none
+color textbox none
+color heading "34 34 34"
+color subheading "102 102 102"
+color body "102 102 102"
+color small_body "102 102 102"
+color caption "102 102 102"
+color note "102 102 102"
+color text_option "102 102 102"
+color axis_title "34 34 34"
+color tick_label "102 102 102"
+color tick_biglabel "102 102 102"
+color minortick_label "102 102 102"
+color tick_label_prep "102 102 102"
+color label "102 102 102"
+color small_label "102 102 102"
+color key_label "102 102 102"
+color legend_title "34 34 34"
+color bylabel "34 34 34"
+gsize heading medium
+gsize subheading small
+gsize axis_title small
+gsize tick_label small
+gsize tick_biglabel small
+gsize body 2.4
+gsize small_body 2.4
+gsize caption 2.4
+gsize note 2.4
+gsize text_option small
+gsize key_label small
+gsize legend_title small
+gsize bylabel medium
+gsize axis_title_gap tiny
+margin axis_title zero
+margin plotregion medium
+margin twoway medium
+yesno title_span yes
+yesno subtitle_span yes
+clockdir title_position 11
+clockdir subtitle_position 11
+yesno caption_span yes
+yesno note_span yes
+clockdir note_position 7
+clockdir caption_position 7
+axisstyle vertical_default vertical_nolinetick
+axisstyle vertical_withgrid vertical_nolinetick
+axisstyle vertical_nogrid vertical_nolinetick
+axisstyle bar_scale_vert vertical_nolinetick
+axisstyle box_scale_vert vertical_nolinetick
+axisstyle dot_scale_vert vertical_nolinetick
+axisstyle bar_group horizontal_nolinetick
+axisstyle bar_var horizontal_nolinetick
+axisstyle bar_super horizontal_nolinetick
+ticksetstyle major_vert_withgrid major_vert_notick
+ticksetstyle major_vert_default major_vert_notick
+ticksetstyle major_vert_nogrid major_vert_notick
+anglestyle vertical_tick horizontal
+yesno draw_major_vgrid yes
+yesno draw_major_nlt_vgrid yes
+yesno draw_major_nt_vgrid yes
+yesno draw_major_nl_vgrid yes
+yesno draw_minor_vgrid no
+color major_grid "234 234 234"
+color minor_grid "234 234 234"
+linewidth major_grid thin
+yesno draw_major_hgrid no
+yesno draw_minor_hgrid no
+color major_hgrid none
+linestyle major_hgrid none
+linepattern major_hgrid blank
+color hgrid none
+linestyle hgrid none
+linepattern hgrid blank
+color axisline "204 204 204"
+linewidth axisline thin
+color tick "204 204 204"
+linewidth tick thin
+linestyle axis_withgrid axisline
+color axis_withgrid "204 204 204"
+clockdir legend_position 11
+clockdir by_legend_position 11
+yesno legend_span yes
+areastyle legend none
+color legend_fill none
+color legend_line none
+linestyle legend none
+numstyle legend_rows 1
+gsize legend_key_xsize medsmall
+gsize legend_key_ysize medsmall
+gsize legend_key_gap half_tiny
+gsize legend_colgap tiny
+gsize legend_col_gap tiny
+margin legend zero
+margin legend_boxmargin zero
+symbol p circle
+symbolsize p small
+symbolsize symbol small
+gsize symbol small
+linewidth line medthick
+linewidth lineplot medthick
+relsize bar_gap 100pct
+relsize bar_groupgap 100pct
+relsize bar_outergap 20pct
+relsize box_gap 75pct
+relsize box_groupgap 100pct
+relsize box_outergap 20pct
+color ci_area "204 196 223"
+color ci_arealine "204 196 223%0"
+linestyle ci_arealine none
+color ci2_area "80 145 205%20"
+color ci2_arealine "80 145 205%0"
+linestyle ci2_arealine none
+bygraphstyle bygraph default
+bygraphstyle default default
+color bylabel_outline none
+linestyle bylabel_outline none
+color bylabel_box none
+color bylabel_fill "255 255 255"
+color bylabel "34 34 34"
+areastyle by_title none
+yesno by_legend_force_draw no
+yesno by_outer_box no
+color dots "204 204 204"
+color dotmarkline "204 204 204"
+axisstyle dot_group horizontal_nolinetick
+axisstyle dot_var horizontal_nolinetick
+axisstyle dot_super horizontal_nolinetick
+color p1 "78 42 132"
+color p1markfill "78 42 132"
+color p1markline "78 42 132"
+color p1line "78 42 132"
+color p1lineplot "78 42 132"
+color p1bar "78 42 132"
+color p1barline "78 42 132"
+color p1box "78 42 132"
+color p1boxline "78 42 132"
+color p1pie "78 42 132"
+color p1area "78 42 132"
+color p1arealine "78 42 132"
+color p1dot "78 42 132"
+color p1dotmark "78 42 132"
+symbol p1 circle
+symbolsize p1 small
+linewidth p1line medthick
+linewidth p1lineplot medthick
+linewidth p1area medthick
+color p2 "202 124 27"
+color p2markfill "202 124 27"
+color p2markline "202 124 27"
+color p2line "202 124 27"
+color p2lineplot "202 124 27"
+color p2bar "202 124 27"
+color p2barline "202 124 27"
+color p2box "202 124 27"
+color p2boxline "202 124 27"
+color p2pie "202 124 27"
+color p2area "202 124 27"
+color p2arealine "202 124 27"
+color p2dot "202 124 27"
+color p2dotmark "202 124 27"
+symbol p2 circle
+symbolsize p2 small
+linewidth p2line medthick
+linewidth p2lineplot medthick
+linewidth p2area medthick
+color p3 "80 145 205"
+color p3markfill "80 145 205"
+color p3markline "80 145 205"
+color p3line "80 145 205"
+color p3lineplot "80 145 205"
+color p3bar "80 145 205"
+color p3barline "80 145 205"
+color p3box "80 145 205"
+color p3boxline "80 145 205"
+color p3pie "80 145 205"
+color p3area "80 145 205"
+color p3arealine "80 145 205"
+color p3dot "80 145 205"
+color p3dotmark "80 145 205"
+symbol p3 circle
+symbolsize p3 small
+linewidth p3line medthick
+linewidth p3lineplot medthick
+linewidth p3area medthick
+color p4 "0 134 86"
+color p4markfill "0 134 86"
+color p4markline "0 134 86"
+color p4line "0 134 86"
+color p4lineplot "0 134 86"
+color p4bar "0 134 86"
+color p4barline "0 134 86"
+color p4box "0 134 86"
+color p4boxline "0 134 86"
+color p4pie "0 134 86"
+color p4area "0 134 86"
+color p4arealine "0 134 86"
+color p4dot "0 134 86"
+color p4dotmark "0 134 86"
+symbol p4 circle
+symbolsize p4 small
+linewidth p4line medthick
+linewidth p4lineplot medthick
+linewidth p4area medthick
+color p5 "255 197 32"
+color p5markfill "255 197 32"
+color p5markline "255 197 32"
+color p5line "255 197 32"
+color p5lineplot "255 197 32"
+color p5bar "255 197 32"
+color p5barline "255 197 32"
+color p5box "255 197 32"
+color p5boxline "255 197 32"
+color p5pie "255 197 32"
+color p5area "255 197 32"
+color p5arealine "255 197 32"
+color p5dot "255 197 32"
+color p5dotmark "255 197 32"
+symbol p5 circle
+symbolsize p5 small
+linewidth p5line medthick
+linewidth p5lineplot medthick
+linewidth p5area medthick
+color p6 "127 206 205"
+color p6markfill "127 206 205"
+color p6markline "127 206 205"
+color p6line "127 206 205"
+color p6lineplot "127 206 205"
+color p6bar "127 206 205"
+color p6barline "127 206 205"
+color p6box "127 206 205"
+color p6boxline "127 206 205"
+color p6pie "127 206 205"
+color p6area "127 206 205"
+color p6arealine "127 206 205"
+color p6dot "127 206 205"
+color p6dotmark "127 206 205"
+symbol p6 circle
+symbolsize p6 small
+linewidth p6line medthick
+linewidth p6lineplot medthick
+linewidth p6area medthick
+color p7 "239 85 63"
+color p7markfill "239 85 63"
+color p7markline "239 85 63"
+color p7line "239 85 63"
+color p7lineplot "239 85 63"
+color p7bar "239 85 63"
+color p7barline "239 85 63"
+color p7box "239 85 63"
+color p7boxline "239 85 63"
+color p7pie "239 85 63"
+color p7area "239 85 63"
+color p7arealine "239 85 63"
+color p7dot "239 85 63"
+color p7dotmark "239 85 63"
+symbol p7 circle
+symbolsize p7 small
+linewidth p7line medthick
+linewidth p7lineplot medthick
+linewidth p7area medthick
+color p8 "13 45 108"
+color p8markfill "13 45 108"
+color p8markline "13 45 108"
+color p8line "13 45 108"
+color p8lineplot "13 45 108"
+color p8bar "13 45 108"
+color p8barline "13 45 108"
+color p8box "13 45 108"
+color p8boxline "13 45 108"
+color p8pie "13 45 108"
+color p8area "13 45 108"
+color p8arealine "13 45 108"
+color p8dot "13 45 108"
+color p8dotmark "13 45 108"
+symbol p8 circle
+symbolsize p8 small
+linewidth p8line medthick
+linewidth p8lineplot medthick
+linewidth p8area medthick
+color p9 "0 127 164"
+color p9markfill "0 127 164"
+color p9markline "0 127 164"
+color p9line "0 127 164"
+color p9lineplot "0 127 164"
+color p9bar "0 127 164"
+color p9barline "0 127 164"
+color p9box "0 127 164"
+color p9boxline "0 127 164"
+color p9pie "0 127 164"
+color p9area "0 127 164"
+color p9arealine "0 127 164"
+color p9dot "0 127 164"
+color p9dotmark "0 127 164"
+symbol p9 circle
+symbolsize p9 small
+linewidth p9line medthick
+linewidth p9lineplot medthick
+linewidth p9area medthick
+color p10 "88 185 171"
+color p10markfill "88 185 171"
+color p10markline "88 185 171"
+color p10line "88 185 171"
+color p10lineplot "88 185 171"
+color p10bar "88 185 171"
+color p10barline "88 185 171"
+color p10box "88 185 171"
+color p10boxline "88 185 171"
+color p10pie "88 185 171"
+color p10area "88 185 171"
+color p10arealine "88 185 171"
+color p10dot "88 185 171"
+color p10dotmark "88 185 171"
+symbol p10 circle
+symbolsize p10 small
+linewidth p10line medthick
+linewidth p10lineplot medthick
+linewidth p10area medthick
+color p11 "217 200 38"
+color p11markfill "217 200 38"
+color p11markline "217 200 38"
+color p11line "217 200 38"
+color p11lineplot "217 200 38"
+color p11bar "217 200 38"
+color p11barline "217 200 38"
+color p11box "217 200 38"
+color p11boxline "217 200 38"
+color p11pie "217 200 38"
+color p11area "217 200 38"
+color p11arealine "217 200 38"
+color p11dot "217 200 38"
+color p11dotmark "217 200 38"
+symbol p11 circle
+symbolsize p11 small
+linewidth p11line medthick
+linewidth p11lineplot medthick
+linewidth p11area medthick
+color p12 "147 128 192"
+color p12markfill "147 128 192"
+color p12markline "147 128 192"
+color p12line "147 128 192"
+color p12lineplot "147 128 192"
+color p12bar "147 128 192"
+color p12barline "147 128 192"
+color p12box "147 128 192"
+color p12boxline "147 128 192"
+color p12pie "147 128 192"
+color p12area "147 128 192"
+color p12arealine "147 128 192"
+color p12dot "147 128 192"
+color p12dotmark "147 128 192"
+symbol p12 circle
+symbolsize p12 small
+linewidth p12line medthick
+linewidth p12lineplot medthick
+linewidth p12area medthick

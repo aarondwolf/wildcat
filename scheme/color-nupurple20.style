@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nupurple20
+sequence 9504
+label "nupurple20"
+set rgb "204 196 223"

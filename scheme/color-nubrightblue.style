@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nubrightblue
+sequence 9507
+label "nubrightblue"
+set rgb "80 145 205"

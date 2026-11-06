@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nubrightgreen
+sequence 9505
+label "nubrightgreen"
+set rgb "88 185 171"

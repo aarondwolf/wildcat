@@ -4,6 +4,8 @@ A modern, highly customizable Beamer theme.
 ## Overview
 This Beamer theme uses branding guidelines (colors, fonts, and logos) from [Northwestern University](https://www.northwestern.edu/brand/visual-identity/). The design mimics Northwestern's facets Zoom backgrounds, and the style files build on the amazing Stack Exchange answer by [Claudio Fiandrino](https://tex.stackexchange.com/questions/146529/design-a-custom-beamer-theme-from-scratch). This is not an official Northwestern-approved Beamer template.
 
+In addition to the Beamer presentation theme, this repository also includes paired **Stata, R, and Python** graph schemes/themes (located in [`scheme/`](scheme/)) that match the default Northwestern coloring and R `ggplot2` `theme_minimal()` styling, providing synchronized data visualization aesthetics across platforms.
+
 ## Quick Start
 The easiest way to get started is to download [presentation.zip](https://github.com/aarondwolf/wildcat/blob/main/presentation.zip) and unzip it. It contains all the `.sty` files and a `main.tex` starter file ready to compile with XeLaTeX.
 
@@ -112,6 +114,55 @@ All `nu*` palette colors (nupurple, nudarkblue, nubrightgreen, etc.) are availab
 
 The default (Fira Sans) requires no setup — it is pre-installed on Overleaf and auto-installs on MiKTeX. For TeX Live, run `tlmgr install fira` if not found. The `font=poppins` option expects the downloaded font files in `fonts/Poppins/` and `fonts/IBM_Plex_Sans/`.
 
+## Graph Themes (Stata, R, Python)
+
+The [`scheme/`](scheme/) directory provides synchronized, publication-ready graph themes across **Stata**, **R (`ggplot2`)**, and **Python (`matplotlib`)**. These themes bring the default Northwestern color palette (`nupurple`, `nudarkorange`, `nubrightblue`, etc.) and the clean aesthetic of R's `ggplot2` `theme_minimal()` to your data visualizations across all three environments.
+
+### Overview of Included Themes
+
+- **Stata** (`scheme-wildcat.scheme`): Full Stata scheme complete with custom color definitions (`color-*.style`), marker styles, and `.sthlp` documentation. Installs directly via `net install`.
+- **R** (`r/theme_wildcat.R`): Native `ggplot2` theme with `theme_wildcat()`, `scale_color_wildcat()`, and `scale_fill_wildcat()`.
+- **Python** (`py/theme_wildcat.py` & `py/wildcat.mplstyle`): Matplotlib theme configuration, standalone stylesheet, and helper utilities (`set_theme()`, `labs()`, `legend_top()`).
+
+### Quick Start by Language
+
+#### Stata
+Install directly from GitHub into Stata:
+```stata
+net from "https://github.com/aarondwolf/wildcat/tree/main/scheme"
+net describe wildcat
+net install wildcat, replace
+set scheme wildcat, permanently
+```
+
+#### R (`ggplot2`)
+Source the theme script or copy `theme_wildcat.R` into your project:
+```r
+source("scheme/r/theme_wildcat.R")
+
+ggplot(df, aes(x = x, y = y, color = group)) +
+  geom_point() +
+  scale_color_wildcat() +
+  theme_wildcat()
+```
+
+#### Python (`matplotlib`)
+Import the Python module or apply the `.mplstyle` sheet:
+```python
+from scheme.py.theme_wildcat import set_theme, labs
+set_theme()
+```
+or use standard Matplotlib stylesheets:
+```python
+import matplotlib.pyplot as plt
+plt.style.use("scheme/py/wildcat.mplstyle")
+```
+
+### Full Documentation & Agent Guide
+
+- For complete details, palette documentation, and visual examples across plot types, see [`scheme/README.md`](scheme/README.md).
+- **Instructions for AI Agents:** [`scheme/FOR_AGENTS.md`](scheme/FOR_AGENTS.md) contains detailed instructions for AI agents looking to download the files, configure themes in automated environments, or programmatically customize palettes and rebuild theme files across Stata, R, and Python.
+
 ## Custom Background Patterns
 You can load a custom background pattern from a `.tex` file in your preamble **after** `\usetheme`:
 
@@ -135,4 +186,4 @@ Users on Overleaf can use the [Overleaf template](https://www.overleaf.com/latex
 - The Northwestern logo is not included in the Overleaf template; download it [here](https://github.com/aarondwolf/wildcat/blob/main/source/logo-northwestern.pdf) or replace it with your own logo
 
 ## Issues
-There are no known issues at the moment. Please [create an issue](https://github.com/aarondwolf/wildcat/issues) if something isn't working. 
+There are no known issues at the moment. Please [create an issue](https://github.com/aarondwolf/wildcat/issues) if something isn't working.

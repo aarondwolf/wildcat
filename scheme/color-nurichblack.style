@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nurichblack
+sequence 9517
+label "nurichblack"
+set rgb "0 0 0"

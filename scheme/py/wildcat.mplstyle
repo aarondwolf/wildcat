@@ -1,0 +1,102 @@
+# ==============================================================================
+# wildcat.mplstyle
+# Wildcat Publication-Grade Matplotlib Style Sheet
+# Synchronized with R ggplot2 theme_wildcat and Stata scheme-wildcat
+# Official Northwestern University Brand Colors & Typography
+# ==============================================================================
+
+# Canvas & Figure
+figure.facecolor: white
+figure.edgecolor: white
+figure.dpi: 300
+figure.figsize: 8.0, 5.0
+figure.titlesize: 14.3
+figure.titleweight: bold
+figure.autolayout: False
+
+# Subplot layout margins (matching R ggplot2 plot.margin)
+figure.subplot.left: 0.075
+figure.subplot.right: 0.972
+figure.subplot.bottom: 0.177
+figure.subplot.top: 0.810
+
+# Font & Typography (Arial / Sans-serif)
+font.family: sans-serif
+font.sans-serif: Arial, Helvetica, DejaVu Sans
+font.size: 11.0
+text.color: #666666
+
+# Axes & Frames
+axes.facecolor: white
+axes.edgecolor: #CCCCCC
+axes.linewidth: 0.75
+axes.grid: True
+axes.grid.axis: y
+axes.grid.which: major
+axes.axisbelow: True
+
+# Axis Titles & Headers
+axes.titlesize: 14.3
+axes.titleweight: bold
+axes.titlecolor: #222222
+axes.titlelocation: left
+axes.titlepad: 12.0
+axes.labelsize: 10.5
+axes.labelcolor: #222222
+axes.labelweight: normal
+axes.labelpad: 6.0
+
+# Spines (Borders): Top, Right, Left OFF; Bottom (X baseline) ON
+axes.spines.top: False
+axes.spines.right: False
+axes.spines.left: False
+axes.spines.bottom: True
+
+# Ticks
+xtick.bottom: True
+xtick.top: False
+xtick.color: #CCCCCC
+xtick.labelcolor: #666666
+xtick.labelsize: 9.35
+xtick.direction: out
+xtick.major.size: 3.5
+xtick.major.width: 0.75
+
+ytick.left: False
+ytick.right: False
+ytick.labelcolor: #666666
+ytick.labelsize: 9.35
+ytick.major.size: 0
+ytick.minor.size: 0
+
+# Gridlines (Horizontal-only, subtle gray #EAEAEA)
+grid.color: #EAEAEA
+grid.linestyle: -
+grid.linewidth: 0.8
+grid.alpha: 1.0
+
+# Categorical Color Cycle (Northwestern Brand Sequence)
+# 1. NU Purple, 2. Dark Orange, 3. Bright Blue, 4. Dark Green,
+# 5. Bright Orange, 6. Bright Teal, 7. Bright Red, 8. Dark Blue,
+# 9. Dark Teal, 10. Bright Green, 11. Dark Yellow, 12. Purple 50%
+axes.prop_cycle: cycler('color', ['#4E2A84', '#CA7C1B', '#5091CD', '#008656', '#FFC520', '#7FCECD', '#EF553F', '#0D2D6C', '#007FA4', '#58B9AB', '#D9C826', '#9380C0'])
+
+# Plot Elements: Lines, Markers, Patches
+lines.linewidth: 1.8
+lines.markersize: 6.0
+lines.solid_capstyle: round
+patch.linewidth: 0.75
+patch.edgecolor: none
+
+# Legend: Top-left, horizontal, borderless
+legend.frameon: False
+legend.framealpha: 0.0
+legend.facecolor: none
+legend.edgecolor: none
+legend.fontsize: 9.35
+legend.title_fontsize: 9.9
+legend.loc: upper left
+legend.borderpad: 0.2
+legend.columnspacing: 1.2
+legend.handlelength: 1.2
+legend.handletextpad: 0.4

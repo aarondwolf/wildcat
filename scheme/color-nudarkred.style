@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nudarkred
+sequence 9516
+label "nudarkred"
+set rgb "216 88 32"

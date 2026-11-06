@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nubrightteal
+sequence 9506
+label "nubrightteal"
+set rgb "127 206 205"

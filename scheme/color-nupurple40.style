@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nupurple40
+sequence 9503
+label "nupurple40"
+set rgb "164 149 195"

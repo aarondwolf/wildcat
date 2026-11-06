@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nudarkyellow
+sequence 9514
+label "nudarkyellow"
+set rgb "217 200 38"

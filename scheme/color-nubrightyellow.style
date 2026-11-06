@@ -1,0 +1,4 @@
+*! version 1.0.0 Color style: nubrightyellow
+sequence 9508
+label "nubrightyellow"
+set rgb "237 233 59"

@@ -1,0 +1,55 @@
+﻿\documentclass[aspectratio=169]{beamer}
+
+% Suppress all slide decorations, headers, footers, and navigation symbols for a completely plain slide
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+% Minimize text margins so figures maximize available slide area
+\setbeamersize{text margin left=0.1cm, text margin right=0.1cm}
+
+\begin{document}
+
+% Discovered matching suffixes from output_checks/
+% R figure on the left, Python figure on the right
+\foreach \suffix / \rstyle / \pystyle in {
+  area/{geom\_area(position = 'stack')}/{ax.stackplot()},
+  bar/{geom\_col() + coord\_flip()}/{ax.barh()},
+  box/{geom\_boxplot()}/{ax.bxp()},
+  bubble/{geom\_point(aes(size = ...))}/{ax.scatter(s=...)},
+  density/{geom\_density()}/{gaussian\_kde() + fill\_between()},
+  dot/{geom\_segment() + geom\_point()}/{ax.hlines() + ax.scatter()},
+  dumbbell/{geom\_segment() + geom\_point()}/{ax.hlines() + ax.scatter()},
+  ecdf/{stat\_ecdf(geom = 'step')}/{ax.step(where='post')},
+  facet/{geom\_point() + facet\_wrap()}/{plt.subplots(1, 2)},
+  forest/{geom\_errorbar() + geom\_point()}/{ax.errorbar()},
+  histogram/{geom\_histogram() + geom\_density()}/{ax.hist() + kde},
+  line/{geom\_line()}/{ax.plot()},
+  lollipop/{geom\_segment() + geom\_point()}/{ax.vlines() + ax.scatter()},
+  pyramid/{geom\_col() + geom\_vline()}/{ax.barh(left=...)},
+  ribbon/{geom\_ribbon() + geom\_line()}/{ax.fill\_between() + ax.plot()},
+  scatter/{geom\_point() + geom\_smooth(lm)}/{ax.scatter() + fit + CI}
+} {
+  \begin{frame}[plain]
+    \vspace{0.18cm}
+    \centerline{{\large \textbf{Graph Suffix:} \texttt{\suffix}}}
+    \vspace{0.14cm}
+    \begin{columns}[T]
+      \begin{column}{0.495\linewidth}
+        \centering
+        {\small \textbf{R (\texttt{ggplot2}):} \texttt{\rstyle}}\\[0.25em]
+        \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{../output_checks/r_\suffix}
+      \end{column}
+      \begin{column}{0.495\linewidth}
+        \centering
+        {\small \textbf{Python (\texttt{matplotlib}):} \texttt{\pystyle}}\\[0.25em]
+        \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{../output_checks/py_\suffix}
+      \end{column}
+    \end{columns}
+  \end{frame}
+}
+
+\end{document}
