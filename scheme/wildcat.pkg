@@ -1,10 +1,20 @@
 v 3
 d 'WILDCAT': Stata graph scheme and Northwestern University brand colors
 d
-d A modern, publication-grade Stata graph scheme synchronized with R ggplot2,
-d featuring Northwestern University's official brand color palette.
+d A modern, publication-grade Stata graph scheme synchronized with R ggplot2
+d (theme_minimal) and Northwestern University's official brand color palette.
+d
+d KW: scheme
+d KW: graphics
+d KW: ggplot2
+d KW: Northwestern
+d
+d Requires: Stata version 14.2
 d
 d Distribution-Date: 20261106
+d
+d Author: Aaron Wolf, Northwestern University
+d Support: email aaron.wolf@u.northwestern.edu
 d
 f scheme-wildcat.scheme
 f wildcat.sthlp
