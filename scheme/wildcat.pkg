@@ -4,6 +4,9 @@ d
 d A modern, publication-grade Stata graph scheme synchronized with R ggplot2
 d (theme_minimal) and Northwestern University's official brand color palette.
 d
+d Online repository, issues, and companion Beamer/R/Python themes:
+d https://github.com/aarondwolf/wildcat
+d
 d KW: scheme
 d KW: graphics
 d KW: ggplot2
@@ -14,7 +17,7 @@ d
 d Distribution-Date: 20261106
 d
 d Author: Aaron Wolf, Northwestern University
-d Support: email aaron.wolf@u.northwestern.edu
+d Support: email aaron.wolf@u.northwestern.edu, https://github.com/aarondwolf/wildcat/issues
 d
 f scheme-wildcat.scheme
 f wildcat.sthlp
