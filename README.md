@@ -129,7 +129,7 @@ The [`scheme/`](scheme/) directory provides synchronized, publication-ready grap
 #### Stata
 Install directly from GitHub into Stata:
 ```stata
-net from "https://github.com/aarondwolf/wildcat/tree/main/scheme"
+net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"
 net describe wildcat
 net install wildcat, replace
 set scheme wildcat, permanently

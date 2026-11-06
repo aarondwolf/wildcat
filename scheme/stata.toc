@@ -1,0 +1,5 @@
+v 3
+d 'WILDCAT': Stata graph scheme and Northwestern University brand colors
+d Distribution-Date: 20261106
+d https://github.com/aarondwolf/wildcat
+p wildcat WILDCAT: Stata graph scheme and Northwestern University brand colors

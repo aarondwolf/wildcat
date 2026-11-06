@@ -10,6 +10,9 @@ GEMINI.md
 *.out
 *.snm
 *.toc
+!stata.toc
+!*/stata.toc
+!**/stata.toc
 *.vrb
 *.synctex.gz
 *.fls

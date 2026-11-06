@@ -32,7 +32,7 @@ When working in an agent environment with Stata available:
 
 - **From GitHub (Standard):**
   ```stata
-  net from "https://github.com/aarondwolf/wildcat/tree/main/scheme"
+  net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"
   net describe wildcat
   net install wildcat, replace
   set scheme wildcat, permanently

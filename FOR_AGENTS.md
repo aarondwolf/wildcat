@@ -33,7 +33,7 @@ If you are an AI coding agent tasked with setting up or modifying themes for a u
 *(or view online at [scheme/FOR_AGENTS.md](https://github.com/aarondwolf/wildcat/blob/main/scheme/FOR_AGENTS.md))*
 
 - **Key instructions covered:**
-  - Installing `scheme-wildcat` into Stata via `net from "https://github.com/aarondwolf/wildcat/tree/main/scheme"` / `net install wildcat`.
+  - Installing `scheme-wildcat` into Stata via `net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"` / `net install wildcat`.
   - Sourcing and applying `theme_wildcat.R` and `scale_color_wildcat()` in R `ggplot2`.
   - Loading `theme_wildcat.py` and `wildcat.mplstyle` in Python `matplotlib`.
   - Programmatic customization instructions to rename themes and define custom palettes across all three environments.

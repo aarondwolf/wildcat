@@ -19,7 +19,7 @@ Install the complete scheme, custom marker styles, and official Northwestern col
 
 ```stata
 * Install scheme, styles, and color definitions
-net from "https://github.com/aarondwolf/wildcat/tree/main/scheme"
+net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"
 net describe wildcat
 net install wildcat, replace
 
