@@ -1,0 +1,4 @@
+v 3
+d 'MYTHEME': Custom Stata graph scheme template
+d Distribution-Date: 20261107
+p mytheme MYTHEME: Custom Stata graph scheme template

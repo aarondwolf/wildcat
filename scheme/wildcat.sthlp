@@ -5,10 +5,11 @@
 {viewerjumpto "Colors" "wildcat##colors"}{...}
 {viewerjumpto "Relationship to R ggplot2" "wildcat##ggplot2"}{...}
 {viewerjumpto "Examples" "wildcat##examples"}{...}
-{viewerjumpto "Appendix: R ggplot2 Code Equivalents" "wildcat##appendix_r"}{...}
 {viewerjumpto "Customizing the Scheme" "wildcat##custom"}{...}
 {viewerjumpto "Palette Commands" "wildcat##palette"}{...}
 {viewerjumpto "Repository & Updates" "wildcat##repository"}{...}
+{viewerjumpto "Appendix: R & Python Twin Themes" "wildcat##twin_themes"}{...}
+{viewerjumpto "Author" "wildcat##author"}{...}
 {title:Title}
 
 {p2colset 5 18 20 2}{...}
@@ -133,87 +134,24 @@ Click any underlined command below to run the example in Stata:
 {pstd}
 5. {bf:Kernel Density Plot with Shaded Area}
 
-{phang2}{stata `"twoway (kdensity mpg if foreign==0, area color(nupurple%50)) (kdensity mpg if foreign==1, area color(nudarkorange%50)), title("{bf:Fuel Efficiency Distribution}") subtitle("Kernel density estimates by origin") xtitle("Mileage (mpg)") ytitle("Density") legend(order(1 "Domestic" 2 "Foreign") rows(1))"':. twoway (kdensity mpg if foreign==0, area color(nupurple%50)) ...}{p_end}
+{phang2}{stata `"twoway (kdensity mpg if foreign==0, recast(area) color(nupurple%50)) (kdensity mpg if foreign==1, recast(area) color(nudarkorange%50)), title("{bf:Fuel Efficiency Distribution}") subtitle("By vehicle origin") legend(order(1 "Domestic" 2 "Foreign"))"':. twoway (kdensity mpg if foreign==0, recast(area) color(nupurple%50)) ...}{p_end}
 
 {pstd}
 6. {bf:Horizontal Dot Plot}
 
-{phang2}{stata `"graph dot (mean) mpg, over(make in 1/10) title("{bf:Selected Model Mileage}") ytitle("Miles per Gallon")"':. graph dot (mean) mpg, over(make in 1/10) ...}{p_end}
-
-
-{marker appendix_r}{...}
-{title:Appendix: R ggplot2 Code Equivalents}
+{phang2}{stata `"graph dot (mean) mpg in 1/10, over(make) title("{bf:Selected Model Mileage}") ytitle("Miles per Gallon")"':. graph dot (mean) mpg in 1/10, over(make) ...}{p_end}
 
 {pstd}
-The {cmd:wildcat} scheme has an official fraternal twin for R users: {cmd:theme_wildcat()}, provided in {cmd:r/theme_wildcat.R}.
-
-{pstd}
-{it:Note on visual alignment}: The R and Stata implementations share identical Northwestern brand color palettes, categorical sequences, typography scales, and gridline parameters. Because Stata's graph engine and R's grid/ggplot2 layout systems calculate margins, font metrics, and bounding boxes using different algorithms, the outputs are designed to be fraternal twins — extremely close in visual spirit, but not pixel-perfect.
-
-{pstd}
-Below are the equivalent R scripts for the examples above:
-
-{pstd}
-{bf:Setup in R}:{p_end}
-
-        {cmd:library(ggplot2)}
-        {cmd:source("r/theme_wildcat.R")}
-
-{pstd}
-{bf:R Example 1: Scatter Plot with Linear Fit & Confidence Ribbon}:{p_end}
-
-        {cmd:ggplot(mtcars, aes(x = wt * 1000, y = mpg)) +}
-        {cmd:  geom_smooth(method = "lm", color = "#4E2A84", fill = "#CCC4DF") +}
-        {cmd:  geom_point(color = "#4E2A84") +}
-        {cmd:  labs(title = "Vehicle Fuel Economy",}
-        {cmd:       subtitle = "Miles per gallon vs. vehicle weight",}
-        {cmd:       x = "Weight (lbs)", y = "Mileage (mpg)",}
-        {cmd:       caption = "Source: 1978 Automobile Data") +}
-        {cmd:  theme_wildcat()}
-
-{pstd}
-{bf:R Example 2: Grouped Bar Chart}:{p_end}
-
-        {cmd:ggplot(mtcars, aes(x = factor(gear), fill = factor(am, labels = c("Domestic", "Foreign")))) +}
-        {cmd:  geom_bar(position = position_dodge(0.8), width = 0.58) +}
-        {cmd:  scale_fill_wildcat() +}
-        {cmd:  labs(title = "Fleet Distribution by Transmission",}
-        {cmd:       subtitle = "Counts across forward gears",}
-        {cmd:       x = "Gears", y = "Count", fill = "Origin") +}
-        {cmd:  theme_wildcat()}
-
-{pstd}
-{bf:R Example 3: Faceted Multi-panel Plot}:{p_end}
-
-        {cmd:ggplot(mtcars, aes(x = wt * 1000, y = mpg)) +}
-        {cmd:  geom_point(color = "#4E2A84") +}
-        {cmd:  facet_wrap(~ factor(am, labels = c("Domestic", "Foreign"))) +}
-        {cmd:  labs(title = "Mileage vs. Weight by Origin",}
-        {cmd:       subtitle = "Domestic vs. Foreign Fleets",}
-        {cmd:       x = "Weight (lbs)", y = "Mileage (mpg)",}
-        {cmd:       caption = "Source: 1978 Automobile Data") +}
-        {cmd:  theme_wildcat()}
-
-{pstd}
-{bf:R Example 4: Kernel Density with Shaded Area}:{p_end}
-
-        {cmd:ggplot(mtcars, aes(x = mpg, fill = factor(am, labels = c("Domestic", "Foreign")))) +}
-        {cmd:  geom_density(alpha = 0.5, color = NA) +}
-        {cmd:  scale_fill_wildcat() +}
-        {cmd:  labs(title = "Fuel Efficiency Distribution",}
-        {cmd:       subtitle = "Kernel density estimates by origin",}
-        {cmd:       x = "Mileage (mpg)", y = "Density", fill = "Origin") +}
-        {cmd:  theme_wildcat()}
-
+You can see more examples in {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/stata":examples.do}.
 
 {marker custom}{...}
 {title:Customizing the Scheme / Creating Your Own Version}
 
 {pstd}
-You can easily create your own customized Stata scheme (e.g. for another university, organization, or personal aesthetic) using the generator script {cmd:stata/make_scheme.do}.
+You can easily create your own customized Stata scheme (e.g. for another university, organization, or personal aesthetic) using the generator script {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/mytheme":make_scheme_mytheme.do}.
 
 {pstd}
-The top of {cmd:stata/make_scheme.do} includes a dedicated user customization block:
+The top of the file includes a dedicated user customization block:
 
         {cmd:local scheme_name       "wildcat"}        {it:// Compiles scheme-`scheme_name'.scheme}
         {cmd:local scheme_title      "Wildcat"}        {it:// Display title}
@@ -236,8 +174,7 @@ The top of {cmd:stata/make_scheme.do} includes a dedicated user customization bl
 {phang2}4. {bf:Adjust Structural Canvas Elements}: In Section 2, modify {cmd:wc_bg} (canvas background), {cmd:wc_grid} (gridlines), {cmd:wc_axis} (axis lines), {cmd:wc_title} (heading charcoal), and {cmd:wc_body} (muted gray text).{p_end}
 
 {phang2}5. {bf:Compile}: View or run the generator script directly from Stata:
-{break}{stata "view stata/make_scheme.do":. view stata/make_scheme.do}
-{break}{stata "do stata/make_scheme.do":. do stata/make_scheme.do}
+{break}{cmd:do <path>/make_scheme.do}
 {p_end}
 
 {pstd}
@@ -303,6 +240,20 @@ If you have Ben Jann's {cmd:palettes} package installed, you can visualize the p
 {pstd}
 The latest version of the scheme, full documentation, issue tracker, and companion Beamer presentation and R/Python themes are hosted on GitHub:{break}
 {browse "https://github.com/aarondwolf/wildcat":https://github.com/aarondwolf/wildcat}
+
+
+{marker twin_themes}{...}
+{title:Appendix: R & Python Twin Themes}
+
+{pstd}
+The {cmd:wildcat} scheme has companion fraternal twins for R ({cmd:ggplot2}) and Python ({cmd:matplotlib}):
+
+{phang2}o {bf:R (ggplot2)}: {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/r":theme_wildcat.R} provides {cmd:theme_wildcat()} with matching Northwestern brand palettes, typography scales, flush titles, unshaded facet headers, and minimalist horizontal gridlines. See examples in {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/r":examples.R}.{p_end}
+
+{phang2}o {bf:Python (matplotlib)}: {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":theme_wildcat.py} and the {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":wildcat.mplstyle} stylesheet bring identical brand colors, minimalist grid styling, and legend formatting to matplotlib and seaborn workflows. See examples in {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":examples.py}{p_end}
+
+{pstd}
+For full documentation, example scripts, and installation instructions for R and Python, visit the GitHub repository at {browse "https://github.com/aarondwolf/wildcat":https://github.com/aarondwolf/wildcat}.
 
 
 {marker author}{...}

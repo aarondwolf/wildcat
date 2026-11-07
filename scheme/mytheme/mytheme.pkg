@@ -1,0 +1,29 @@
+v 3
+d 'MYTHEME': Custom Stata graph scheme template
+d
+d A customizable, publication-grade Stata graph scheme template based on grstyle.
+d
+d KW: scheme
+d KW: graphics
+d KW: ggplot2
+d
+d Requires: Stata version 14.2
+d
+d Distribution-Date: 20261107
+d
+f scheme-mytheme.scheme
+f mytheme.sthlp
+f scheme-mytheme.sthlp
+f color-customcolor1.style
+f color-customcolor2.style
+f color-customcolor3.style
+f color-customcolor4.style
+f color-customcolor5.style
+f color-customcolor6.style
+f color-customcolor7.style
+f color-customcolor8.style
+f color-wc_axis.style
+f color-wc_bg.style
+f color-wc_body.style
+f color-wc_grid.style
+f color-wc_title.style
