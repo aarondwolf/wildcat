@@ -141,6 +141,8 @@ Click any underlined command below to run the example in Stata:
 
 {phang2}{stata `"graph dot (mean) mpg in 1/10, over(make) title("{bf:Selected Model Mileage}") ytitle("Miles per Gallon")"':. graph dot (mean) mpg in 1/10, over(make) ...}{p_end}
 
+{pstd}
+You can see more examples in {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/stata":examples.do}.
 
 {marker custom}{...}
 {title:Customizing the Scheme / Creating Your Own Version}
@@ -172,7 +174,7 @@ The top of the file includes a dedicated user customization block:
 {phang2}4. {bf:Adjust Structural Canvas Elements}: In Section 2, modify {cmd:wc_bg} (canvas background), {cmd:wc_grid} (gridlines), {cmd:wc_axis} (axis lines), {cmd:wc_title} (heading charcoal), and {cmd:wc_body} (muted gray text).{p_end}
 
 {phang2}5. {bf:Compile}: View or run the generator script directly from Stata:
-{break}{cmd:do make_scheme_mytheme.do}
+{break}{cmd:do <path>/make_scheme.do}
 {p_end}
 
 {pstd}
@@ -246,9 +248,9 @@ The latest version of the scheme, full documentation, issue tracker, and compani
 {pstd}
 The {cmd:wildcat} scheme has companion fraternal twins for R ({cmd:ggplot2}) and Python ({cmd:matplotlib}):
 
-{phang2}o {bf:R (ggplot2)}: {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/r":{cmd:theme_wildcat.R}} provides {cmd:theme_wildcat()} with matching Northwestern brand palettes, typography scales, flush titles, unshaded facet headers, and minimalist horizontal gridlines.{p_end}
+{phang2}o {bf:R (ggplot2)}: {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/r":theme_wildcat.R} provides {cmd:theme_wildcat()} with matching Northwestern brand palettes, typography scales, flush titles, unshaded facet headers, and minimalist horizontal gridlines. See examples in {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/r":examples.R}.{p_end}
 
-{phang2}o {bf:Python (matplotlib)}: {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":{cmd:theme_wildcat.py}} and the {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":{cmd:wildcat.mplstyle}} stylesheet bring identical brand colors, minimalist grid styling, and legend formatting to matplotlib and seaborn workflows.{p_end}
+{phang2}o {bf:Python (matplotlib)}: {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":theme_wildcat.py} and the {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":wildcat.mplstyle} stylesheet bring identical brand colors, minimalist grid styling, and legend formatting to matplotlib and seaborn workflows. See examples in {browse "https://github.com/aarondwolf/wildcat/tree/main/scheme/py":examples.py}{p_end}
 
 {pstd}
 For full documentation, example scripts, and installation instructions for R and Python, visit the GitHub repository at {browse "https://github.com/aarondwolf/wildcat":https://github.com/aarondwolf/wildcat}.
