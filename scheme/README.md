@@ -13,12 +13,24 @@ A unified, publication-grade graph theme and styling system featuring official *
 
 ## Quick Installation & Setup
 
-### Stata Installation via `net install`
+### Stata Installation
 
-Install the complete scheme, custom marker styles, and official Northwestern color style files directly from GitHub into your personal/plus ADO directory:
+#### Option 1: Official SSC Installation (Recommended)
+Install the complete scheme, custom marker styles, and official Northwestern color style files directly from SSC:
 
 ```stata
-* Install scheme, styles, and color definitions
+* Install scheme, styles, and color definitions from SSC
+ssc install wildcat, replace
+
+* Set scheme permanently for all future Stata sessions
+set scheme wildcat, permanently
+```
+
+#### Option 2: Install Latest Updates via `net install` (Optional)
+To install the latest development version directly from GitHub:
+
+```stata
+* Install latest development version from GitHub
 net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"
 net describe wildcat
 net install wildcat, replace

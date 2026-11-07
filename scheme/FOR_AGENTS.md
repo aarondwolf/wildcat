@@ -17,11 +17,11 @@ This guide provides instructions for AI coding agents to:
 
 ## 1. Quick Summary of Assets by Language
 
-| Language | Core Assets | Styling Model | Source of Truth / Reference |
-| :--- | :--- | :--- | :--- |
-| **Stata** | `scheme-wildcat.scheme`, `color-*.style`, `wildcat.pkg`, `stata/make_scheme.do` | Stata Graph Scheme & Style definitions | Anchored to R `ggplot2` |
-| **R** | `r/theme_wildcat.R`, `r/theme_nu.R` | `ggplot2` theme functions & discrete scales | **Primary visual source of truth** |
-| **Python** | `py/theme_wildcat.py`, `py/wildcat.mplstyle`, `py/__init__.py` | Matplotlib `rcParams`, cycler, helper functions | Anchored to R `ggplot2` |
+| Language | Core Assets | Example Suite | Styling Model | Source of Truth / Reference |
+| :--- | :--- | :--- | :--- | :--- |
+| **Stata** | `scheme-wildcat.scheme`, `color-*.style`, `wildcat.pkg`, `stata/make_scheme.do` | [`stata/examples.do`](stata/examples.do) | Stata Graph Scheme & Style definitions | Anchored to R `ggplot2` |
+| **R** | `r/theme_wildcat.R`, `r/theme_nu.R` | [`r/examples.r`](r/examples.r) | `ggplot2` theme functions & discrete scales | **Primary visual source of truth** |
+| **Python** | `py/theme_wildcat.py`, `py/wildcat.mplstyle`, `py/__init__.py` | [`py/examples.py`](py/examples.py) | Matplotlib `rcParams`, cycler, helper functions | Anchored to R `ggplot2` |
 
 ---
 
@@ -30,7 +30,13 @@ This guide provides instructions for AI coding agents to:
 ### A. Downloading & Installing
 When working in an agent environment with Stata available:
 
-- **From GitHub (Standard):**
+- **From SSC (Standard / Recommended):**
+  ```stata
+  ssc install wildcat, replace
+  set scheme wildcat, permanently
+  ```
+
+- **From GitHub (`net install` for Latest Updates):**
   ```stata
   net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"
   net describe wildcat
@@ -64,7 +70,16 @@ twoway (scatter mpg weight, mcolor(nupurple) mlcolor(nudarkorange)) ///
        note("Source: 1978 Automobile Data", size(vsmall) color(wc_body))
 ```
 
-### C. Customizing Colors & Scheme Name in Stata
+### C. Comprehensive Example Script (`examples.do`)
+For a complete demonstration of all 16 publication-grade chart types implemented in Stata, see [`stata/examples.do`](stata/examples.do). It demonstrates:
+- Scatter plots with linear fits and 95% confidence ribbons
+- Horizontal bar charts and multi-panel by-plots (facets)
+- Box plots, time-series multi-line graphs, and kernel densities
+- Cleveland dot plots, lollipops, forest/coefficient plots, and dumbbell charts
+- Histograms with density overlays, weighted bubble charts, and ECDFs
+- Stacked area charts, fan projection ribbons, and bi-directional tornado bar charts
+
+### D. Customizing Colors & Scheme Name in Stata
 Do not manually edit `scheme-wildcat.scheme` directly; edit and execute [`stata/make_scheme.do`](stata/make_scheme.do):
 
 1. **Change Theme Name:**
@@ -125,7 +140,10 @@ For continuous fills/colors:
 - `scale_fill_wildcat_c(palette = "purple")`
 - `scale_fill_wildcat_c(palette = "diverging")`
 
-### C. Customizing Colors & Palettes in R
+### C. Comprehensive Example Script (`examples.r`)
+For matching `ggplot2` implementations of all 16 standardized chart types, see [`r/examples.r`](r/examples.r). It shows how to apply `theme_wildcat()`, `scale_color_nu()`, and `scale_fill_nu()` across the full benchmark suite.
+
+### D. Customizing Colors & Palettes in R
 In [`r/theme_wildcat.R`](r/theme_wildcat.R):
 1. **Add Custom Colors:** Add hex codes to `wildcat_colors`:
    ```r
@@ -198,7 +216,10 @@ legend_top(ax, ncol=2)
 plt.savefig("figure.png", dpi=300)
 ```
 
-### C. Customizing Colors & Palettes in Python
+### C. Comprehensive Example Script (`examples.py`)
+For matching Matplotlib implementations of all 16 standardized chart types, see [`py/examples.py`](py/examples.py). It shows how to use `set_theme()`, `labs()`, and `legend_top()` across the full benchmark suite.
+
+### D. Customizing Colors & Palettes in Python
 In [`py/theme_wildcat.py`](py/theme_wildcat.py):
 1. **Add Custom Colors:** Add keys to `wildcat_colors`:
    ```python
@@ -213,7 +234,32 @@ In [`py/theme_wildcat.py`](py/theme_wildcat.py):
 
 ---
 
-## 5. Visual Consistency Guardrails for Agents
+## 5. Synchronized Benchmark Chart Types (16 Examples)
+
+The three example files ([`stata/examples.do`](stata/examples.do), [`r/examples.r`](r/examples.r), and [`py/examples.py`](py/examples.py)) implement the identical 16 publication-grade chart types using the shared benchmark datasets in [`data/`](data/):
+
+1. **Scatter Plot with Linear Fit & 95% CI Ribbon** (`auto.dta`)
+2. **Horizontal Bar Chart** (`auto.dta`)
+3. **Multi-panel Faceted Plot** (`auto.dta`)
+4. **Box Plot across Categories** (`auto.dta`)
+5. **Multi-line Time Series** (`trends.dta`)
+6. **Kernel Density Distribution** (`auto.dta`)
+7. **Cleveland Dot Plot** (`auto.dta`)
+8. **Lollipop / Stem Plot** (`lollipop.dta`)
+9. **Regression Coefficient / Forest Plot** (`forest.dta`)
+10. **Dumbbell / Paired Comparison Plot** (`dumbbell.dta`)
+11. **Histogram with Density Overlay** (`auto.dta`)
+12. **Bubble Chart with Weighted Markers** (`auto.dta`)
+13. **Empirical CDF (ECDF)** (`auto.dta`)
+14. **Stacked Area Composition Chart** (`area.dta`)
+15. **Uncertainty Fan / Ribbon Chart** (`ribbon.dta`)
+16. **Bi-Directional / Tornado Bar Chart** (`pyramid.dta`)
+
+Use these example scripts as templates whenever generating charts in any of the three languages to guarantee exact visual parity.
+
+---
+
+## 6. Visual Consistency Guardrails for Agents
 
 When generating plots or modifying themes, maintain these parity rules unless users request to change them specifically:
 

@@ -120,14 +120,20 @@ The [`scheme/`](scheme/) directory provides synchronized, publication-ready grap
 
 ### Overview of Included Themes
 
-- **Stata** (`scheme-wildcat.scheme`): Full Stata scheme complete with custom color definitions (`color-*.style`), marker styles, and `.sthlp` documentation. Installs directly via `net install`.
+- **Stata** (`scheme-wildcat.scheme`): Full Stata scheme complete with custom color definitions (`color-*.style`), marker styles, and `.sthlp` documentation. Installs directly from SSC via `ssc install wildcat` (or via `net install` for development updates).
 - **R** (`r/theme_wildcat.R`): Native `ggplot2` theme with `theme_wildcat()`, `scale_color_wildcat()`, and `scale_fill_wildcat()`.
 - **Python** (`py/theme_wildcat.py` & `py/wildcat.mplstyle`): Matplotlib theme configuration, standalone stylesheet, and helper utilities (`set_theme()`, `labs()`, `legend_top()`).
 
 ### Quick Start by Language
 
 #### Stata
-Install directly from GitHub into Stata:
+Install directly from SSC (recommended):
+```stata
+ssc install wildcat, replace
+set scheme wildcat, permanently
+```
+
+Alternatively, to install the latest development updates directly from GitHub:
 ```stata
 net from "https://raw.githubusercontent.com/aarondwolf/wildcat/main/scheme"
 net describe wildcat
